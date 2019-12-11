@@ -1,5 +1,5 @@
 <template>
-    <div class="component-logo">
+    <div class="component-logo fixed">
         <p class="font-sans-heading font-semibold text-2xl leading-none text-gray-800">xBanki.me</p>
     </div>
 </template>

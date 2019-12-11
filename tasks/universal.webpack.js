@@ -46,8 +46,6 @@ const UniversalConfiguration = {
 			use: [ {
 				loader: 'vue-style-loader'
 		}, {
-				loader: 'css-loader'
-		}, {
 				loader: 'postcss-loader',
 				options: {
 					plugins: [

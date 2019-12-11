@@ -68,9 +68,17 @@ jobs:
       - run:
           name: Copy `LICENSE`, `cd` into `build` folder & make `CNAME`
           command: |
-            cp ./LICENSE ./build/LICENSE &&
-            cd ./build &&
+            cp ./LICENSE ./build/LICENSE
+            cd ./build
             printf 'xbanki.me' > ./CNAME
+      - run:
+          name: Deploy build output https://xbanki.me/
+          command: |
+            git config --global user.name "Circle CI"
+            git config --global user.email "bot@circleci.com"
+            git add *
+            git commit -m "CI automatic deployment commit."
+            git push origin master
 
 workflows:
   deploy-gh-pages:
