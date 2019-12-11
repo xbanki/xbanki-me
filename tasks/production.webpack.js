@@ -1,8 +1,17 @@
 'use strict';
 
-const Config = require('./development.webpack');
+const WebpackMerge = require('webpack-merge');
+const PATH = require('path');
 
-module.exports = Config;
+const UniversalConfiguration = require('./universal.webpack');
 
-// Currently & temporarily exports the dev
-// config file. Needs to be changed later.
+const ProductionConfiguration = WebpackMerge(UniversalConfiguration, {
+    mode: 'production',
+    output: {
+        path: PATH.resolve(__dirname, '../dist/'),
+		chunkFilename: '[id].chunk.js',
+        filename: '[name].bundle.js'
+    }
+});
+
+module.exports = ProductionConfiguration;

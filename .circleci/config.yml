@@ -66,13 +66,13 @@ jobs:
           name: Building source in `production` mode
           command: npm run build:production
       - run:
-          name: Copy `LICENSE`, `cd` into `build` folder & make `CNAME`
+          name: Copy `LICENSE`, `cd` into `dist` folder & make `CNAME`
           command: |
-            cp ./LICENSE ./build/LICENSE
-            cd ./build
+            cp ./LICENSE ./dist/LICENSE
+            cd ./dist
             printf 'xbanki.me' > ./CNAME
       - run:
-          name: Deploy build output https://xbanki.me/
+          name: Deploy build output to https://xbanki.me/
           command: |
             git config --global user.name "Circle CI"
             git config --global user.email "bot@circleci.com"
