@@ -1,0 +1,33 @@
+version: 2.1
+jobs:
+  preflight:
+    working_directory: ~/publish
+    docker:
+      - image: circleci/node:lts
+    steps:
+      - checkout
+      - run:
+          name: Update NPM
+          command: 'sudo npm install -g npm@latest'
+      - restore_cache:
+          keys:
+            - dependency-cache-{{ checksum "package-lock.json" }}
+            - dependency-cache-
+        - run:
+            name: Install npm deps
+            command: npm install
+        - save_cache:
+            key: dependency-cache-{{ checksum "package-lock.json" }}
+            paths:
+              - node_modules
+
+workflows:
+  deploy-gh-pages:
+    jobs:
+      - preflight:
+          filters:
+            branches:
+              only: development
+      - deploy:
+          requires:
+            - preflight
