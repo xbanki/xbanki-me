@@ -1,4 +1,4 @@
-# xBanki.me - My public website #
+# xBanki.me #
 ![CircleCI](https://img.shields.io/circleci/build/github/xbanki/xbanki-me/development?style=flat-square)
 ![David](https://img.shields.io/david/xbanki/xbanki-me?style=flat-square)
 ![GitHubLicense](https://img.shields.io/github/license/xbanki/xbanki-me?style=flat-square)
