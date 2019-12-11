@@ -72,7 +72,10 @@ jobs:
             printf 'xbanki.me' > ./dist/CNAME
       - run:
           name: Deploy build output to https://xbanki.me/
-          command: npm run deploy
+          command: |
+            git config --global user.name "Circle CI"
+            git config --global user.email "bot@circleci.com"
+            npm run deploy
 workflows:
   deploy-gh-pages:
     jobs:
