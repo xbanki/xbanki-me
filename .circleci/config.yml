@@ -56,9 +56,9 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-        keys:
-          - dependency-cache-{{ checksum "package-lock.json" }}
-          - dependency-cache-
+          keys:
+            - dependency-cache-{{ checksum "package-lock.json" }}
+            - dependency-cache-
       - add_ssh_keys:
           fingerprints:
             - "da:e8:9b:da:fe:4e:8e:7d:e9:f3:35:3f:56:06:76:40"
