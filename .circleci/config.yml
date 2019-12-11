@@ -1,25 +1,69 @@
 version: 2.1
 jobs:
   preflight:
-    working_directory: ~/publish
+    working_directory: ~/ci
     docker:
       - image: circleci/node:lts
     steps:
       - checkout
       - run:
-          name: Update NPM
+          name: Update npm
           command: 'sudo npm install -g npm@latest'
       - restore_cache:
           keys:
             - dependency-cache-{{ checksum "package-lock.json" }}
             - dependency-cache-
       - run:
-          name: Install npm deps
+          name: Install npm dependencies
           command: npm install
       - save_cache:
           key: dependency-cache-{{ checksum "package-lock.json" }}
           paths:
             - node_modules
+  lint:
+    working_directory: ~/ci
+    docker:
+      - image: circleci/node:lts
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - dependency-cache-{{ checksum "package-lock.json" }}
+            - dependency-cache-
+      - run:
+          name: Running ESLint
+          command: |
+            mkdir -p ~/reports
+            npx eslint ./src/ --format unix --output-file ~/reports/eslint.log
+          when: always
+      - store_test_results:
+          path: ~/reports
+      - store_artifacts:
+          path: ~/reports
+  test:
+    working_directory: ~/ci
+    docker:
+      - image: circleci/node:lts
+    steps:
+      - checkout
+      - run:
+          name: Running Jest tests
+          command: npm test
+  deploy:
+    working_directory: ~/ci
+    docker:
+      - image: circleci/node:lts
+    steps:
+      - checkout
+      - run:
+          name: Building source in `production` mode
+          command: npm run build:production
+      - run:
+          name: Copy `LICENSE`, `cd` into `build` folder & make `CNAME`
+          command: |
+            cp ./LICENSE ./build/LICENSE &&
+            cd ./build &&
+            printf 'xbanki.me' > ./CNAME
 
 workflows:
   deploy-gh-pages:
@@ -28,3 +72,13 @@ workflows:
           filters:
             branches:
               only: development
+      - lint:
+          requires:
+            - preflight
+      - test:
+          requires:
+            - preflight
+      - deploy:
+          requires:
+            - lint
+            - test
