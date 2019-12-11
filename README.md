@@ -15,7 +15,7 @@ This repository is licensed under the [MIT License][LicenseLink].
 # Quick Start #
  - Clone this repository using your preferred command line tool
  - `cd path/to/xbanki-me`
- - run `npm install && npm start`
+ - run `npm install` & `npm run build:development`
  - Open your favorite web browser & navigate to `localhost:5000`
 
 # License #

@@ -66,7 +66,7 @@ jobs:
           name: Building source in `production` mode
           command: npm run build:production
       - run:
-          name: Copy `LICENSE` & CircleCI config into `dist` folder & make `CNAME`
+          name: Copy `LICENSE` into `dist` folder & make `CNAME`
           command: |
             cp ./LICENSE ./dist/LICENSE
             printf 'xbanki.me' > ./dist/CNAME
