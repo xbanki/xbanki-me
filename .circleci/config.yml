@@ -13,13 +13,13 @@ jobs:
           keys:
             - dependency-cache-{{ checksum "package-lock.json" }}
             - dependency-cache-
-        - run:
-            name: Install npm deps
-            command: npm install
-        - save_cache:
-            key: dependency-cache-{{ checksum "package-lock.json" }}
-            paths:
-              - node_modules
+      - run:
+          name: Install npm deps
+          command: npm install
+      - save_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+          paths:
+            - node_modules
 
 workflows:
   deploy-gh-pages:
