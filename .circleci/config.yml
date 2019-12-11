@@ -82,7 +82,7 @@ workflows:
       - preflight:
           filters:
             branches:
-              only: development
+              only: master
       - lint:
           requires:
             - preflight

@@ -49,8 +49,7 @@ const UniversalConfiguration = {
 				loader: 'postcss-loader',
 				options: {
 					plugins: [
-						require('tailwindcss'),
-                        require('autoprefixer')
+						require('tailwindcss')
                         ]
                     }
                 }, {
