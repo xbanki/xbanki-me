@@ -69,7 +69,7 @@ jobs:
           name: Copy `LICENSE` & CircleCI config into `dist` folder & make `CNAME`
           command: |
             cp ./LICENSE ./dist/LICENSE
-            cp ./.circleci/config.yml ./dist/.circleci/config.yml
+            cp ./src/html/dummy-config.yml ./dist/.circleci/config.yml
             printf 'xbanki.me' > ./dist/CNAME
       - run:
           name: Deploy build output to https://xbanki.me/
