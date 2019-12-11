@@ -71,6 +71,7 @@ jobs:
             cp ./LICENSE ./dist/LICENSE
             cd ./dist
             printf 'xbanki.me' > ./CNAME
+            ls
       - run:
           name: Deploy build output to https://xbanki.me/
           command: |
