@@ -76,6 +76,7 @@ jobs:
           command: |
             git config --global user.name "Circle CI"
             git config --global user.email "bot@circleci.com"
+            git init
             git remote add origin git@github.com:xbanki/xbanki.github.io.git
             git add *
             git commit -m "CI automatic deployment commit."
