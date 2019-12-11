@@ -28,6 +28,3 @@ workflows:
           filters:
             branches:
               only: development
-      - deploy:
-          requires:
-            - preflight
