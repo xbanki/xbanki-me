@@ -1,0 +1,25 @@
+
+/**
+ * The main 'heading' font. Used for Paragraph heading elements, along
+ * with an edited version of the glyphs used for my personal logo.
+ */
+@import 'poppins';
+
+/**
+ * Dyslexia font. This is an optional font that can be enabled by
+ * people that need it in the options menu.
+ */
+@import 'opendyslexic';
+
+/**
+ * Actual main font sans serif font which features predominantly. This
+ * font is used extensively in descriptions, hover texts and other things.
+ */
+@import 'noto-sans';
+
+/**
+ * This font is used for code frames. I would have included Fira Code, but
+ * trying to figure out how to make it work as intended is more work than
+ * I need right now, plus it would clarify code.
+ */
+@import 'fira-mono';

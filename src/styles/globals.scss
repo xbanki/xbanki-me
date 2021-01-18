@@ -1,0 +1,30 @@
+@import './constants';
+
+html, body, #app, .root {
+    background: $background;
+    position: relative;
+    overflow: hidden;
+    display: block;
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+
+    * {
+        transition: all 0.14s cubic-bezier(0.075, 0.82, 0.165, 1);
+        font-family: $default_font;
+        scroll-behavior: smooth;
+        box-sizing: border-box;
+        color: $foreground;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        padding: none;
+        margin: none;
+
+        ::selection {
+            background: $selection_background;
+            color: $selection_foreground;
+            filter: none;
+        }
+    }
+}
