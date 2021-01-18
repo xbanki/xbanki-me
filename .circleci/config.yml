@@ -66,7 +66,7 @@ jobs:
           name: Run ESLint on project
           command: |
             mkdir -p ~/reports
-            npx eslint ./**/*.{js,ts,vue} --format unix --output-file ~/reports/eslint.log
+            npx eslint ./src/**/*.{js,ts,vue} --format unix --output-file ~/reports/eslint.log
           when: always
       - store_test_results:
           path: ~/reports/eslint/
@@ -82,6 +82,7 @@ jobs:
     docker:
       - image: circleci/node:lts
     steps:
+      - checkout
       - restore_cache:
           name: Restore previous cache
           keys:
