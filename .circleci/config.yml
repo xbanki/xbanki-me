@@ -66,7 +66,7 @@ jobs:
           name: Run ESLint on project
           command: |
             mkdir -p ~/reports
-            npx eslint ./src/**/*.{js,ts,vue} --format unix --output-file ~/reports/eslint.log
+            npx eslint ./src/**/*.{ts,vue} --format unix --output-file ~/reports/eslint.log
           when: always
       - store_test_results:
           path: ~/reports/eslint/
