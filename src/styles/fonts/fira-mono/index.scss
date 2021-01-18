@@ -1,0 +1,96 @@
+/**
+ * See 'OFL.txt' included in this folder to see the LICENSE for Fira Mono.
+ * Digitized data copyright 2012-2015, The Mozilla Foundation and Telefonica S.A.
+ */
+
+
+
+/**
+ * Regular font weight (400) with normal character style.
+ */
+@font-face {
+    font-family: 'Fira Mono';
+    font-style: normal;
+    font-weight: 400;
+
+    // Internet Explorer Compatibility Font
+    src: url('../styles/fonts/fira-mono/fira-mono-v9-latin-regular.eot');
+
+    // Local font variants
+    src: local('Fira Mono Regular'), local('FiraMono-Regular'),
+
+         // Internet Explorer 6-8 Compatibility Font
+         url('../styles/fonts/fira-mono/fira-mono-v9-latin-regular.eot?#iefix') format('embedded-opentype'),
+
+         // Next Generation Browsers
+         url('../styles/fonts/fira-mono/fira-mono-v9-latin-regular.woff2') format('woff2'),
+
+         // Modern browsers
+         url('../styles/fonts/fira-mono/fira-mono-v9-latin-regular.woff') format('woff'),
+
+         // Safari, Android & iOS Web Browser
+         url('../styles/fonts/fira-mono/fira-mono-v9-latin-regular.ttf') format('truetype'),
+
+         // Legacy iOS
+         url('../styles/fonts/fira-mono/fira-mono-v9-latin-regular.svg#FiraMono') format('svg');
+}
+
+/**
+ * Medium font weight (500) with normal character style.
+ */
+@font-face {
+    font-family: 'Fira Mono';
+    font-style: normal;
+    font-weight: 500;
+
+    // Internet Explorer Compatibility Font
+    src: url('../styles/fonts/fira-mono/fira-mono-v9-latin-500.eot');
+
+    // Local font variants
+    src: local('Fira Mono Medium'), local('FiraMono-Medium'),
+
+         // Internet Explorer 6-8 Compatibility Font
+         url('../styles/fonts/fira-mono/fira-mono-v9-latin-500.eot?#iefix') format('embedded-opentype'),
+
+         // Next Generation Browsers
+         url('../styles/fonts/fira-mono/fira-mono-v9-latin-500.woff2') format('woff2'),
+
+         // Modern browsers
+         url('../styles/fonts/fira-mono/fira-mono-v9-latin-500.woff') format('woff'),
+
+         // Safari, Android & iOS Web Browser
+         url('../styles/fonts/fira-mono/fira-mono-v9-latin-500.ttf') format('truetype'),
+
+         // Legacy iOS
+         url('../styles/fonts/fira-mono/fira-mono-v9-latin-500.svg#FiraMono') format('svg');
+}
+
+/**
+ * Bold font weight (700) with normal character style.
+ */
+@font-face {
+    font-family: 'Fira Mono';
+    font-style: normal;
+    font-weight: 700;
+
+    // Internet Explorer Compatibility Font
+    src: url('../styles/fonts/fira-mono/fira-mono-v9-latin-700.eot');
+
+    // Local font variants
+    src: local('Fira Mono Bold'), local('FiraMono-Bold'),
+
+         // Internet Explorer 6-8 Compatibility Font
+         url('../styles/fonts/fira-mono/fira-mono-v9-latin-700.eot?#iefix') format('embedded-opentype'),
+
+         // Next Generation Browsers
+         url('../styles/fonts/fira-mono/fira-mono-v9-latin-700.woff2') format('woff2'),
+
+         // Modern browsers
+         url('../styles/fonts/fira-mono/fira-mono-v9-latin-700.woff') format('woff'),
+
+         // Safari, Android & iOS Web Browser
+         url('../styles/fonts/fira-mono/fira-mono-v9-latin-700.ttf') format('truetype'),
+
+         // Legacy iOS
+         url('../styles/fonts/fira-mono/fira-mono-v9-latin-700.svg#FiraMono') format('svg');
+}

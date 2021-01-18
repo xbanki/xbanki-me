@@ -1,8 +1,0 @@
-# development build folder
-build/*
-
-# final build distribution folder
-dist/*
-
-# documentation folder
-docs/*

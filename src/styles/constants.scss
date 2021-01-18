@@ -1,0 +1,67 @@
+
+//-------------------//
+// COLOR DEFINITIONS //
+//-------------------//
+
+/**
+ * The most predomenant color on the page. This color is used for the
+ * background of *everything* to give us beautiful contrast.
+ */
+$COLOR_BACKGROUND: #000000;
+
+/**
+ * Main text & attention grabbing contrast used for paragraph titles
+ * among other elements that require immediate user attention.
+ */
+ $COLOR_FOREGROUND: #FFFFFF;
+
+/**
+ * This is used for description texts while also providing contrast
+ * between the main foreground color, and the muted gray color.
+ */
+ $COLOR_SECONDARY: #999999;
+
+/**
+ * Highlight color that should be used sparsely to obviously
+ * 'highlight' content, buttons or other things on the screen.
+ */
+ $COLOR_HIGHLIGHT: #50E3C3;
+
+ /**
+  * Selection seudo selector background color. This isn't used
+  * anywhere else other than the selection.
+  */
+ $COLOR_SECONDARY_HIGHLIGHT: #f81ce5;
+
+ /**
+  * This is mainly used for miscellaneous small print and the main
+  * border color which is used pretty much everywhere.
+  */
+ $COLOR_MUTED: #444444;
+
+//------------------//
+// FONT DEFINITIONS //
+//------------------//
+
+$FONT_DYSLEXIA: 'OpenDyslexic', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Open Sans', 'Helvetica Neue', sans-serif;
+$FONT_SECONDARY: 'Poppins', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Open Sans', 'Helvetica Neue', sans-serif;
+$FONT_MAIN: 'Noto Sans', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Open Sans', 'Helvetica Neue', sans-serif;
+$FONT_MONO: 'Fira Mono', 'Courier New', 'Courier', 'monospace';
+
+//----------------------//
+// VARIABLE DEFINITIONS //
+//----------------------//
+
+// General colors
+$background: $COLOR_BACKGROUND;
+$foreground: $COLOR_FOREGROUND;
+
+// Selection colors
+$selection_foreground: $COLOR_BACKGROUND;
+$selection_background: $COLOR_SECONDARY_HIGHLIGHT;
+
+// Fonts
+$code_font: $FONT_MONO;
+$default_font: $FONT_MAIN;
+$dyslexia_font: $FONT_DYSLEXIA;
+$highlight_font: $FONT_SECONDARY;

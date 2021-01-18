@@ -1,5 +1,30 @@
+#-------------------------------------------------------#
+# Basic CircleCI build pipleines file. Does not include #
+# custom Docker image yet, which I will look in to.     #
+#                                                       #
+# We also currently do not have end-to-end tests.       #
+#                                                       #
+# Pipeline descriptions:                                #
+#                                                       #
+# 1. Default Automatic                                  #
+#    This pipeline is run on every commit to any branch #
+#    (unless it has been marked to skip of course),     #
+#    essentially just a background tester and coverage  #
+#    generator workflow.                                #
+#                                                       #
+# 2. Deploy                                             #
+#    Self explanatory. Does exactly the same thing as   #
+#    Default Automatic, but also deploys the built      #
+#    project files to GitHub pages if all is well.      #
+#-------------------------------------------------------#
+
 version: 2.1
 jobs:
+
+  #----------------------------------------#
+  # PREFLIGHT - Setup project for CircleCI #
+  #----------------------------------------#
+
   preflight:
     working_directory: ~/ci
     docker:
@@ -7,19 +32,25 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Update npm
-          command: 'sudo npm install -g npm@latest'
+          name: Update/ Install Yarn globally
+          command: sudo npm i -g yarn@latest
       - restore_cache:
+          name: Restore previous cache if exists
           keys:
-            - dependency-cache-{{ checksum "package-lock.json" }}
+            - dependency-cache-{{ checksum "yarn.lock" }}
             - dependency-cache-
       - run:
-          name: Install npm dependencies
-          command: npm install
+          name: Install project dependencies
+          command: yarn install --force
       - save_cache:
-          key: dependency-cache-{{ checksum "package-lock.json" }}
+          key: dependency-cache-{{ checksum "yarn.lock" }}
           paths:
             - node_modules
+
+  #---------------------------------#
+  # LINT - Run linter(s) on project #
+  #---------------------------------#
+
   lint:
     working_directory: ~/ci
     docker:
@@ -27,69 +58,139 @@ jobs:
     steps:
       - checkout
       - restore_cache:
+          name: Restore previous cache
           keys:
-            - dependency-cache-{{ checksum "package-lock.json" }}
+            - dependency-cache-{{ checksum "yarn.lock" }}
             - dependency-cache-
       - run:
-          name: Running ESLint
+          name: Run ESLint on project
           command: |
             mkdir -p ~/reports
-            npx eslint ./src/ --format unix --output-file ~/reports/eslint.log
+            npx eslint ./**/*.{js,ts,vue} --format unix --output-file ~/reports/eslint.log
           when: always
       - store_test_results:
-          path: ~/reports
+          path: ~/reports/eslint/
       - store_artifacts:
-          path: ~/reports
-  test:
+          path: ~/reports/eslint/
+
+  #---------------------------------------#
+  # UNIT-TEST - Run unit tests on project #
+  #---------------------------------------#
+
+  unit-test:
     working_directory: ~/ci
     docker:
       - image: circleci/node:lts
     steps:
-      - checkout
+      - restore_cache:
+          name: Restore previous cache
+          keys:
+            - dependency-cache- {{ checksum "yarn.lock" }}
+            - dependency-cache-
       - run:
-          name: Running Jest tests
-          command: npm test
+          name: Running Jest unit tests & generate coverage
+          command: npx jest --config=./jest.config.js --coverage=true
+      - run:
+          name: Upload coverage metrics to Codecov
+          command: bash <(curl -s https://codecov.io/bash) -t $CODECOV_UPLOAD_KEY -F unittests -R ~/ci -Z
+      - store_test_results:
+          path: ~/reports/jest/
+      - store_artifacts:
+          path: ~/reports/jest/
+
+  #--------------------------------------------#
+  # END-TO-END TEST - Run E2E tests on project #
+  #--------------------------------------------#
+
+  e2e-test:
+    working_directory: ~/ci
+    docker:
+      - image: circleci/node:lts
+    steps:
+      - restore_cache:
+          name: Restore previous cache
+          keys:
+            - dependency-cache- {{ checksum "yarn.lock" }}
+            - dependency-cache-
+      - run:
+          name: Run Jest end-to-end tests & generate coverage
+          command: echo "[WARN] e2e-test job not configured."
+
+  #-----------------------------------------------#
+  # DEPLOY - Deploy built project to GitHub Pages #
+  #-----------------------------------------------#
+
   deploy:
     working_directory: ~/ci
     docker:
       - image: circleci/node:lts
     steps:
-      - checkout
       - restore_cache:
+          name: Restore previous cache
           keys:
-            - dependency-cache-{{ checksum "package-lock.json" }}
+            - dependency-cache- {{ checksum "yarn.lock" }}
             - dependency-cache-
       - add_ssh_keys:
+          name: Add SSH fingerprint to keychain
           fingerprints:
-            - $DEPLOY_KEY_FINGERPRINT
+            - $GITHUB_DEPLOY_FINGERPRINT
       - run:
-          name: Building source in `production` mode
-          command: npm run build:production
+          name: Build project in production mode
+          command: yarn build
       - run:
-          name: Copy `LICENSE` into `dist` folder & make `CNAME`
+          name: Chore extra file copying
           command: |
             cp ./LICENSE ./dist/LICENSE
             printf 'xbanki.me' > ./dist/CNAME
       - run:
-          name: Deploy build output to https://xbanki.me/
+          name: Configure CircleCI bot credentials
           command: |
             git config --global user.name "Circle CI"
             git config --global user.email "bot@circleci.com"
-            npm run deploy
+      - run:
+          name: Deploy project to GitHub Pages
+          command: npx gh-pages -d dist -m "[ci skip] Automatically generated deploy commit."
+
 workflows:
-  deploy-gh-pages:
+
+  #-------------------#
+  # DEFAULT AUTOMATIC #
+  #-------------------#
+
+  automatic:
+    jobs:
+      - preflight
+      - e2e-test:
+          requires:
+            - preflight
+      - unit-test:
+          requires:
+            - preflight
+      - lint:
+          requires:
+            - preflight
+
+  #--------#
+  # DEPLOY #
+  #--------#
+
+  deploy:
     jobs:
       - preflight:
           filters:
             branches:
               only: master
-      - lint:
+      - e2e-test:
           requires:
             - preflight
-      - test:
+      - unit-test:
+          requires:
+            - preflight
+      - lint:
           requires:
             - preflight
       - deploy:
           requires:
+            - e2e-test
+            - unit-test
             - lint
-            - test
