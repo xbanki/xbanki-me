@@ -7,10 +7,9 @@
 # Pipeline descriptions:                                #
 #                                                       #
 # 1. Default Automatic                                  #
-#    This pipeline is run on every commit to any branch #
-#    (unless it has been marked to skip of course),     #
-#    essentially just a background tester and coverage  #
-#    generator workflow.                                #
+#    This pipeline is run only on the 'development'     #
+#    branch as a "staging" pipeline which automatically #
+#    runs linter(s) and tests.                          #
 #                                                       #
 # 2. Deploy                                             #
 #    Self explanatory. Does exactly the same thing as   #
@@ -160,7 +159,10 @@ workflows:
 
   automatic:
     jobs:
-      - preflight
+      - preflight:
+          filters:
+            branches:
+              only: development
       - e2e-test:
           requires:
             - preflight
