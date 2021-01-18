@@ -9,10 +9,10 @@
 </p>
 <p align="center">
     <a href="https://circleci.com/gh/xbanki/xbanki-me?branch=development">
-        <img alt="CircleCI development branch" src="https://img.shields.io/cirrus/github/xbanki/xbanki-me/development?label=circleci%2Fdevelopment&style=flat-square">
+        <img alt="CircleCI development branch" src="https://img.shields.io/circleci/build/github/xbanki/xbanki-me/development?label=build%2Fdevelopment&style=flat-square">
     </a>
     <a href="https://circleci.com/gh/xbanki/xbanki-me?branch=master">
-        <img alt="CircleCI master branch" src="https://img.shields.io/cirrus/github/xbanki/xbanki-me/master?label=circleci%2Fmaster&style=flat-square">
+        <img alt="CircleCI master branch" src="https://img.shields.io/circleci/build/github/xbanki/xbanki-me/master?label=build%2Fmaster&style=flat-square">
     </a>
 </p>
 <p align="center">
