@@ -33,7 +33,7 @@ jobs:
       - checkout
       - run:
           name: Update/ Install Yarn globally
-          command: sudo npm i -g yarn@latest
+          command: 'sudo npm i -g yarn@latest'
       - restore_cache:
           name: Restore previous cache if exists
           keys:
