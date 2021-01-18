@@ -85,7 +85,7 @@ jobs:
       - restore_cache:
           name: Restore previous cache
           keys:
-            - dependency-cache- {{ checksum "yarn.lock" }}
+            - dependency-cache-{{ checksum "yarn.lock" }}
             - dependency-cache-
       - run:
           name: Running Jest unit tests & generate coverage
