@@ -9,7 +9,7 @@
 </p>
 <p align="center">
     <a href="https://circleci.com/gh/xbanki/xbanki-me?branch=development">
-        <img alt="CircleCI development branch" src="https://img.shields.io/cirrus/github/xbanki/xbanki-me/development?label=circleci%2Fdevelopment&style=flat-square">
+        <img alt="CircleCI development branch" src="https://img.shields.io/circleci/build/github/xbanki/xbanki-me/development?label=build%2Fdevelopment&style=flat-square">
     </a>
     <a href="https://circleci.com/gh/xbanki/xbanki-me?branch=master">
         <img alt="CircleCI master branch" src="https://img.shields.io/circleci/build/github/xbanki/xbanki-me/master?label=build%2Fmaster&style=flat-square">
@@ -17,7 +17,7 @@
 </p>
 <p align="center">
     <a href="https://app.codecov.io/gh/xbanki/xbanki-me/branch/development">
-        <img alt="Codecov development coverage" src="https://img.shields.io/circleci/build/github/xbanki/xbanki-me/development?label=build%2Fdevelopment&style=flat-square">
+        <img alt="Codecov development coverage" src="https://img.shields.io/codecov/c/github/xbanki/xbanki-me/development?label=coverage%2Fdevelopment&style=flat-square">
     </a>
     <a href="https://david-dm.org/xbanki/xbanki-me">
         <img alt="David dependencies" src="https://img.shields.io/david/xbanki/xbanki-me?style=flat-square">
