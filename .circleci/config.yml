@@ -33,7 +33,7 @@ jobs:
       - checkout
       - run:
           name: Update/ Install Yarn globally
-          command: 'sudo npm i -g yarn@latest'
+          command: sudo npm i -g yarn@latest --force
       - restore_cache:
           name: Restore previous cache if exists
           keys:
@@ -141,7 +141,7 @@ jobs:
           name: Chore extra file copying
           command: |
             cp ./LICENSE ./dist/LICENSE
-            printf 'xbanki.me' > ./dist/CNAME
+            printf xbanki.me > ./dist/CNAME
       - run:
           name: Configure CircleCI bot credentials
           command: |
