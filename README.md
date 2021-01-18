@@ -8,6 +8,14 @@
     My beautiful, responsive & high-contrast homepage/ portfolio website.
 </p>
 <p align="center">
+    <a href="https://circleci.com/gh/xbanki/xbanki-me?branch=development">
+        <img alt="CircleCI development branch" src="https://img.shields.io/cirrus/github/xbanki/xbanki-me/development?label=circleci%2Fdevelopment&style=flat-square">
+    </a>
+    <a href="https://circleci.com/gh/xbanki/xbanki-me?branch=master">
+        <img alt="CircleCI master branch" src="https://img.shields.io/cirrus/github/xbanki/xbanki-me/master?label=circleci%2Fmaster&style=flat-square">
+    </a>
+</p>
+<p align="center">
     <a href="https://app.codecov.io/gh/xbanki/xbanki-me/branch/development">
         <img alt="Codecov development coverage" src="https://img.shields.io/codecov/c/github/xbanki/xbanki-me/development?label=coverage%2Fdevelopment&style=flat-square">
     </a>
