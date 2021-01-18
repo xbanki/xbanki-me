@@ -107,10 +107,11 @@ jobs:
     docker:
       - image: circleci/node:lts
     steps:
+      - checkout
       - restore_cache:
           name: Restore previous cache
           keys:
-            - dependency-cache- {{ checksum "yarn.lock" }}
+            - dependency-cache-{{ checksum "yarn.lock" }}
             - dependency-cache-
       - run:
           name: Run Jest end-to-end tests & generate coverage
@@ -125,10 +126,11 @@ jobs:
     docker:
       - image: circleci/node:lts
     steps:
+      - checkout
       - restore_cache:
           name: Restore previous cache
           keys:
-            - dependency-cache- {{ checksum "yarn.lock" }}
+            - dependency-cache-{{ checksum "yarn.lock" }}
             - dependency-cache-
       - add_ssh_keys:
           name: Add SSH fingerprint to keychain
