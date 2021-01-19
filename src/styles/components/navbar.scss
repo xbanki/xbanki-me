@@ -1,0 +1,13 @@
+@import '../constants';
+
+div {
+    &.navbar {
+        border-bottom: 1px solid $navbar_border;
+        height: 48px;
+        width: 100%;
+
+        .wrapper, .container {
+            height: 100%;
+        }
+    }
+}
