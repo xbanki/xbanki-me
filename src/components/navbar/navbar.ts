@@ -1,9 +1,8 @@
 import componentButtonMenu from '@/components/navbar/button-menu/button-menu.vue';
+import { defineComponent } from 'vue';
 
-console.log('This is the navbar component!');
-
-export default {
+export default defineComponent({
     components: {
         componentButtonMenu
     }
-}
+});
