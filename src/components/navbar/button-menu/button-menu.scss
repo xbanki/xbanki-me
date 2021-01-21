@@ -1,0 +1,38 @@
+@import '~/src/styles/constants.scss';
+
+$button_line_position: 11px;
+
+.component-button-menu {
+    position: relative;
+    cursor: pointer;
+    display: block;
+    float: right;
+    height: 40px;
+    width: 32px;
+
+    .button-menu-line {
+        background: $navbar_menu_button;
+        position: absolute;
+        display: block;
+        height: 1px;
+        width: 32px;
+
+        &.first {
+            top: $button_line_position;
+        }
+
+        &.second {
+            top: $button_line_position * 2;
+        }
+
+        &.third {
+            top: $button_line_position * 3;
+        }
+    }
+
+    &:hover, &:active {
+        .button-menu-line {
+            background-color: $navbar_menu_button_hover;
+        }
+    }
+}

@@ -1,13 +1,18 @@
-@import '../constants';
+@import '~/src/styles/constants';
 
-div {
+nav {
     &.navbar {
         border-bottom: 1px solid $navbar_border;
+        background: $navbar_background;
         height: 48px;
         width: 100%;
 
         .wrapper, .container {
             height: 100%;
+
+            div {
+                height: 100%;
+            }
         }
     }
 }
