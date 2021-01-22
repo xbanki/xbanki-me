@@ -38,7 +38,6 @@ export default defineComponent({
             targets: '.button-menu-line.line-first',
             easing: 'linear',
             duration: 80,
-            height: 2,
             top: 22
         }, 0);
 
@@ -50,7 +49,6 @@ export default defineComponent({
             targets: '.button-menu-line.line-second',
             easing: 'linear',
             duration: 80,
-            height: 2
         }, 0);
 
         /**
@@ -61,7 +59,6 @@ export default defineComponent({
             targets: '.button-menu-line.line-third',
             easing: 'linear',
             duration: 80,
-            height: 2,
             top: 22
         }, 0);
 
