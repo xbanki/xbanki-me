@@ -4,8 +4,11 @@ nav {
     &.navbar {
         border-bottom: 1px solid $navbar_border;
         background: $navbar_background;
+        position: fixed;
+        display: block;
         height: 48px;
         width: 100%;
+        z-index: 10;
 
         .wrapper, .container {
             height: 100%;
