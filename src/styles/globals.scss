@@ -11,7 +11,7 @@ html, body, #app, .root {
     margin: 0;
 
     * {
-        transition: all 0.14s cubic-bezier(0.075, 0.82, 0.165, 1);
+        transition: all 0.12s cubic-bezier(0.075, 0.82, 0.165, 1);
         font-family: $default_font;
         scroll-behavior: smooth;
         box-sizing: border-box;

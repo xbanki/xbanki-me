@@ -17,15 +17,15 @@ $button_line_position: 11px;
         height: 1px;
         width: 32px;
 
-        &.first {
+        &.line-first {
             top: $button_line_position;
         }
 
-        &.second {
+        &.line-second {
             top: $button_line_position * 2;
         }
 
-        &.third {
+        &.line-third {
             top: $button_line_position * 3;
         }
     }

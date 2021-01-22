@@ -1,8 +1,15 @@
 /* eslint-disable @typescript-eslint/camelcase */
 
 import { defineComponent } from 'vue';
+import anime from 'animejs';
 
 export default defineComponent({
+
+    setup() {
+        const button_animation = anime.timeline({ autoplay: false, duration: 120 });
+        return { button_animation }
+    },
+
     methods: {
 
         /**
@@ -12,7 +19,12 @@ export default defineComponent({
          * @class   ButtonMenu
          */
         activate_button(): void {
-            console.log('Menu button has been activated.')
+            if (this.button_animation.began != true) this.button_animation.play();
         }
+    },
+    mounted() {
+        /**
+         * This is where add all the animations in the future.
+         */
     }
 });

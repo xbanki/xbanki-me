@@ -4,9 +4,9 @@
     <span class="component-button-menu" @click="activate_button">
 
         <!-- The burger menu lines //-->
-        <span class="button-menu-line first"/>
-        <span class="button-menu-line second"/>
-        <span class="button-menu-line third"/>
+        <span class="button-menu-line line-first"/>
+        <span class="button-menu-line line-second"/>
+        <span class="button-menu-line line-third"/>
     </span>
 </template>
 
