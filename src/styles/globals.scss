@@ -17,7 +17,7 @@ html, body, #app, .root {
         box-sizing: border-box;
         color: $foreground;
         overflow-x: hidden;
-        overflow-y: scroll;
+        overflow-y: auto;
         padding: none;
         margin: none;
 
