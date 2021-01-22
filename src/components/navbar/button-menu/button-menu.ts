@@ -37,7 +37,7 @@ export default defineComponent({
         this.button_animation.add({
             targets: '.button-menu-line.line-first',
             easing: 'linear',
-            duration: 80,
+            duration: 60,
             top: 22
         }, 0);
 
@@ -48,7 +48,7 @@ export default defineComponent({
         this.button_animation.add({
             targets: '.button-menu-line.line-second',
             easing: 'linear',
-            duration: 80,
+            duration: 60,
         }, 0);
 
         /**
@@ -58,7 +58,7 @@ export default defineComponent({
         this.button_animation.add({
             targets: '.button-menu-line.line-third',
             easing: 'linear',
-            duration: 80,
+            duration: 60,
             top: 22
         }, 0);
 
@@ -71,7 +71,7 @@ export default defineComponent({
             easing: 'linear',
             duration: 60,
             rotate: 42.5
-        }, 140);
+        }, 125);
 
         /**
          * MIDDLE BAR: Step 2.
@@ -82,7 +82,7 @@ export default defineComponent({
             easing: 'linear',
             duration: 1,
             opacity: 0
-        }, 140)
+        }, 125)
 
         /**
          * BOTTOM BAR: Step 2.
@@ -93,6 +93,6 @@ export default defineComponent({
             easing: 'linear',
             duration: 60,
             rotate: -42.5
-        }, 140);
+        }, 125);
     }
 });
