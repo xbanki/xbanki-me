@@ -5,6 +5,7 @@ import anime from 'animejs';
 
 /**
  * All possible animation states which are used to emit certain events
+ * @class ButtonMenu
  */
 enum AnimationStates {
 
