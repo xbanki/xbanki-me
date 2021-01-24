@@ -13,19 +13,19 @@
     font-weight: 400;
 
     // Internet Explorer Compatibility Font
-    src: url('../styles/fonts/opendyslexic/OpenDyslexic-Regular.eot');
+    src: url('../../styles/fonts/opendyslexic/OpenDyslexic-Regular.eot');
 
     // Local font variants
     src: local('OpenDyslexic Regular'), local('OpenDyslexic-Regular'),
 
          // Internet Explorer 6-8 Compatibility Font
-         url('../styles/fonts/opendyslexic/OpenDyslexic-Regular.eot?#iefix') format('embedded-opentype'),
+         url('../../styles/fonts/opendyslexic/OpenDyslexic-Regular.eot?#iefix') format('embedded-opentype'),
 
          // Next Generation Browsers
-         url('../styles/fonts/opendyslexic/OpenDyslexic-Regular.woff2') format('woff2'),
+         url('../../styles/fonts/opendyslexic/OpenDyslexic-Regular.woff2') format('woff2'),
 
          // Modern browsers
-         url('../styles/fonts/opendyslexic/OpenDyslexic-Regular.woff') format('woff');
+         url('../../styles/fonts/opendyslexic/OpenDyslexic-Regular.woff') format('woff');
 }
 
 /**
@@ -37,19 +37,19 @@
     font-weight: 400;
 
     // Internet Explorer Compatibility Font
-    src: url('../styles/fonts/opendyslexic/OpenDyslexic-Italic.eot');
+    src: url('../../styles/fonts/opendyslexic/OpenDyslexic-Italic.eot');
 
     // Local font variants
     src: local('OpenDyslexic Italic'), local('OpenDyslexic-Italic'),
 
          // Internet Explorer 6-8 Compatibility Font
-         url('../styles/fonts/opendyslexic/OpenDyslexic-Italic.eot?#iefix') format('embedded-opentype'),
+         url('../../styles/fonts/opendyslexic/OpenDyslexic-Italic.eot?#iefix') format('embedded-opentype'),
 
          // Next Generation Browsers
-         url('../styles/fonts/opendyslexic/OpenDyslexic-Italic.woff2') format('woff2'),
+         url('../../styles/fonts/opendyslexic/OpenDyslexic-Italic.woff2') format('woff2'),
 
          // Modern browsers
-         url('../styles/fonts/opendyslexic/OpenDyslexic-Italic.woff') format('woff');
+         url('../../styles/fonts/opendyslexic/OpenDyslexic-Italic.woff') format('woff');
 }
 
 /**
@@ -61,19 +61,19 @@
     font-weight: 700;
 
     // Internet Explorer Compatibility Font
-    src: url('../styles/fonts/opendyslexic/OpenDyslexic-Bold.eot');
+    src: url('../../styles/fonts/opendyslexic/OpenDyslexic-Bold.eot');
 
     // Local font variants
     src: local('OpenDyslexic Bold Italic'), local('OpenDyslexic-Bold'),
 
          // Internet Explorer 6-8 Compatibility Font
-         url('../styles/fonts/opendyslexic/OpenDyslexic-Bold.eot?#iefix') format('embedded-opentype'),
+         url('../../styles/fonts/opendyslexic/OpenDyslexic-Bold.eot?#iefix') format('embedded-opentype'),
 
          // Next Generation Browsers
-         url('../styles/fonts/opendyslexic/OpenDyslexic-Bold.woff2') format('woff2'),
+         url('../../styles/fonts/opendyslexic/OpenDyslexic-Bold.woff2') format('woff2'),
 
          // Modern browsers
-         url('../styles/fonts/opendyslexic/OpenDyslexic-Bold.woff') format('woff');
+         url('../../styles/fonts/opendyslexic/OpenDyslexic-Bold.woff') format('woff');
 }
 
 /**
@@ -85,17 +85,17 @@
     font-weight: 700;
 
     // Internet Explorer Compatibility Font
-    src: url('../styles/fonts/opendyslexic/OpenDyslexic-Bold-Italic.eot');
+    src: url('../../styles/fonts/opendyslexic/OpenDyslexic-Bold-Italic.eot');
 
     // Local font variants
     src: local('OpenDyslexic Bold Italic'), local('OpenDyslexic-BoldItalic'),
 
          // Internet Explorer 6-8 Compatibility Font
-         url('../styles/fonts/opendyslexic/OpenDyslexic-Bold-Italic.eot?#iefix') format('embedded-opentype'),
+         url('../../styles/fonts/opendyslexic/OpenDyslexic-Bold-Italic.eot?#iefix') format('embedded-opentype'),
 
          // Next Generation Browsers
-         url('../styles/fonts/opendyslexic/OpenDyslexic-Bold-Italic.woff2') format('woff2'),
+         url('../../styles/fonts/opendyslexic/OpenDyslexic-Bold-Italic.woff2') format('woff2'),
 
          // Modern browsers
-         url('../styles/fonts/opendyslexic/OpenDyslexic-Bold-Italic.woff') format('woff');
+         url('../../styles/fonts/opendyslexic/OpenDyslexic-Bold-Italic.woff') format('woff');
 }

@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 
-import RootComponent from './components/root.vue'
+import RootComponent from './components/root/root.vue'
 import store from './store'
 
 // Create, mount & use VueX store for state.
