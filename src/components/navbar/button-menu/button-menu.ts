@@ -14,25 +14,25 @@ enum AnimationStates {
      * This state is not returned to or set if the button has been interacted with.
      * @class ButtonMenu
      */
-    STATE_INITIAL,
+    initial = 'STATE_INITIAL',
 
     /**
      * True if animation has been activated once, but has been reverted to default state.
      * @class ButtonMenu
      */
-    STATE_IDLE_INITIAL,
+    idle_initial = 'STATE_IDLE_INITIAL',
 
     /**
      * True if animation has been activated and completed.
      * @class ButtonMenu
      */
-    STATE_IDLE_ACTIVATED,
+    idle_activated = 'STATE_IDLE_ACTIVATED',
 
     /**
      * True if animation is currently animating. Both normal and reverse modes.
      * @class ButtonMenu
      */
-    STATE_ACTIVE
+    active = 'STATE_ACTIVE'
 }
 
 /**
@@ -78,7 +78,7 @@ export default defineComponent({
          * @class ButtonMenu
          */
         const animation_state: ButtonState = {
-            current_state: AnimationStates.STATE_INITIAL,
+            current_state: AnimationStates.initial,
             animation_played: false,
             currently_active: false,
             total_animation_loops: 0
@@ -97,6 +97,8 @@ export default defineComponent({
         }
     },
 
+    emits: ['animation_state'],
+
     methods: {
 
         /**
@@ -111,7 +113,7 @@ export default defineComponent({
              * Play the animation if the current state is initial because we don't
              * have to worry about the state quite yet.
              */
-            if (this.animation_state.current_state == AnimationStates.STATE_INITIAL) return this.button_animation.play();
+            if (this.animation_state.current_state == AnimationStates.initial) return this.button_animation.play();
 
             /**
              * We make sure not to play the animation when the state is active
@@ -122,8 +124,8 @@ export default defineComponent({
              *  Fix the state manager to take in to account if the animation
              *  has been reversed in the state logic.
              */
-            if (this.animation_state.current_state != AnimationStates.STATE_ACTIVE) {
-                if (this.animation_state.current_state == AnimationStates.STATE_IDLE_ACTIVATED || AnimationStates.STATE_IDLE_INITIAL) {
+            if (this.animation_state.current_state != AnimationStates.active) {
+                if (this.animation_state.current_state == AnimationStates.idle_activated || AnimationStates.idle_initial) {
                     this.button_animation.reverse();
                 }
 
@@ -203,7 +205,7 @@ export default defineComponent({
          *
          * We set the state to `STATE_ACTIVE` when the button is activated and the animation is fired.
          */
-        this.button_animation.changeBegin = () => this.animation_state.current_state = AnimationStates.STATE_ACTIVE;
+        this.button_animation.changeBegin = () => this.animation_state.current_state = AnimationStates.active;
 
         this.button_animation.changeComplete = () => {
 
@@ -226,8 +228,25 @@ export default defineComponent({
              * We set the current state based on if the component is active in the state object.
              */
             this.animation_state.currently_active
-                ? this.animation_state.current_state = AnimationStates.STATE_IDLE_ACTIVATED
-                : this.animation_state.current_state = AnimationStates.STATE_IDLE_INITIAL;
+                ? this.animation_state.current_state = AnimationStates.idle_activated
+                : this.animation_state.current_state = AnimationStates.idle_initial;
+        }
+    },
+
+    watch: {
+
+        /**
+         * We emit a stripped version of the current animation state object
+         * each time there is a relevant change.
+         */
+        animation_state: {
+            handler(): void {
+                if (this.animation_state.current_state == AnimationStates.active) return;
+                this.$emit('animation_state', this.animation_state.current_state);
+            },
+            deep: true
         }
     }
 });
+
+export { AnimationStates, ButtonState };
