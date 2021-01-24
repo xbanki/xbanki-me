@@ -108,12 +108,27 @@ export default defineComponent({
         activate_button(): void {
 
             /**
-             * TEMP (xbanki):
-             *  Currently does not take in to account the state.
-             *  This will be replaced later down the line.
+             * Play the animation if the current state is initial because we don't
+             * have to worry about the state quite yet.
              */
-            if (this.animation_state.animation_played) this.button_animation.reverse();
-            this.button_animation.play();
+            if (this.animation_state.current_state == AnimationStates.STATE_INITIAL) return this.button_animation.play();
+
+            /**
+             * We make sure not to play the animation when the state is active
+             * to protect the state integrty due to the state manager breaking
+             * if the animation is reversed when activated.
+             *
+             * TODO (xbanki):
+             *  Fix the state manager to take in to account if the animation
+             *  has been reversed in the state logic.
+             */
+            if (this.animation_state.current_state != AnimationStates.STATE_ACTIVE) {
+                if (this.animation_state.current_state == AnimationStates.STATE_IDLE_ACTIVATED || AnimationStates.STATE_IDLE_INITIAL) {
+                    this.button_animation.reverse();
+                }
+
+                this.button_animation.play();
+            }
         }
     },
     mounted() {
