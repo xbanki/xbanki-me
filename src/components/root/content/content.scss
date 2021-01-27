@@ -1,0 +1,63 @@
+@import '~/src/styles/constants';
+
+
+.content {
+    h1 {
+        &.header {
+            font-family: $highlight_font !important;
+            color: #4A5568 !important;
+            text-align: center;
+            font-weight: 600;
+            font-size: 48px;
+            padding-bottom: 8px;
+        }
+    }
+
+    span {
+        &.description {
+            color: #718096 !important;
+
+            a {
+                color: #718096 !important;
+                text-decoration: underline;
+
+                &:hover {
+                    color: #A0AEC0 !important;
+                    cursor: pointer;
+                }
+            }
+        }
+
+        &.subtle {
+            color: #CBD5E0 !important;
+        }
+
+        &.github {
+            padding-top: 16px;
+            height: 48px;
+            width: 32px;
+
+            a {
+                svg {
+                    color: #CBD5E0 !important;
+                    fill: currentColor;
+
+                    &:hover {
+                        color: #A0AEC0 !important;
+                    }
+
+                    path {
+                        color: currentColor !important;
+                    }
+                }
+            }
+        }
+
+        text-align: center;
+        font-size: 18px;
+        display: block;
+        margin: auto;
+    }
+
+    height: 100%;
+}
