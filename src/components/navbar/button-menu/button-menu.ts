@@ -103,34 +103,16 @@ export default defineComponent({
 
         /**
          * Activates the menu panel, reversing button/ panel animation
-         * according to the position the animation is in.
+         * according to the state the animation is in.
          * @returns {void}
          * @class   ButtonMenu
          */
         activate_button(): void {
-
-            /**
-             * Play the animation if the current state is initial because we don't
-             * have to worry about the state quite yet.
-             */
-            if (this.animation_state.current_state == AnimationStates.initial) return this.button_animation.play();
-
-            /**
-             * We make sure not to play the animation when the state is active
-             * to protect the state integrty due to the state manager breaking
-             * if the animation is reversed when activated.
-             *
-             * TODO (xbanki):
-             *  Fix the state manager to take in to account if the animation
-             *  has been reversed in the state logic.
-             */
-            if (this.animation_state.current_state != AnimationStates.active) {
-                if (this.animation_state.current_state == AnimationStates.idle_activated || AnimationStates.idle_initial) {
-                    this.button_animation.reverse();
-                }
-
-                this.button_animation.play();
+            if (this.animation_state.current_state == AnimationStates.active || AnimationStates.idle_activated) {
+                this.button_animation.reverse();
             }
+
+            this.button_animation.play();
         }
     },
     mounted() {
@@ -210,26 +192,28 @@ export default defineComponent({
         this.button_animation.changeComplete = () => {
 
             /**
-             * Based on the completed number of loops the animation has completed (normal & reverse),
-             * we determine wether `animation_state.currently_active` should be true or not.
-             * If this function returns 0, it is even. Otherwise, it is an odd number.
-             */
-            if (this.animation_state.total_animation_loops % 2 == 0) this.animation_state.currently_active = true;
-            else this.animation_state.currently_active = false;
-
-            /**
-             * If this animation has finished, we set the played flag to true.
-             * We also add to the number of loops the animation has completed.
+             * If the animation has the `animation_played` flag as false,
+             * we set it to true because we just completed an animation.
+             * We also add to the finished animation loops.
              */
             if (!this.animation_state.animation_played) this.animation_state.animation_played = true;
             this.animation_state.total_animation_loops++;
 
+
             /**
-             * We set the current state based on if the component is active in the state object.
+             * Reversed state flags.
              */
-            this.animation_state.currently_active
-                ? this.animation_state.current_state = AnimationStates.idle_activated
-                : this.animation_state.current_state = AnimationStates.idle_initial;
+            if (this.button_animation.reversed) {
+                this.animation_state.current_state = AnimationStates.idle_initial;
+                this.animation_state.currently_active = false;
+                return;
+            }
+
+            /**
+             * Normal state flags.
+             */
+            this.animation_state.current_state = AnimationStates.idle_activated;
+            this.animation_state.currently_active = true;
         }
     },
 
