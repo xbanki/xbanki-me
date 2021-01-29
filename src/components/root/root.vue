@@ -1,15 +1,18 @@
 <template>
 
-    <!-- Navigation bar component //-->
-    <!-- <navbar-component/> //-->
-
     <!-- Main wrapper element //-->
-    <main class="root container">
+    <main class="root container"/>
 
-        <!-- Temporary content component //-->
-        <content-component/>
+    <!-- Main UI wrapper //-->
+    <main class="overlay">
+
+        <!-- UI panel wrapper //-->
+        <div class="ui-container">
+            <navbar-component v-on:menu_button_animation_state="pass"/>
+            <menu-panel-component ref="menu-panel-component" v-bind:buttonMenuEvent="currentButtonEvent"/>
+        </div>
     </main>
 </template>
 
-<script lang="ts" src="./root.ts"></script>
-<style lang="scss" src="./root.scss"></style>
+<script lang="ts" src="./root.ts"/>
+<style lang="scss" src="./root.scss"/>

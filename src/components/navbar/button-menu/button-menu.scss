@@ -6,9 +6,9 @@ $button_line_position: 11px;
     position: relative;
     cursor: pointer;
     display: block;
-    float: right;
     height: 40px;
     width: 32px;
+    right: 32px;
 
     .button-menu-line {
         background: $navbar_menu_button;

@@ -11,7 +11,7 @@
 
                 <!-- TEMP (xbanki): Signle bar wrapper //-->
                 <div class="col">
-                    <component-button-menu/>
+                    <component-button-menu v-on:animation_state="pass"/>
                 </div>
             </div>
         </div>

@@ -1,5 +1,28 @@
 @import '~/src/styles';
 
-body, html, #app, .root {
-    background: #FEFEFE;
+main.root { position: fixed; }
+
+main.overlay {
+    pointer-events: none;
+    position: fixed;
+    display: block;
+    height: 100%;
+    width: 100%;
+
+    div {
+        &.ui-container {
+            position: relative;
+            height: 100%;
+            width: 100%;
+
+            * {
+                pointer-events: all;
+                position: absolute;
+            }
+        }
+    }
 }
+
+// body, html, #app, .root {
+//     background: #FEFEFE;
+// }
