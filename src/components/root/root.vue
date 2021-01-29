@@ -1,16 +1,18 @@
 <template>
 
     <!-- Main wrapper element //-->
-    <main class="root container"/>
+    <main class="root container">
+        <content-component/>
+    </main>
 
     <!-- Main UI wrapper //-->
     <main class="overlay">
 
         <!-- UI panel wrapper //-->
-        <div class="ui-container">
+        <!-- <div class="ui-container">
             <navbar-component v-on:menu_button_animation_state="pass"/>
             <menu-panel-component v-bind:buttonMenuEvent="currentButtonEvent"/>
-        </div>
+        </div> //-->
     </main>
 </template>
 

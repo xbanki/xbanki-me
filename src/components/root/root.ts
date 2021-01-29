@@ -1,13 +1,13 @@
-// import contentComponent from '@/components/root/content/content.vue';
-import menuPanelComponent from '@/components/menu-panel/menu-panel.vue';
-import navbarComponent from '@/components/navbar/navbar.vue';
+import contentComponent from '@/components/root/content/content.vue';
+// import menuPanelComponent from '@/components/menu-panel/menu-panel.vue';
+// import navbarComponent from '@/components/navbar/navbar.vue';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
     components: {
-        //contentComponent
-        menuPanelComponent,
-        navbarComponent
+        contentComponent
+        // menuPanelComponent,
+        // navbarComponent
     },
 
     data() {

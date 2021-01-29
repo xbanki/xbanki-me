@@ -1,7 +1,5 @@
 @import '~/src/styles';
 
-main.root { position: fixed; }
-
 main.overlay {
     pointer-events: none;
     position: fixed;
@@ -23,6 +21,6 @@ main.overlay {
     }
 }
 
-// body, html, #app, .root {
-//     background: #FEFEFE;
-// }
+body, html, #app, .root {
+    background: #FEFEFE;
+}
