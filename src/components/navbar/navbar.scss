@@ -3,16 +3,22 @@
 nav.navbar {
     border-bottom: 1px solid $navbar_border;
     background: $navbar_background;
+    position: absolute;
     display: block;
     height: 48px;
+    z-index: 210;
     width: 100%;
-    z-index: 10;
 
-    .wrapper, .container {
+    .container {
+        position: initial;
         height: 100%;
+        width: 100%;
 
-        div {
+        .col {
+            position: relative;
             height: 100%;
+
+            * { position: absolute }
         }
     }
 }

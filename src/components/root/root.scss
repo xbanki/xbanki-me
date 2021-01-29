@@ -1,26 +1,32 @@
 @import '~/src/styles';
 
-main.overlay {
+main.content-root {
+    overflow: hidden !important;
+    pointer-events: all;
+    position: fixed;
+    display: block;
+    z-index: 100;
+    height: 100%;
+    width: 100%;
+}
+
+main.ui-root {
+    overflow: hidden !important;
     pointer-events: none;
     position: fixed;
     display: block;
+    z-index: 200;
     height: 100%;
     width: 100%;
 
-    div {
-        &.ui-container {
-            position: relative;
-            height: 100%;
-            width: 100%;
-
-            * {
-                pointer-events: all;
-                position: absolute;
-            }
-        }
+    div.interface-container {
+        position: relative;
+        height: 100%;
+        width: 100%;
+        * { pointer-events: all; }
     }
 }
 
-body, html, #app, .root {
-    background: #FEFEFE;
-}
+// body, html, #app, .root {
+//     background: #FEFEFE;
+// }

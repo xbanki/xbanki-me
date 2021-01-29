@@ -7,10 +7,11 @@
         <div class="container">
 
             <!-- Bootstrap grid section wrapper //-->
-            <div class="wrapper row container align-items-center">
+            <div class="row container align-items-center">
 
                 <!-- TEMP (xbanki): Signle bar wrapper //-->
                 <div class="col">
+                    <component-logo/>
                     <component-button-menu v-on:animation_state="pass"/>
                 </div>
             </div>

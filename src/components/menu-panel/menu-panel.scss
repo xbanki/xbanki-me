@@ -1,11 +1,12 @@
 @import '~/src/styles/constants';
 
 div.menu-panel {
-    border-left: 1px solid $navbar_border;
-    background: $navbar_background;
+    border-left: 1px solid $menu_panel_border;
+    background: $menu_panel_background;
+    position: absolute;
     display: block;
     right: -512px;
-    float: right;
     height: 100%;
     width: 512px;
+    z-index: 200;
 }

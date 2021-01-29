@@ -1,4 +1,6 @@
 <template>
+
+    <!-- Menu Panel root. All future content will be displayed here //-->
     <div class="menu-panel"/>
 </template>
 

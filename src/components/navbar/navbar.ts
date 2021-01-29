@@ -1,9 +1,11 @@
 import componentButtonMenu from '@/components/navbar/button-menu/button-menu.vue';
+import componentLogo from '@/components/navbar/logo/logo.vue';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
     components: {
-        componentButtonMenu
+        componentButtonMenu,
+        componentLogo
     },
 
     emits: ['menu_button_animation_state'],
