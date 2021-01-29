@@ -9,7 +9,7 @@
         <!-- UI panel wrapper //-->
         <div class="ui-container">
             <navbar-component v-on:menu_button_animation_state="pass"/>
-            <menu-panel-component ref="menu-panel-component" v-bind:buttonMenuEvent="currentButtonEvent"/>
+            <menu-panel-component v-bind:buttonMenuEvent="currentButtonEvent"/>
         </div>
     </main>
 </template>
