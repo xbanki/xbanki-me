@@ -8,7 +8,7 @@ $button_line_position: 11px;
     display: block;
     height: 40px;
     width: 32px;
-    right: 32px;
+    right: 12px;
 
     .button-menu-line {
         background: $navbar_menu_button;
@@ -33,6 +33,12 @@ $button_line_position: 11px;
     &:hover, &:active {
         .button-menu-line {
             background-color: $navbar_menu_button_hover;
+        }
+    }
+
+    &.active {
+        .button-menu-line {
+            background: $navbar_menu_button_active;
         }
     }
 }
