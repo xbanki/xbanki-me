@@ -83,9 +83,17 @@ export default defineComponent({
          */
         const menu_animation = anime.timeline({ autoplay: false });
 
+        /**
+         * If this is set to false, we don't render any elements in the menu panel
+         * to save resources and limit outgoing requests. `default: false`
+         * @class MenuPanel
+         */
+        const is_visible = false;
+
         return {
             menu_animation,
-            panel_state
+            panel_state,
+            is_visible
         };
     },
 
@@ -134,6 +142,19 @@ export default defineComponent({
             duration: 60,
             right: 0
         });
+
+        /**
+         * Logic to control wether we render content in the panel or not. This logic
+         * is split in to two methods; `changeBegin` and `changeComplete` respectively
+         * mainly to not disable or enable the content too early.
+         */
+        this.menu_animation.changeBegin = () => {
+            if (this.panel_state.current_state == AnimationStates.active) return this.is_visible = true;
+        }
+
+        this.menu_animation.changeComplete = () => {
+            if (this.panel_state.current_state == AnimationStates.initial) return this.is_visible = false;
+        }
     },
 
     watch: {

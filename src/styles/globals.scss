@@ -1,6 +1,6 @@
 @import './constants';
 
-html, body, .xbanki-application {
+html, body, #xbanki-application {
     background: $background;
     position: relative;
     overflow: hidden;
