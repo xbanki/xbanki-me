@@ -1,0 +1,10 @@
+# Basic Gitpod config. I have no idea of all of the features gitpod
+# has, so I can't configure it to the full extent.
+
+image: node:latest
+tasks:
+  - init: yarn
+    command: yarn install
+ports:
+  - port: 8080
+    onOpen: ignore
