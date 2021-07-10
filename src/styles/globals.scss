@@ -18,8 +18,8 @@ html, body, #xbanki-application {
         color: $foreground;
         overflow-x: hidden;
         overflow-y: auto;
-        padding: none;
-        margin: none;
+        padding: unset;
+        margin: unset;
 
         ::selection {
             background: $selection_background;

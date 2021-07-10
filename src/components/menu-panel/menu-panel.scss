@@ -10,3 +10,10 @@ div.menu-panel {
     width: 512px;
     z-index: 200;
 }
+
+@media (max-width: 768px) {
+    div.menu-panel {
+        border-left: unset;
+        width: 100%;
+    }
+}
