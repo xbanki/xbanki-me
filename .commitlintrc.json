@@ -1,0 +1,9 @@
+{
+	"$schema": "https://json.schemastore.org/commitlintrc.json",
+	"extends": ["@commitlint/config-conventional"],
+	"rules": {
+		"scope-empty": [2, "never"],
+		"scope-enum": [2, "always", ["repo"]],
+		"subject-case": [1, "always", "sentence-case"]
+	}
+}
