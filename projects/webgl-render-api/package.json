@@ -18,7 +18,9 @@
       "types": "./dist/webgl-render-api.d.ts"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "main": "./dist/webgl-render-api.umd.cjs",
   "module": "./dist/webgl-render-api.js",
   "name": "@xbanki-me/webgl-render-api",

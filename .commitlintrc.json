@@ -3,7 +3,8 @@
 	"extends": ["@commitlint/config-conventional"],
 	"rules": {
 		"scope-empty": [2, "never"],
-		"scope-enum": [2, "always", ["repo", "webgl-render-api"]],
+
+		"scope-enum": [2, "always", ["webgl-render-api", "website", "repo"]],
 		"subject-case": [1, "always", "sentence-case"]
 	}
 }

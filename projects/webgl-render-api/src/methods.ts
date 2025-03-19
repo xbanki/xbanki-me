@@ -49,8 +49,6 @@ export function stop(this: Context): Context {
 
 export function resize(this: Context): void {
     try {
-        console.log(this.canvas.clientHeight, this.state.resize.height);
-
         if (
             !this.state.resize.enabled ||
             (this.state.resize.height == this.canvas.clientHeight && this.state.resize.width == this.canvas.clientWidth)

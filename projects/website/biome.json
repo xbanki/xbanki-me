@@ -1,0 +1,101 @@
+{
+  "$schema": "https://biomejs.dev/schemas/1.9.3/schema.json",
+  "files": {
+    "ignore": ["storybook-static/*", "node_modules/*", ".next/*", "build/*", "dist/*"],
+    "ignoreUnknown": true
+  },
+  "formatter": {
+    "attributePosition": "multiline",
+    "enabled": true,
+    "formatWithErrors": true,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineEnding": "lf",
+    "lineWidth": 120
+  },
+  "linter": {
+    "enabled": false
+  },
+  "organizeImports": {
+    "enabled": false
+  },
+  "overrides": [
+    {
+      "css": {
+        "formatter": {
+          "enabled": true,
+          "quoteStyle": "double"
+        },
+        "parser": {
+          "cssModules": true
+        }
+      },
+      "include": ["**/*.less", "**/*.scss", "**/*.sass", "**/*.css"]
+    },
+    {
+      "include": ["**/*.mjs", "**/*.cjs", "**/*.js"],
+      "javascript": {
+        "formatter": {
+          "arrowParentheses": "asNeeded",
+          "attributePosition": "multiline",
+          "bracketSameLine": false,
+          "bracketSpacing": true,
+          "enabled": true,
+          "jsxQuoteStyle": "double",
+          "quoteProperties": "asNeeded",
+          "quoteStyle": "single",
+          "semicolons": "always",
+          "trailingCommas": "none"
+        },
+        "jsxRuntime": "transparent",
+        "linter": {
+          "enabled": false
+        },
+        "parser": {
+          "unsafeParameterDecoratorsEnabled": false
+        }
+      }
+    },
+    {
+      "include": ["**/.commitlintrc", "**/*.jsonc", "**/*.json"],
+      "json": {
+        "formatter": {
+          "enabled": true,
+          "trailingCommas": "none"
+        },
+        "linter": {
+          "enabled": true
+        },
+        "parser": {
+          "allowComments": false,
+          "allowTrailingCommas": false
+        }
+      }
+    },
+    {
+      "include": ["**/*.d.ts", "**/*.ts"],
+      "javascript": {
+        "formatter": {
+          "arrowParentheses": "asNeeded",
+          "attributePosition": "multiline",
+          "bracketSameLine": false,
+          "bracketSpacing": true,
+          "enabled": true,
+          "indentWidth": 4,
+          "jsxQuoteStyle": "double",
+          "quoteProperties": "asNeeded",
+          "quoteStyle": "single",
+          "semicolons": "always",
+          "trailingCommas": "none"
+        },
+        "jsxRuntime": "transparent",
+        "linter": {
+          "enabled": false
+        },
+        "parser": {
+          "unsafeParameterDecoratorsEnabled": false
+        }
+      }
+    }
+  ]
+}
