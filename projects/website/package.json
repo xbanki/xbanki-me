@@ -18,6 +18,7 @@
     "vue-tsc": "^2.2.8"
   },
   "dependencies": {
+    "@xbanki-me/webgl-render-api": "*",
     "pinia": "^3.0.1",
     "vue": "^3.5.13",
     "vue-router": "4"
