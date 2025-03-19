@@ -21,6 +21,7 @@ export const DEFAULT_OPTIONS_PROPERTIES: IOptionsProperties = {
     canvas: {
         styles: {
             ...generateVendoredStyles('user-select', 'none'),
+            backgroundColor: 'black',
             position: 'fixed',
             zIndex: '-9999',
             height: '100vh',
