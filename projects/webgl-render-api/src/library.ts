@@ -18,7 +18,9 @@
  *               See LICENSE for more details.
  *    @author    xbanki <contact@xbanki.me>
  *    @since     1.0.0
- *    @version   1.0.0
+ *    @version   1.2.0
  */
 
+export * from '@/context.ts';
+export * from '@/errors.ts';
 export * from '@/types.ts';

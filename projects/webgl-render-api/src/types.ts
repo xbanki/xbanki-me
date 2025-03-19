@@ -6,19 +6,182 @@
  *               See LICENSE for more details.
  *    @author    xbanki <contact@xbanki.me>
  *    @since     1.1.0
- *    @version   1.0.0
+ *    @version   1.1.0
  *
  */
 
 /**
+ * Shader compilation type.
+ */
+export enum EShaderType {
+    FRAGMENT = 35632,
+    VERTEX = 35633
+}
+
+/**
  * Render context.
  */
-export type Context = never;
+export type Context = IContextProperties & IContextMethods;
 
 /**
  * Render context options.
  */
 export type Options = IOptionsProperties & IOptionsMethods;
+
+/**
+ * WebGL window resize function.
+ */
+export type ResizeFn = (this: Context) => void;
+
+/**
+ * WebGL render function.
+ */
+export type RenderFn = (this: Context) => void;
+
+/**
+ * Resets the current render state. Does not force render to stop.
+ */
+export type ResetFn = (this: Context) => Context;
+
+/**
+ * Starts the render loop simulation.
+ */
+export type ShadeFn = (this: Context) => Context;
+
+/**
+ * Stops the render loop simulation. Does not reset context uniforms.
+ */
+export type StopFn = (this: Context) => Context;
+
+/**
+ * Uniform pointer map.
+ */
+export interface IContextPropertiesPointers {
+    /**
+     * Viewport resolution.
+     */
+    iResolution: WebGLUniformLocation;
+
+    /**
+     * Elapsed time since simulation start.
+     */
+    iTime: WebGLUniformLocation;
+
+    /**
+     * Render quad vertex positions.
+     */
+    vertexInPosition: GLint;
+}
+
+/**
+ * Render uniforms which persist between frames.
+ */
+export interface IContextPropertiesUniforms {
+    /**
+     * First frame draw time in milliseconds.
+     */
+    initialDrawTime: number;
+
+    /**
+     * Frame draw time since last draw.
+     */
+    drawTime: number;
+}
+
+/**
+ * Resize state.
+ */
+export interface IContextPropertiesStateResize {
+    /**
+     * Controls renderer resize on viewport element size change.
+     */
+    enabled: boolean;
+
+    /**
+     * Height since last resize event.
+     */
+    height: number;
+
+    /**
+     * Width since last resize event.
+     */
+    width: number;
+}
+
+/**
+ * Current render state.
+ */
+export interface IContextPropertiesState {
+    /**
+     * Resize state.
+     */
+    resize: IContextPropertiesStateResize;
+
+    /**
+     * Wether renderer is simulating.
+     */
+    rendering: boolean;
+}
+
+/**
+ * External callbacks which get called during the render loop.
+ */
+export interface IContextPropertiesCallbacks {
+    onBeforeRender: OnBeforeRenderFn;
+    onAfterRender: OnAfterRenderFn;
+    onError: OnErrorFn;
+    resize: ResizeFn;
+    render: RenderFn;
+}
+
+/**
+ * Render context global properties.
+ */
+export interface IContextProperties {
+    /**
+     * External callbacks which get called during the render loop.
+     */
+    callbacks: IContextPropertiesCallbacks;
+
+    /**
+     * Uniform pointer map.
+     */
+    pointers: IContextPropertiesPointers;
+
+    /**
+     * Render uniforms which persist between frames.
+     */
+    uniforms: IContextPropertiesUniforms;
+
+    /**
+     * WebGL rendering context that is attached to the render canvas.
+     */
+    context: WebGL2RenderingContext;
+
+    /**
+     * Current render state.
+     */
+    state: IContextPropertiesState;
+
+    /**
+     * Render canvas element.
+     */
+    canvas: HTMLCanvasElement;
+
+    /**
+     * The actual compiled WebGL program.
+     */
+    program: WebGLProgram;
+}
+
+/**
+ * Global context methods.
+ */
+export interface IContextMethods {
+    reset: ResetFn;
+    shade: ShadeFn;
+    stop: StopFn;
+}
 
 /**
  * Function that is called before any uniforms are updated, and before a frame
@@ -111,6 +274,7 @@ export interface IOptionsPropertiesRenderer {
      * have a stencil buffer of at least 8 bits.
      */
     stencil: boolean;
+
     /**
      * A boolean value that indicates if the canvas contains an alpha buffer.
      */
@@ -153,12 +317,6 @@ export interface IOptionsPropertiesCanvas {
      * or during element validation.
      */
     styles: Record<string, string>;
-
-    /**
-     * Rendering canvas element itself. Can be omitted, in which case the
-     * element is created during initialization.
-     */
-    canvas: HTMLCanvasElement;
 
     /**
      * Element which the rendering canvas element should be a child of. If this
