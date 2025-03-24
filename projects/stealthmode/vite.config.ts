@@ -9,31 +9,35 @@
  *    @version   1.0.0
  */
 
+import { libInjectCss as pluginInjectCSS } from 'vite-plugin-lib-inject-css';
 import { resolve, join } from 'node:path';
 import { defineConfig } from 'vite';
 
+import pluginTailwind from '@tailwindcss/vite';
 import pluginVue from '@vitejs/plugin-vue';
+import pluginDTS from 'vite-plugin-dts';
 
 export default defineConfig({
     build: {
         lib: {
-            entry: resolve(join(process.cwd(), 'src', 'lib.ts')),
+            entry: resolve(join(process.cwd(), 'src', 'library.ts')),
             fileName: 'xbanki-me-stealthmode',
             name: 'stealthmode'
         },
         rollupOptions: {
             external: ['vue'],
             output: {
+                assetFileNames: 'assets/[name][extname]',
                 globals: {
                     vue: 'Vue'
                 }
             }
         }
     },
-    plugins: [pluginVue()],
+    plugins: [pluginDTS({ rollupTypes: true }), pluginInjectCSS(), pluginTailwind(), pluginVue()],
     resolve: {
         alias: {
-            '@': resolve(join(process.cwd(), 'src/'))
+            '@': resolve(join(process.cwd(), 'src'))
         }
     }
 });
