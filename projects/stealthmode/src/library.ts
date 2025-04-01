@@ -12,4 +12,9 @@
  *
  */
 
+import { ERevealDirection } from '@/matrix-reveal/types.ts';
+import MatrixReveal from '@/matrix-reveal/component.vue';
+
+export { ERevealDirection as MatrixRevealDirection, MatrixReveal };
+
 import '@/tailwind.css';
