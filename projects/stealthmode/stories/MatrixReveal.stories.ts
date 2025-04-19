@@ -19,8 +19,12 @@ import { MatrixRevealDirection, MatrixReveal } from '@/library.ts';
 const Meta: Meta<typeof MatrixReveal> = {
     title: 'Components/MatrixReveal',
     component: MatrixReveal,
-    args: {
-        label: 'Matrix Text Reveal'
+    parameters: {
+        slots: {
+            default: {
+                template: 'Matrix Text Reveal'
+            }
+        }
     }
 };
 
@@ -33,9 +37,15 @@ export const Default: StoryObj<typeof MatrixReveal> = {};
  * `@TODO(xbanki): Document.`
  */
 export const RandomOrigin: StoryObj<typeof MatrixReveal> = {
+    parameters: {
+        slots: {
+            default: {
+                template: 'Random Origin'
+            }
+        }
+    },
     args: {
         direction: MatrixRevealDirection.RANDOM,
-        label: 'Random Origin',
         duration: 375,
         cycles: 12
     }
@@ -45,9 +55,15 @@ export const RandomOrigin: StoryObj<typeof MatrixReveal> = {
  * `@TODO(xbanki): Document.`
  */
 export const CenterOrigin: StoryObj<typeof MatrixReveal> = {
+    parameters: {
+        slots: {
+            default: {
+                template: 'Center Origin'
+            }
+        }
+    },
     args: {
         direction: MatrixRevealDirection.CENTER,
-        label: 'Center Origin',
         duration: 375,
         cycles: 12
     }
@@ -57,9 +73,15 @@ export const CenterOrigin: StoryObj<typeof MatrixReveal> = {
  * `@TODO(xbanki): Document.`
  */
 export const RightOrigin: StoryObj<typeof MatrixReveal> = {
+    parameters: {
+        slots: {
+            default: {
+                template: 'Right Origin'
+            }
+        }
+    },
     args: {
         direction: MatrixRevealDirection.RIGHT,
-        label: 'Right Origin',
         duration: 375,
         cycles: 12
     }
@@ -69,9 +91,15 @@ export const RightOrigin: StoryObj<typeof MatrixReveal> = {
  * `@TODO(xbanki): Document.`
  */
 export const LeftOrigin: StoryObj<typeof MatrixReveal> = {
+    parameters: {
+        slots: {
+            default: {
+                template: 'Left Origin'
+            }
+        }
+    },
     args: {
         direction: MatrixRevealDirection.LEFT,
-        label: 'Left Origin',
         duration: 375,
         cycles: 12
     }

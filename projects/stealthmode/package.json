@@ -37,6 +37,7 @@
     "vite-plugin-dts": "^4.5.3",
     "vite-plugin-lib-inject-css": "^2.2.1",
     "vue-eslint-parser": "^10.1.1",
+    "vue-macros": "^3.0.0-beta.8",
     "vue-tsc": "^2.2.8"
   }
 }

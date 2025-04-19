@@ -13,6 +13,7 @@ import { libInjectCss as pluginInjectCSS } from 'vite-plugin-lib-inject-css';
 import { resolve, join } from 'node:path';
 import { defineConfig } from 'vite';
 
+import pluginVueMacros from 'vue-macros/vite';
 import pluginTailwind from '@tailwindcss/vite';
 import pluginVue from '@vitejs/plugin-vue';
 import pluginDTS from 'vite-plugin-dts';
@@ -34,7 +35,12 @@ export default defineConfig({
             }
         }
     },
-    plugins: [pluginDTS({ rollupTypes: true }), pluginInjectCSS(), pluginTailwind(), pluginVue()],
+    plugins: [
+        pluginVueMacros({ plugins: { vue: pluginVue() } }),
+        pluginDTS({ rollupTypes: true }),
+        pluginInjectCSS(),
+        pluginTailwind()
+    ],
     resolve: {
         alias: {
             '@': resolve(join(process.cwd(), 'src'))
