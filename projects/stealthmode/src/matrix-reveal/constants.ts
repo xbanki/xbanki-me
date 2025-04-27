@@ -13,9 +13,11 @@ import type { IRevealPropsOptional } from '@/matrix-reveal/types.ts';
 import { ERevealDirection } from '@/matrix-reveal/types.ts';
 
 export const DEFAULT_REVEAL_PROPS_OPTIONAL: IRevealPropsOptional = {
+    classAnimable: 'matrix-reveal-animable',
+    classTarget: 'matrix-reveal-target',
     direction: ERevealDirection.RANDOM,
     chars: '!@#$%^&[]*():{};|,.<>/?',
-    initial: undefined,
+    initial: false,
     duration: 300,
     cycles: 6
 };

@@ -9,208 +9,140 @@
  //    Version:   1.0.0
  //-->
 
-<template>
-    <span class="block font-mono">
-        {{ label }}
-    </span>
-</template>
-
 <script lang="ts" setup>
-import type { ICharacter } from "@/matrix-reveal/types.ts";
 
-import { DEFAULT_REVEAL_PROPS_OPTIONAL } from "@/matrix-reveal/constants.ts";
-import { ERevealDirection } from "@/matrix-reveal/types.ts";
-import { ref } from "vue";
+import type { VNode } from 'vue';
+import { onBeforeUpdate, onBeforeMount, cloneVNode, isVNode, Text, ref, h } from 'vue';
 
-// Manually copied prop types, enabling automatic Storybook controls generation.
-interface IRevealProps {
-    direction?: ERevealDirection;
-    duration?: number;
-    initial?: string;
-    cycles?: number;
-    chars?: string;
-    label: string;
+import type { RevealProps } from '@/matrix-reveal/types.ts';
+import { DEFAULT_REVEAL_PROPS_OPTIONAL } from '@/matrix-reveal/constants.ts';
+import { EMatrixRevealAnimationState } from '@/matrix-reveal/types.ts';
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
+// Component parameters                                                      //
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
+
+const { classAnimable, classTarget } = withDefaults(defineProps<RevealProps>(), DEFAULT_REVEAL_PROPS_OPTIONAL);
+const slots = defineSlots<{ default?: () => VNode[] }>();
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
+// Render state flags                                                        //
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
+
+const state = ref<EMatrixRevealAnimationState>(EMatrixRevealAnimationState.INITIAL);
+
+const flag_render_clone = ref<boolean>(false);
+const flag_render_swap = ref<boolean>(false);
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
+// Cloned VNode containers                                                   //
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
+
+const clone_out_vnode = ref<VNode[]>([]);
+const clone_in_vnode = ref<VNode[]>([]);
+
+/**
+ * Clones supplied `VNode`, including all of it's children. The cloned nodes
+ * are supplied with custom props that mutate the original instance.
+ * @param  vnodes Singular or array of `VNode` instance(s) to clone.
+ * @return        New cloned `VNode` instance(s) with custom props.
+ */
+function cloneAndBuildRefs(vnodes: VNode | VNode[]): VNode[] {
+
+    // @TODO(xbanki): I want to fully encapsulate this function later, by
+    //                removing the indirect side effect dependency and using
+    //                function parameters instead.
+    //
+    //                I'd also love to be able to directly pass in "extra"
+    //                props once each node is cloned; so that if needed, the
+    //                system can be more dynamic.
+
+    const clones: VNode[] = [];
+
+    if (!Array.isArray(vnodes))
+        vnodes = [vnodes];
+
+    for (const vnode of vnodes) {
+        let children: VNode[] | string | null = null;
+        let animable = false;
+
+        if (vnode.children) {
+            if (Array.isArray(vnode.children)) {
+                children = [];
+
+                for (const child of vnode.children) {
+                    if (isVNode(child)) {
+                        if (child.type == Text) {
+                            animable = true;
+                        }
+
+                        const child_clones = cloneAndBuildRefs(child);
+                        children.push(...child_clones);
+                    }
+                }
+
+            } else if (typeof vnode.children == 'string') {
+                children = (' ' + vnode.children).slice(1);
+                animable = true;
+            }
+        }
+
+        const clone = cloneVNode(
+            vnode,
+            {
+                class: animable
+                    ? [classTarget, classAnimable]
+                    : classTarget
+            }
+        );
+
+        clone.children = children;
+        clones.push(clone);
+    }
+
+    return clones;
 }
 
-const props = withDefaults(defineProps<IRevealProps>(), DEFAULT_REVEAL_PROPS_OPTIONAL);
-const label = ref<string>(props.initial ?? props.label);
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
+// Slot content cloning                                                      //
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
+onBeforeUpdate(function () {
+    if (
+        state.value != EMatrixRevealAnimationState.INITIAL ||
+        state.value != EMatrixRevealAnimationState.IDLE ||
+        state.value != EMatrixRevealAnimationState.OUT ||
+        slots.default == undefined ||
+        slots.default == null
+    ) return;
+});
 
-if (!props.initial) {
-    let replacement = "";
-    for (let i = 0; i < props.label.length; i++)
-        replacement = `${replacement}${props.chars[Math.floor(Math.random() * props.chars.length)]}`;
+onBeforeMount(function () {
+    if (
+        state.value != EMatrixRevealAnimationState.INITIAL &&
+        state.value != EMatrixRevealAnimationState.IDLE ||
+        slots.default == undefined ||
+        slots.default == null
+    ) return;
 
-    label.value = replacement;
-}
+    clone_in_vnode.value = cloneAndBuildRefs(slots.default());
+    state.value = EMatrixRevealAnimationState.IN;
+});
 
-let animation: NodeJS.Timeout | undefined = undefined;
-
-switch (props.direction) {
-    case ERevealDirection.RANDOM:
-        if (animation == undefined) {
-            const interval = props.duration / (props.label.length * props.cycles);
-            const characters: ICharacter[] = [];
-
-            for (let i = 0; i < props.label.length; i++) characters.push({ pointer: i, cycles: props.cycles - 1 });
-
-            animation = setInterval(() => {
-                if (characters.length == 0) {
-                    clearInterval(animation);
-                    return;
-                }
-
-                const i = Math.floor(Math.random() * characters.length);
-
-                characters[i].cycles -= 1;
-                if (characters[i].cycles <= 0) {
-                    label.value =
-                        label.value.slice(0, characters[i].pointer) +
-                        props.label[characters[i].pointer] +
-                        label.value.slice(characters[i].pointer + 1);
-                    characters.splice(i, 1);
-                } else
-                    label.value =
-                        label.value.slice(0, characters[i].pointer) +
-                        props.chars[Math.floor(Math.random() * props.chars.length)] +
-                        label.value.slice(characters[i].pointer + 1);
-            }, interval);
-        }
-        break;
-    case ERevealDirection.CENTER:
-        if (animation == undefined) {
-            const interval = props.duration / (props.label.length * props.cycles);
-            const characters_l: ICharacter[] = [];
-            const characters_r: ICharacter[] = [];
-
-            for (let i = 0; i < props.label.length; i++)
-                i <= props.label.length / 2
-                    ? characters_l.push({ pointer: i, cycles: 0 })
-                    : characters_r.push({ pointer: i, cycles: 0 });
-
-            let probability: number = 0.5;
-            let cycle = 1;
-
-            animation = setInterval(() => {
-                if (characters_r.length == 0 && characters_l.length == 0) {
-                    clearInterval(animation);
-                    return;
-                }
-
-                if (cycle % props.cycles != 0) cycle += 1;
-                else {
-                    const direction = Math.random() < probability ? 1 : 0;
-
-                    if (characters_r.length <= 0 || (characters_l.length >= 1 && direction == 0)) {
-                        const i = characters_l.length - 1;
-
-                        label.value =
-                            label.value.slice(0, characters_l[i].pointer) +
-                            props.label[characters_l[i].pointer] +
-                            label.value.slice(characters_l[i].pointer + 1);
-
-                        characters_l.pop();
-
-                        probability = Math.min(probability + 0.25, 1);
-                    } else {
-                        const i = 0;
-
-                        label.value =
-                            label.value.slice(0, characters_r[i].pointer) +
-                            props.label[characters_r[i].pointer] +
-                            label.value.slice(characters_r[i].pointer + 1);
-
-                        characters_r.shift();
-
-                        probability = Math.max(probability - 0.25, 0);
-                    }
-
-                    for (const character of [...characters_l, ...characters_r]) {
-                        label.value =
-                            label.value.slice(0, character.pointer) +
-                            props.chars[Math.floor(Math.random() * props.chars.length)] +
-                            label.value.slice(character.pointer + 1);
-                    }
-
-                    cycle = 1;
-                }
-            }, interval);
-        }
-        break;
-    case ERevealDirection.RIGHT:
-        if (animation == undefined) {
-            const interval = props.duration / (props.label.length * props.cycles);
-            const characters: ICharacter[] = [];
-
-            let cycle = 0;
-
-            for (let i = 0; i < props.label.length; i++) characters.push({ pointer: i, cycles: 0 });
-
-            animation = setInterval(() => {
-                if (characters.length == 0) {
-                    clearInterval(animation);
-                    return;
-                }
-
-                if (cycle % props.cycles != 0) cycle += 1;
-                else {
-                    const i = characters.length - 1;
-
-                    label.value =
-                        label.value.slice(0, characters[i].pointer) +
-                        props.label[characters[i].pointer] +
-                        label.value.slice(characters[i].pointer + 1);
-
-                    characters.pop();
-
-                    for (const character of characters) {
-                        label.value =
-                            label.value.slice(0, character.pointer) +
-                            props.chars[Math.floor(Math.random() * props.chars.length)] +
-                            label.value.slice(character.pointer + 1);
-                    }
-
-                    cycle = 1;
-                }
-            }, interval);
-        }
-        break;
-    case ERevealDirection.LEFT:
-        if (animation == undefined) {
-            const interval = props.duration / (props.label.length * props.cycles);
-            const characters: ICharacter[] = [];
-
-            let cycle = 0;
-
-            for (let i = 0; i < props.label.length; i++) characters.push({ pointer: i, cycles: 0 });
-
-            animation = setInterval(() => {
-                if (characters.length == 0) {
-                    clearInterval(animation);
-                    return;
-                }
-
-                if (cycle % props.cycles != 0) cycle += 1;
-                else {
-                    const i = 0;
-
-                    label.value =
-                        label.value.slice(0, characters[i].pointer) +
-                        props.label[characters[i].pointer] +
-                        label.value.slice(characters[i].pointer + 1);
-
-                    characters.shift();
-
-                    for (const character of characters) {
-                        label.value =
-                            label.value.slice(0, character.pointer) +
-                            props.chars[Math.floor(Math.random() * props.chars.length)] +
-                            label.value.slice(character.pointer + 1);
-                    }
-
-                    cycle = 1;
-                }
-            }, interval);
-        }
-        break;
-}
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
+// Component renderer                                                        //
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
+defineRender(() => {
+    return flag_render_clone.value ? h(
+        'span',
+        { class: 'font-mono block' },
+        flag_render_swap.value
+            ? clone_out_vnode.value
+            : clone_in_vnode.value
+    )
+        : h(
+            'span',
+            { class: 'font-mono block' },
+            h(slots.default ?? []),
+        )
+});
 </script>

@@ -10,6 +10,35 @@
  */
 
 /**
+ * Current state of the component animation. The state is set dynamically once
+ * the scripted animations hit specific keyframes.
+ *
+ * Each state of the animation communicates the current algorithm cycle:
+ *
+ *  - `INITIAL` — The component has just been mounted (or is about to), and the
+ *                animation has yet to even play for the first time. Default
+ *                state.
+ *
+ *  - `IDLE`    — A full animation has been performed and completed. The
+ *                default state when not animating.
+ *
+ *  - `OUT`     — The "out" animation step is currently being performed. This
+ *                state is active whenever the animation is currently animating
+ *                "from" previous slot content. Cannot be active when animating
+ *                for the first time.
+ *
+ *  - `IN`      — Animating "in" new slot content. Can also be considered as
+ *                the "To" animation; Which plays when the component mounts for
+ *                the first time.
+ */
+export enum EMatrixRevealAnimationState {
+    INITIAL,
+    IDLE,
+    OUT,
+    IN
+}
+
+/**
  * The direction of origin for the reveal effect.
  */
 export enum ERevealDirection {
@@ -19,28 +48,52 @@ export enum ERevealDirection {
     LEFT
 }
 
-export interface IRevealPropsOptional {
-    direction: ERevealDirection;
-    initial: string | undefined;
-    duration: number;
-    cycles: number;
-    chars: string;
-}
+/**
+ * Matrix Reveal component props.
+ */
+export type RevealProps = IRevealPropsRequired & Partial<IRevealPropsOptional>;
 
 /**
- * An animatable character instance. We create an object for each character in
- * the reveal string, which we use to keep track of the position and the number
- * of cycles *left* for this character. Once the character cycles hits zero,
- * we pop it from the character stack.
+ * Matrix Reveal component required props.
  */
-export interface ICharacter {
+export interface IRevealPropsRequired {}
+
+/**
+ * Matrix Reveal component optional props.
+ */
+export interface IRevealPropsOptional {
     /**
-     * Position of the character in the original label string.
+     * Animation origin direction relative to the center.
      */
-    pointer: number;
+    direction: ERevealDirection;
 
     /**
-     * The number of cycles yet to be completed by this character.
+     * Class which gets bound when animable text is detected.
+     */
+    classAnimable: string;
+
+    /**
+     * Class which gets bound to all animation encapsulated elements.
+     */
+    classTarget: string;
+
+    /**
+     * Duration of animation in miliseconds.
+     */
+    duration: number;
+
+    /**
+     * Wether to render the initial flame, or to render from opaque content.
+     */
+    initial: boolean;
+
+    /**
+     * Number of cycles per character before animation finishes.
      */
     cycles: number;
+
+    /**
+     * List of characters which to animate with.
+     */
+    chars: string;
 }
