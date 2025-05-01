@@ -5,9 +5,13 @@
     "declaration": true,
     "emitDeclarationOnly": true,
     "esModuleInterop": true,
-    "lib": ["DOM.Iterable", "ESNext", "DOM"],
+    "jsx": "Preserve",
+    "jsxImportSource": "vue",
+    "lib": ["DOM.Iterable", "ES2020", "DOM"],
     "module": "ESNext",
+    "moduleDetection": "Force",
     "moduleResolution": "Bundler",
+    "noImplicitThis": true,
     "paths": {
       "@/*": ["./src/*"]
     },
@@ -15,12 +19,11 @@
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
-    "target": "ESNext",
-    "types": ["vue-macros/macros-global"]
+    "target": "ES2022",
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.stealthmode.tsbuildinfo",
+    "useDefineForClassFields": true,
+    "verbatimModuleSyntax": true
   },
   "exclude": ["node_modules/", ".storybook/", "build/", "dist/"],
-  "include": ["**/*.json", "**/*.vue", "**/*.ts"],
-  "vueCompilerOptions": {
-    "plugins": ["vue-macros/volar"]
-  }
+  "include": ["**/*.json", "**/*.vue", "**/*.ts"]
 }
