@@ -49,16 +49,6 @@ export enum ERevealDirection {
 }
 
 /**
- * Matrix Reveal component slots.
- */
-export type RevealSlots = {
-    /**
-     * Default content slot.
-     */
-    default?: () => void;
-};
-
-/**
  * Matrix Reveal component props.
  */
 export type RevealProps = IRevealPropsRequired & Partial<IRevealPropsOptional>;
