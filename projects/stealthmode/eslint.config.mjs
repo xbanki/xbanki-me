@@ -14,10 +14,14 @@ import { parser as ts_parser, plugin as ts_plugin } from 'typescript-eslint';
 
 import vue_parser from 'vue-eslint-parser';
 import vue_plugin from 'eslint-plugin-vue';
+import globals from 'globals';
 
 export default [
   {
-    ignores: ['storybook-static/*', 'node_modules/*', '.storybook/*', '.next/*', 'build/*', 'dist/*']
+    ignores: ['storybook-static/*', 'node_modules/*', '.storybook/*', '.next/*', 'build/*', 'dist/*'],
+    languageOptions: {
+      globals
+    }
   },
   {
     languageOptions: {
