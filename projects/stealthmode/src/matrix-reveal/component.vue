@@ -173,6 +173,32 @@ export default {
             return clones;
         }
 
+        function renderAnimationFrame(timestamp_delta: number, _: Ref<VNode[]>): boolean {
+            return true;
+        }
+
+        function initializeAnimationRender(duration: number, target: Ref<VNode[]>) {
+            if (flag_is_animating.value) return;
+
+            const timestamp_start = performance.now();
+            let animation_finished = false;
+
+            flag_is_animating.value = true;
+
+            while (!animation_finished) {
+              const timestamp_delta = Math.min((performance.now() - timestamp_start) / duration, 1);
+
+              requestAnimationFrame(
+                () => {
+                  animation_finished = renderAnimationFrame(timestamp_delta, target)
+                }
+              );
+
+              if (timestamp_delta >= 1) animation_finished = true;
+            }
+        }
+
+
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
         // Slot content cloning                                                      //
         // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //

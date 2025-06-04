@@ -48,6 +48,8 @@ export enum ERevealDirection {
     LEFT
 }
 
+export type CloneProp = (el: Element) => object | object;
+
 /**
  * Matrix Reveal component props.
  */
@@ -63,19 +65,21 @@ export interface IRevealPropsRequired {}
  */
 export interface IRevealPropsOptional {
     /**
+     * Props, which get applied to elements that are animation targets, or in
+     * other words; elements which include text.
+     */
+    propsElementAnimable: CloneProp;
+
+    /**
+     * Props, which get applied to element(s) found in the slot tree on all
+     * elements, excluding comments and other void elements.
+     */
+    propsElementTarget: CloneProp;
+
+    /**
      * Animation origin direction relative to the center.
      */
     direction: ERevealDirection;
-
-    /**
-     * Class which gets bound when animable text is detected.
-     */
-    classAnimable: string;
-
-    /**
-     * Class which gets bound to all animation encapsulated elements.
-     */
-    classTarget: string;
 
     /**
      * Duration of animation in miliseconds.
