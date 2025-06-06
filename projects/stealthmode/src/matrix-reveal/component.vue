@@ -120,9 +120,7 @@ function buildCloneVNodes(
     const prop_target = typeof props_target === "function" ? props_target(vnode) : props_target;
 
     const clone_ref = ref<VNode | null>(null);
-    const props: VNodeProps = animable
-      ? mergeProps(prop_animable as VNodeProps, { ref: clone_ref })
-      : prop_target;
+    const props: VNodeProps = animable ? mergeProps(prop_animable as VNodeProps, { ref: clone_ref }) : prop_target;
 
     const clone = cloneVNode(vnode, props);
 
@@ -173,11 +171,7 @@ defineRender(() => {
 
   if (flag_clone_queued.value && slots.default !== undefined && slots.default !== null) {
     const content = slots.default();
-    const [clone_vnodes, clone_refs] = buildCloneVNodes(
-      content,
-      props.propsElementTarget,
-      props.propsElementAnimable,
-    );
+    const [clone_vnodes, clone_refs] = buildCloneVNodes(content, props.propsElementTarget, props.propsElementAnimable);
 
     const animate_out = clone_out_vnode.value.length >= 1;
     const animate_in = content.length >= 1;
