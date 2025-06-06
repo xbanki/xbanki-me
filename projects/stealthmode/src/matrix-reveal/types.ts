@@ -50,7 +50,10 @@ export enum ERevealDirection {
     LEFT = 3
 }
 
-export type CloneProp = (el: Element) => object | object;
+/**
+ * Clone prop callback function/ object.
+ */
+export type CloneProp = (el: VNode) => object | object;
 
 /**
  * Matrix Reveal component props.
