@@ -18,16 +18,16 @@ import { initializeAnimationContext } from "@/matrix-reveal/animations/controlle
 import { EMatrixRevealAnimationState } from "@/matrix-reveal/types.ts";
 import { DEFAULT_REVEAL_PROPS_OPTIONAL } from "@/matrix-reveal/constants.ts";
 
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
-// Component parameters                                                      //
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
+//—————————————————————————————————————————————————————————————————————————————
+//  - Component parameters -
+//—————————————————————————————————————————————————————————————————————————————
 
 const props = withDefaults(defineProps<RevealProps>(), DEFAULT_REVEAL_PROPS_OPTIONAL);
 const slots = defineSlots<IRevealSlots>();
 
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
-// Render state flags                                                        //
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
+//—————————————————————————————————————————————————————————————————————————————
+//  - Render state flags -
+//—————————————————————————————————————————————————————————————————————————————
 
 const state = ref<EMatrixRevealAnimationState>(EMatrixRevealAnimationState.INITIAL);
 
@@ -36,9 +36,9 @@ const flag_is_animating = ref<boolean>(false);
 const flag_render_clone = ref<boolean>(false);
 const flag_render_swap = ref<boolean>(false);
 
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
-// Cloned VNode containers                                                   //
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
+//—————————————————————————————————————————————————————————————————————————————
+//  - Cloned VNode containers -
+//—————————————————————————————————————————————————————————————————————————————
 
 const clone_out_vnode = ref<VNode[]>([]);
 const clone_out_refs = ref<Ref[]>([]);
@@ -68,9 +68,9 @@ watch(
   { immediate: true },
 );
 
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
-// Component internal API                                                    //
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
+//—————————————————————————————————————————————————————————————————————————————
+//  - Component internal API -
+//—————————————————————————————————————————————————————————————————————————————
 
 /**
  * Clones supplied `VNode`, including all of it's children. The cloned nodes
@@ -120,24 +120,24 @@ function buildCloneVNodes(
     const prop_target = typeof props_target === "function" ? props_target(vnode) : props_target;
 
     const clone_ref = ref<VNode | null>(null);
-    const props = animable
+    const props: VNodeProps = animable
       ? mergeProps(prop_animable as VNodeProps, { ref: clone_ref })
-      : mergeProps(prop_target as VNodeProps, { ref: clone_ref });
+      : prop_target;
 
     const clone = cloneVNode(vnode, props);
 
     clone.children = children;
 
-    refs.push(clone_ref);
+    if (animable) refs.push(clone_ref);
     clones.push(clone);
   }
 
   return [clones, refs];
 }
 
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
-// Slot content cloning                                                      //
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
+//—————————————————————————————————————————————————————————————————————————————
+//  - Slot content cloning -
+//—————————————————————————————————————————————————————————————————————————————
 
 onBeforeUpdate(() => {
   if (
@@ -164,9 +164,9 @@ onBeforeMount(() => {
   flag_clone_queued.value = true;
 });
 
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
-// Component renderer                                                        //
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
+//—————————————————————————————————————————————————————————————————————————————
+//  - Component renderer -
+//—————————————————————————————————————————————————————————————————————————————
 
 defineRender(() => {
   const wrapper_props = { class: "font-mono block" };
