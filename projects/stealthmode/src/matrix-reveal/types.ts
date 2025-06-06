@@ -9,6 +9,8 @@
  *    @version   1.0.0
  */
 
+import type { VNode } from 'vue';
+
 /**
  * Current state of the component animation. The state is set dynamically once
  * the scripted animations hit specific keyframes.
@@ -32,20 +34,20 @@
  *                the first time.
  */
 export enum EMatrixRevealAnimationState {
-    INITIAL,
-    IDLE,
-    OUT,
-    IN
+    INITIAL = 0,
+    IDLE = 1,
+    OUT = 2,
+    IN = 3
 }
 
 /**
  * The direction of origin for the reveal effect.
  */
 export enum ERevealDirection {
-    RANDOM,
-    CENTER,
-    RIGHT,
-    LEFT
+    RANDOM = 0,
+    CENTER = 1,
+    RIGHT = 2,
+    LEFT = 3
 }
 
 export type CloneProp = (el: Element) => object | object;
@@ -53,12 +55,14 @@ export type CloneProp = (el: Element) => object | object;
 /**
  * Matrix Reveal component props.
  */
-export type RevealProps = IRevealPropsRequired & Partial<IRevealPropsOptional>;
+export type RevealProps = Partial<IRevealPropsOptional>;
 
 /**
- * Matrix Reveal component required props.
+ * Matrix Reveal component slots.
  */
-export interface IRevealPropsRequired {}
+export interface IRevealSlots {
+    default?: null | (() => VNode[]);
+}
 
 /**
  * Matrix Reveal component optional props.

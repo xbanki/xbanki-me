@@ -13,275 +13,240 @@
 import type { VNodeProps, VNode, Ref } from "vue";
 import { onBeforeUpdate, onBeforeMount, cloneVNode, nextTick, isVNode, watch, Text, ref, h } from "vue";
 
+import type { ERevealDirection, IRevealSlots, RevealProps } from "@/matrix-reveal/types.ts";
+import { EMatrixRevealAnimationState } from "@/matrix-reveal/types.ts";
 import { DEFAULT_REVEAL_PROPS_OPTIONAL } from "@/matrix-reveal/constants.ts";
-import { EMatrixRevealAnimationState, ERevealDirection } from "@/matrix-reveal/types.ts";
 
-export default {
-  props: {
-    propsElementAnimable: {
-      default: DEFAULT_REVEAL_PROPS_OPTIONAL.propsElementAnimable,
-      required: false,
-      type: [Function, Object],
-    },
-    propsElementTarget: {
-      default: DEFAULT_REVEAL_PROPS_OPTIONAL.propsElementTarget,
-      required: false,
-      type: [Function, Object],
-    },
-    direction: {
-      default: DEFAULT_REVEAL_PROPS_OPTIONAL.direction,
-      required: false,
-      type: Number,
-    },
-    duration: {
-      default: DEFAULT_REVEAL_PROPS_OPTIONAL.duration,
-      required: false,
-      type: Number,
-    },
-    initial: {
-      default: DEFAULT_REVEAL_PROPS_OPTIONAL.initial,
-      required: false,
-      type: Boolean,
-    },
-    cycles: {
-      default: DEFAULT_REVEAL_PROPS_OPTIONAL.cycles,
-      required: false,
-      type: Number,
-    },
-    chars: {
-      default: DEFAULT_REVEAL_PROPS_OPTIONAL.chars,
-      required: false,
-      type: String,
-    },
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
+// Component parameters                                                      //
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
+
+const props = withDefaults(defineProps<RevealProps>(), DEFAULT_REVEAL_PROPS_OPTIONAL);
+const slots = defineSlots<IRevealSlots>();
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
+// Render state flags                                                        //
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
+
+const state = ref<EMatrixRevealAnimationState>(EMatrixRevealAnimationState.INITIAL);
+
+const flag_is_animating = ref<boolean>(false);
+const flag_render_clone = ref<boolean>(false);
+const flag_render_swap = ref<boolean>(false);
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
+// Cloned VNode containers                                                   //
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
+
+const clone_out_vnode = ref<VNode[]>([]);
+const clone_in_vnode = ref<VNode[]>([]);
+
+watch(
+  state,
+  (new_state, old_state) => {
+    if (new_state === old_state) return;
+
+    switch (new_state) {
+      case EMatrixRevealAnimationState.IDLE:
+        flag_render_clone.value = false;
+        flag_render_swap.value = false;
+        break;
+
+      case EMatrixRevealAnimationState.OUT:
+        flag_render_clone.value = true;
+        flag_render_swap.value = true;
+        break;
+
+      case EMatrixRevealAnimationState.IN:
+        flag_render_clone.value = true;
+        flag_render_swap.value = false;
+        break;
+    }
   },
+  { immediate: true },
+);
 
-  setup(props, { slots }) {
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
-    // Render state flags                                                        //
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
+// Component internal API                                                    //
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
 
-    const state = ref<EMatrixRevealAnimationState>(EMatrixRevealAnimationState.INITIAL);
+/**
+ * Clones supplied `VNode`, including all of it's children. The cloned nodes
+ * are supplied with custom props that mutate the original instance.
+ * @param  vnodes         Singular or array of `VNode` instance(s) to clone.
+ * @param  props_target   Props which to apply onto a generic target element(s).
+ * @param  props_animable Props which to apply onto animable content
+ *                        encapsulating element(s).
+ * @return                New cloned `VNode` instance(s) with custom props.
+ */
+function buildCloneVNodes(vnodes: VNode | VNode[], props_target: object, props_animable: object): VNode[] {
+  const nodes = Array.isArray(vnodes) ? vnodes : [vnodes];
+  const clones: VNode[] = [];
 
-    const flag_is_animating = ref<boolean>(false);
-    const flag_render_clone = ref<boolean>(false);
-    const flag_render_swap = ref<boolean>(false);
+  for (const vnode of nodes) {
+    let children: VNode[] | string | null = null;
+    let animable = false;
 
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
-    // Cloned VNode containers                                                   //
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
+    if (vnode.children) {
+      if (Array.isArray(vnode.children)) {
+        children = [];
 
-    const clone_out_vnode = ref<VNode[]>([]);
-    const clone_in_vnode = ref<VNode[]>([]);
-
-    watch(
-      state,
-      (new_state, old_state) => {
-        if (new_state === old_state) return;
-
-        switch (new_state) {
-          case EMatrixRevealAnimationState.IDLE:
-            flag_render_clone.value = false;
-            flag_render_swap.value = false;
-            break;
-
-          case EMatrixRevealAnimationState.OUT:
-            flag_render_clone.value = true;
-            flag_render_swap.value = true;
-            break;
-
-          case EMatrixRevealAnimationState.IN:
-            flag_render_clone.value = true;
-            flag_render_swap.value = false;
-            break;
-        }
-      },
-      { immediate: true },
-    );
-
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
-    // Component internal API                                                    //
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
-
-    /**
-     * Clones supplied `VNode`, including all of it's children. The cloned nodes
-     * are supplied with custom props that mutate the original instance.
-     * @param  vnodes         Singular or array of `VNode` instance(s) to clone.
-     * @param  props_target   Props which to apply onto a generic target element(s).
-     * @param  props_animable Props which to apply onto animable content
-     *                        encapsulating element(s).
-     * @return                New cloned `VNode` instance(s) with custom props.
-     */
-    function buildCloneVNodes(vnodes: VNode | VNode[], props_target: object, props_animable: object): VNode[] {
-      const nodes = Array.isArray(vnodes) ? vnodes : [vnodes];
-      const clones: VNode[] = [];
-
-      for (const vnode of nodes) {
-        let children: VNode[] | string | null = null;
-        let animable = false;
-
-        if (vnode.children) {
-          if (Array.isArray(vnode.children)) {
-            children = [];
-
-            for (const child of vnode.children) {
-              if (isVNode(child)) {
-                if (child.type === Text) {
-                  animable = true;
-                }
-
-                const child_clones = buildCloneVNodes(child, props_target, props_animable);
-
-                children.push(...child_clones);
-              }
+        for (const child of vnode.children) {
+          if (isVNode(child)) {
+            if (child.type === Text) {
+              animable = true;
             }
-          } else if (typeof vnode.children === "string") {
-            children = ` ${vnode.children}`.slice(1);
-            animable = true;
+
+            const child_clones = buildCloneVNodes(child, props_target, props_animable);
+
+            children.push(...child_clones);
           }
         }
-
-        const clone = cloneVNode(vnode, animable ? (props_animable as VNodeProps) : (props_target as VNodeProps));
-
-        clone.children = children;
-        clones.push(clone);
+      } else if (typeof vnode.children === "string") {
+        children = ` ${vnode.children}`.slice(1);
+        animable = true;
       }
-
-      return clones;
     }
 
-    function animateOutIn(
-      direction: ERevealDirection,
-      progress: number,
-      delta_time: number,
-      target_out: Ref<VNode[]>,
-      target_in: Ref<VNode[]>,
-    ) {}
+    const clone = cloneVNode(vnode, animable ? (props_animable as VNodeProps) : (props_target as VNodeProps));
 
-    function animateOut(direction: ERevealDirection, progress: number, delta_time: number, target_out: Ref<VNode[]>) {}
+    clone.children = children;
+    clones.push(clone);
+  }
 
-    function animateIn(direction: ERevealDirection, progress: number, delta_time: number, target_in: Ref<VNode[]>) {}
+  return clones;
+}
 
-    function initializeAnimationRender(
-      duration: number,
-      direction: ERevealDirection,
-      target_in: Ref<VNode[]>,
-      target_out: Ref<VNode[]>,
-    ) {
-      const animate_out = target_out.value.length >= 1;
-      const animate_in = target_in.value.length >= 1;
-      const timestamp_start = performance.now();
+function animateOutIn(
+  direction: ERevealDirection,
+  progress: number,
+  delta_time: number,
+  target_out: Ref<VNode[]>,
+  target_in: Ref<VNode[]>,
+) {}
 
-      let timestamp_last = 0;
-      let fn = () => {};
+function animateOut(direction: ERevealDirection, progress: number, delta_time: number, target_out: Ref<VNode[]>) {}
 
-      if (animate_out && animate_in)
-        fn = () => {
-          if (timestamp_last === 0) timestamp_last = performance.now();
+function animateIn(direction: ERevealDirection, progress: number, delta_time: number, target_in: Ref<VNode[]>) {}
 
-          const timestamp_now = performance.now();
-          const timestamp_progress = timestamp_now - timestamp_start;
-          const timestamp_deltatime = timestamp_now - timestamp_last;
+function initializeAnimationRender(
+  duration: number,
+  direction: ERevealDirection,
+  target_in: Ref<VNode[]>,
+  target_out: Ref<VNode[]>,
+) {
+  const animate_out = target_out.value.length >= 1;
+  const animate_in = target_in.value.length >= 1;
+  const timestamp_start = performance.now();
 
-          timestamp_last = timestamp_now;
+  let timestamp_last = 0;
+  let fn = () => {};
 
-          animateOutIn(direction, timestamp_progress, timestamp_deltatime, target_out, target_in);
+  if (animate_out && animate_in)
+    fn = () => {
+      if (timestamp_last === 0) timestamp_last = performance.now();
 
-          if (timestamp_progress < duration) return requestAnimationFrame(fn);
+      const timestamp_now = performance.now();
+      const timestamp_progress = timestamp_now - timestamp_start;
+      const timestamp_deltatime = timestamp_now - timestamp_last;
 
-          state.value = EMatrixRevealAnimationState.IDLE;
-        };
-      else if (animate_out)
-        fn = () => {
-          state.value = EMatrixRevealAnimationState.OUT;
+      timestamp_last = timestamp_now;
 
-          if (timestamp_last === 0) timestamp_last = performance.now();
+      animateOutIn(direction, timestamp_progress, timestamp_deltatime, target_out, target_in);
 
-          const timestamp_now = performance.now();
-          const timestamp_progress = timestamp_now - timestamp_start;
-          const timestamp_deltatime = timestamp_now - timestamp_last;
+      if (timestamp_progress < duration) return requestAnimationFrame(fn);
 
-          timestamp_last = timestamp_now;
+      state.value = EMatrixRevealAnimationState.IDLE;
+    };
+  else if (animate_out)
+    fn = () => {
+      state.value = EMatrixRevealAnimationState.OUT;
 
-          animateOut(direction, timestamp_progress, timestamp_deltatime, target_in);
+      if (timestamp_last === 0) timestamp_last = performance.now();
 
-          if (timestamp_progress < duration) return requestAnimationFrame(fn);
+      const timestamp_now = performance.now();
+      const timestamp_progress = timestamp_now - timestamp_start;
+      const timestamp_deltatime = timestamp_now - timestamp_last;
 
-          state.value = EMatrixRevealAnimationState.IDLE;
-        };
-      else if (animate_in)
-        fn = () => {
-          state.value = EMatrixRevealAnimationState.IN;
+      timestamp_last = timestamp_now;
 
-          if (timestamp_last === 0) timestamp_last = performance.now();
+      animateOut(direction, timestamp_progress, timestamp_deltatime, target_in);
 
-          const timestamp_now = performance.now();
-          const timestamp_progress = timestamp_now - timestamp_start;
-          const timestamp_deltatime = timestamp_now - timestamp_last;
+      if (timestamp_progress < duration) return requestAnimationFrame(fn);
 
-          timestamp_last = timestamp_now;
+      state.value = EMatrixRevealAnimationState.IDLE;
+    };
+  else if (animate_in)
+    fn = () => {
+      state.value = EMatrixRevealAnimationState.IN;
 
-          animateIn(direction, timestamp_progress, timestamp_deltatime, target_in);
+      if (timestamp_last === 0) timestamp_last = performance.now();
 
-          if (timestamp_progress < duration) return requestAnimationFrame(fn);
+      const timestamp_now = performance.now();
+      const timestamp_progress = timestamp_now - timestamp_start;
+      const timestamp_deltatime = timestamp_now - timestamp_last;
 
-          state.value = EMatrixRevealAnimationState.IDLE;
-        };
+      timestamp_last = timestamp_now;
 
-      requestAnimationFrame(fn);
-    }
+      animateIn(direction, timestamp_progress, timestamp_deltatime, target_in);
 
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
-    // Slot content cloning                                                      //
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
+      if (timestamp_progress < duration) return requestAnimationFrame(fn);
 
-    onBeforeUpdate(() => {
-      if (
-        [
-          EMatrixRevealAnimationState.INITIAL,
-          EMatrixRevealAnimationState.IDLE,
-          EMatrixRevealAnimationState.OUT,
-        ].includes(state.value) ||
-        slots.default === undefined ||
-        slots.default === null
-      )
-        return;
-    });
+      state.value = EMatrixRevealAnimationState.IDLE;
+    };
 
-    onBeforeMount(() => {
-      if (
-        (state.value !== EMatrixRevealAnimationState.INITIAL && state.value !== EMatrixRevealAnimationState.IDLE) ||
-        flag_is_animating.value === true ||
-        slots.default === undefined ||
-        slots.default == null
-      )
-        return;
+  requestAnimationFrame(fn);
+}
 
-      clone_in_vnode.value = buildCloneVNodes(
-        h(
-          "span",
-          { class: "font-mono block" },
-          slots.default() ?? [], // Dumb hack to satisfy the LSP
-        ),
-        props.propsElementTarget,
-        props.propsElementAnimable,
-      );
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
+// Slot content cloning                                                      //
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
 
-      nextTick(() => {
-        flag_render_clone.value = true;
-        initializeAnimationRender(props.duration, props.direction, clone_in_vnode, clone_out_vnode);
-      });
-    });
+onBeforeUpdate(() => {
+  if (
+    [EMatrixRevealAnimationState.INITIAL, EMatrixRevealAnimationState.IDLE, EMatrixRevealAnimationState.OUT].includes(
+      state.value,
+    ) ||
+    slots.default === undefined ||
+    slots.default === null
+  )
+    return;
+});
 
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
-    // Component renderer                                                        //
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
+onBeforeMount(() => {
+  if (
+    (state.value !== EMatrixRevealAnimationState.INITIAL && state.value !== EMatrixRevealAnimationState.IDLE) ||
+    flag_is_animating.value === true ||
+    slots.default === undefined ||
+    slots.default == null
+  )
+    return;
 
-    return () =>
-      !flag_render_clone.value
-        ? h("span", { class: "font-mono block" }, h(slots.default ?? []))
-        : flag_render_swap.value
-          ? clone_out_vnode.value
-          : clone_in_vnode.value;
-  },
-};
+  clone_in_vnode.value = buildCloneVNodes(
+    h(
+      "span",
+      { class: "font-mono block" },
+      slots.default() ?? [], // Dumb hack to satisfy the LSP
+    ),
+    props.propsElementTarget,
+    props.propsElementAnimable,
+  );
+
+  nextTick(() => {
+    flag_render_clone.value = true;
+    initializeAnimationRender(props.duration, props.direction, clone_in_vnode, clone_out_vnode);
+  });
+});
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
+// Component renderer                                                        //
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - //
+
+defineRender(() =>
+  !flag_render_clone.value
+    ? h("span", { class: "font-mono block" }, h(slots.default ?? []))
+    : flag_render_swap.value
+      ? clone_out_vnode.value
+      : clone_in_vnode.value,
+);
 </script>
