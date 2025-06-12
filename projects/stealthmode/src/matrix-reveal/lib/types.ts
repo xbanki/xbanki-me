@@ -9,7 +9,7 @@
  *    @version   1.0.0
  */
 
-import type { VNode } from 'vue';
+import type { VNodeProps, VNode, Ref } from 'vue';
 
 /**
  * Current state of the component animation. The state is set dynamically once
@@ -51,9 +51,16 @@ export enum ERevealDirection {
 }
 
 /**
+ * VNode prop type.
+ */
+export type Props<T = { [K: string]: any }> = {
+    [K in keyof T]: T[K];
+} & VNodeProps;
+
+/**
  * Clone prop callback function/ object.
  */
-export type CloneProp = (el: VNode) => object | object;
+export type CloneProps = (animable: boolean, el: VNode) => Props;
 
 /**
  * Matrix Reveal component props.
@@ -72,16 +79,15 @@ export interface IRevealSlots {
  */
 export interface IRevealPropsOptional {
     /**
-     * Props, which get applied to elements that are animation targets, or in
-     * other words; elements which include text.
+     * Props, which get applied to the parent VNode of the component.
      */
-    propsElementAnimable: CloneProp;
+    wrapperProps: Props;
 
     /**
-     * Props, which get applied to element(s) found in the slot tree on all
-     * elements, excluding comments and other void elements.
+     * Props, which get applied to VNodes that are cloned from the default
+     * content slot.
      */
-    propsElementTarget: CloneProp;
+    cloneProps: CloneProps;
 
     /**
      * Animation origin direction relative to the center.
@@ -94,7 +100,7 @@ export interface IRevealPropsOptional {
     duration: number;
 
     /**
-     * Wether to render the initial flame, or to render from opaque content.
+     * Wether to render the initial frame, or to render from opaque content.
      */
     initial: boolean;
 
@@ -107,4 +113,24 @@ export interface IRevealPropsOptional {
      * List of characters which to animate with.
      */
     chars: string;
+
+    /**
+     * The element which wraps (encapsulates) the rendered content.
+     */
+    element: string;
+}
+
+/**
+ * Animable node target metadata.
+ */
+export interface INodeMeta {
+    /**
+     * DOM tree element ref.
+     */
+    ref: Ref<Node | null>;
+
+    /**
+     * Original label of the node.
+     */
+    original: string;
 }

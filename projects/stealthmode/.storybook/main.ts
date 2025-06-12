@@ -11,7 +11,11 @@
 import type { StorybookConfig } from '@storybook/vue3-vite';
 
 const config: StorybookConfig = {
-    addons: ['@storybook/addon-essentials', '@storybook/addon-postcss', 'storybook-addon-vue-slots'],
+    addons: [
+        '@storybook/addon-essentials',
+        '@storybook/addon-postcss',
+        'storybook-addon-vue-slots'
+    ],
     docs: {
         defaultName: 'Overview'
     },
@@ -19,7 +23,10 @@ const config: StorybookConfig = {
         name: '@storybook/vue3-vite',
         options: {}
     },
-    stories: ['../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)', '../stories/**/*.mdx']
+    stories: [
+        '../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)',
+        '../stories/**/*.mdx'
+    ]
 };
 
 export default config;

@@ -12,7 +12,7 @@
  *
  */
 
-import { ERevealDirection } from '@/matrix-reveal/types.ts';
+import { ERevealDirection } from '@/matrix-reveal/lib/types.ts';
 import MatrixReveal from '@/matrix-reveal/component.vue';
 
 export { ERevealDirection as MatrixRevealDirection, MatrixReveal };

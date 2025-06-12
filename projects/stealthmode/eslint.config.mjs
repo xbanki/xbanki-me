@@ -18,7 +18,14 @@ import globals from 'globals';
 
 export default [
   {
-    ignores: ['storybook-static/*', 'node_modules/*', '.storybook/*', '.next/*', 'build/*', 'dist/*'],
+    ignores: [
+      'storybook-static/*',
+      'node_modules/*',
+      '.storybook/*',
+      '.next/*',
+      'build/*',
+      'dist/*'
+    ],
     languageOptions: {
       globals
     }

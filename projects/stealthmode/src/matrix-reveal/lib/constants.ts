@@ -9,15 +9,20 @@
  *    @version   1.0.0
  */
 
-import type { IRevealPropsOptional } from '@/matrix-reveal/types.ts';
-import { ERevealDirection } from '@/matrix-reveal/types.ts';
+import type { IRevealPropsOptional } from '@/matrix-reveal/lib/types.ts';
+import { ERevealDirection } from '@/matrix-reveal/lib/types.ts';
 
 export const DEFAULT_REVEAL_PROPS_OPTIONAL: IRevealPropsOptional = {
-    propsElementAnimable: _ => ({ class: 'matrix-reveal-animable' }),
-    propsElementTarget: _ => ({ class: 'matrix-reveal-target' }),
+    cloneProps: (animable, _) => ({
+        class: animable ? 'matrix-reveal-animable' : 'matrix-reveal-target'
+    }),
+    wrapperProps: { class: 'font-mono block' },
     direction: ERevealDirection.RANDOM,
     chars: '!@#$%^&[]*():{};|,.<>/?',
+    element: 'span',
     initial: false,
     duration: 300,
     cycles: 6
 };
+
+export const STRING_EMPTY = '\u00A0';
