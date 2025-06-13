@@ -88,10 +88,7 @@ export function buildVNodeClones(
             if (typeof vnode?.children === 'string') {
                 original = copyString(vnode.children);
                 if (initial)
-                    children = generateRandomString(
-                        chars,
-                        original.length
-                    );
+                    children = generateRandomString(chars, original.length);
                 else children = generateWhitespaceString(original.length);
             } else if (Array.isArray(vnode.children)) {
                 children = [];
