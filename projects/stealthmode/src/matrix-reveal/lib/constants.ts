@@ -25,4 +25,4 @@ export const DEFAULT_REVEAL_PROPS_OPTIONAL: IRevealPropsOptional = {
     cycles: 6
 };
 
-export const STRING_EMPTY = '\u00A0';
+export const STRING_WHITESPACE = '\u00A0';
