@@ -121,6 +121,47 @@ export interface IRevealPropsOptional {
 }
 
 /**
+ * Animation target container ref.
+ */
+export interface IAnimationTarget {
+
+    /**
+     * Individual VNode metadata.
+     */
+    targets: NodeMeta[];
+
+    /**
+     * Number of total cycles to perform.
+     */
+    cycles: number;
+}
+
+/**
+ * Finalized node meta object.
+ */
+export type NodeMeta = INodeMeta & {
+    /**
+     * Single character pointers.
+     */
+    pointers: INodeMetaPointer[];
+};
+
+/**
+ * Single character pointer.
+ */
+export interface INodeMetaPointer {
+    /**
+     * Position of the character in target element string.
+     */
+    position: number;
+
+    /**
+     * Number of cycles yet to complete for pointer.
+     */
+    cycles: number;
+}
+
+/**
  * Animable node target metadata.
  */
 export interface INodeMeta {
