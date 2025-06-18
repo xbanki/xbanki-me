@@ -10,56 +10,69 @@
  //-->
 
 <script lang="ts" setup>
-import type { VNodeProps, VNode, Ref } from "vue";
-import { onBeforeUpdate, onBeforeMount, mergeProps, cloneVNode, nextTick, isVNode, watch, Text, ref, h } from "vue";
+import type { VNode, Ref } from "vue";
+import { onBeforeUpdate, onBeforeMount, shallowRef, watch, ref, h } from "vue";
 
-import type { ERevealDirection, IRevealSlots, RevealProps, CloneProp } from "@/matrix-reveal/types.ts";
-import { initializeAnimationContext } from "@/matrix-reveal/animations/controller.ts";
-import { EMatrixRevealAnimationState } from "@/matrix-reveal/types.ts";
-import { DEFAULT_REVEAL_PROPS_OPTIONAL } from "@/matrix-reveal/constants.ts";
+import type { IRevealSlots, RevealProps } from "@/matrix-reveal/lib/types.ts";
+import { buildVNodeClones } from "@/matrix-reveal/lib/nodes.ts";
+import { EMatrixRevealAnimationState } from "@/matrix-reveal/lib/types.ts";
+import { DEFAULT_REVEAL_PROPS_OPTIONAL } from "@/matrix-reveal/lib/constants";
 
 //—————————————————————————————————————————————————————————————————————————————
 //  - Component parameters -
 //—————————————————————————————————————————————————————————————————————————————
 
-const props = withDefaults(defineProps<RevealProps>(), DEFAULT_REVEAL_PROPS_OPTIONAL);
+const props = withDefaults(
+  defineProps<RevealProps>(),
+  // @ts-expect-error Incompatible type that is compatible
+  DEFAULT_REVEAL_PROPS_OPTIONAL,
+);
 const slots = defineSlots<IRevealSlots>();
 
 //—————————————————————————————————————————————————————————————————————————————
 //  - Render state flags -
 //—————————————————————————————————————————————————————————————————————————————
 
-const state = ref<EMatrixRevealAnimationState>(EMatrixRevealAnimationState.INITIAL);
+const flag_state = shallowRef<EMatrixRevealAnimationState>(
+  EMatrixRevealAnimationState.INITIAL,
+);
 
-const flag_clone_queued = ref<boolean>(false);
-const flag_is_animating = ref<boolean>(false);
-const flag_render_clone = ref<boolean>(false);
-const flag_render_swap = ref<boolean>(false);
+const flag_detected_change = shallowRef<boolean>(false);
+const flag_is_animating = shallowRef<boolean>(false);
+const flag_render_clone = shallowRef<boolean>(false);
+const flag_render_swap = shallowRef<boolean>(false);
 
 //—————————————————————————————————————————————————————————————————————————————
 //  - Cloned VNode containers -
 //—————————————————————————————————————————————————————————————————————————————
 
-const clone_out_vnode = ref<VNode[]>([]);
-const clone_out_refs = ref<Ref[]>([]);
+const clones_out: Ref<VNode[]> = ref([]);
+const clones_in: Ref<VNode[]> = ref([]);
+
+//—————————————————————————————————————————————————————————————————————————————
+//  - State change hooks -
+//—————————————————————————————————————————————————————————————————————————————
 
 watch(
-  state,
+  flag_state,
   (new_state, old_state) => {
     if (new_state === old_state) return;
 
     switch (new_state) {
       case EMatrixRevealAnimationState.IDLE:
         flag_render_clone.value = false;
+        flag_is_animating.value = false;
         flag_render_swap.value = false;
         break;
 
       case EMatrixRevealAnimationState.OUT:
+        flag_is_animating.value = true;
         flag_render_clone.value = true;
         flag_render_swap.value = true;
         break;
 
       case EMatrixRevealAnimationState.IN:
+        flag_is_animating.value = true;
         flag_render_clone.value = true;
         flag_render_swap.value = false;
         break;
@@ -70,27 +83,30 @@ watch(
 
 onBeforeUpdate(() => {
   if (
-    [EMatrixRevealAnimationState.INITIAL, EMatrixRevealAnimationState.IDLE, EMatrixRevealAnimationState.OUT].includes(
-      state.value,
-    ) ||
+    ![
+      EMatrixRevealAnimationState.INITIAL,
+      EMatrixRevealAnimationState.IDLE,
+      EMatrixRevealAnimationState.OUT,
+    ].includes(flag_state.value) ||
     slots.default === undefined ||
     slots.default === null
   )
     return;
-
-  flag_clone_queued.value = true;
+  flag_detected_change.value = true;
 });
 
 onBeforeMount(() => {
   if (
-    (state.value !== EMatrixRevealAnimationState.INITIAL && state.value !== EMatrixRevealAnimationState.IDLE) ||
+    ![
+      EMatrixRevealAnimationState.INITIAL,
+      EMatrixRevealAnimationState.IDLE,
+    ].includes(flag_state.value) ||
     flag_is_animating.value === true ||
     slots.default === undefined ||
     slots.default == null
   )
     return;
-
-  flag_clone_queued.value = true;
+  flag_detected_change.value = true;
 });
 
 //—————————————————————————————————————————————————————————————————————————————
@@ -98,38 +114,63 @@ onBeforeMount(() => {
 //—————————————————————————————————————————————————————————————————————————————
 
 defineRender(() => {
-  const wrapper_props = { class: "font-mono block" };
-
-  if (flag_clone_queued.value && slots.default !== undefined && slots.default !== null) {
-    const content = slots.default();
-    const [clone_vnodes, clone_refs] = buildCloneVNodes(content, props.propsElementTarget, props.propsElementAnimable);
-
-    const animate_out = clone_out_vnode.value.length >= 1;
-    const animate_in = content.length >= 1;
-
-    if (animate_out && animate_in) state.value = EMatrixRevealAnimationState.OUT;
-    else if (animate_out) state.value = EMatrixRevealAnimationState.OUT;
-    else if (animate_in) state.value = EMatrixRevealAnimationState.IN;
-
-    nextTick(() =>
-      initializeAnimationContext(
-        state,
-        clone_out_vnode,
-        clone_out_refs,
-        clone_out_vnode.value,
-        clone_out_refs.value,
-        clone_vnodes,
-        clone_refs,
-      ),
-    );
-
-    return h(
-      "span",
-      wrapper_props,
-      !flag_render_clone.value ? h(slots.default ?? []) : flag_render_swap.value ? clone_out_vnode.value : clone_vnodes,
-    );
+  if (
+    slots.default &&
+    flag_detected_change.value &&
+    [
+      EMatrixRevealAnimationState.INITIAL,
+      EMatrixRevealAnimationState.IDLE,
+      EMatrixRevealAnimationState.OUT,
+    ].includes(flag_state.value)
+  ) {
+    if (
+      !flag_is_animating.value &&
+      clones_out.value.length >= 1 &&
+      [
+        EMatrixRevealAnimationState.INITIAL,
+        EMatrixRevealAnimationState.IDLE,
+      ].includes(flag_state.value)
+    ) {
+      flag_state.value = EMatrixRevealAnimationState.OUT;
+      nextTick(() => initializeAnimation(flag_state));
+    }
+    if (
+      (flag_is_animating.value &&
+        flag_state.value === EMatrixRevealAnimationState.OUT) ||
+      (!flag_is_animating.value &&
+        [
+          EMatrixRevealAnimationState.INITIAL,
+          EMatrixRevealAnimationState.IDLE,
+        ].includes(flag_state.value))
+    ) {
+      const [clone_vnodes, clone_meta] = buildVNodeClones(
+        slots.default(),
+        props.cloneProps,
+        props.initial,
+        props.chars,
+      );
+      setTargetIn(clone_meta, props.cycles);
+      clones_in.value = clone_vnodes;
+      if (
+        [
+          EMatrixRevealAnimationState.INITIAL,
+          EMatrixRevealAnimationState.IDLE,
+        ].includes(flag_state.value)
+      ) {
+        flag_state.value = EMatrixRevealAnimationState.IN;
+        nextTick(() => initializeAnimation(flag_state));
+      }
+    }
   }
 
-  return h("span", wrapper_props, h(slots.default ?? []));
+  return flag_render_clone.value
+    ? flag_render_swap.value
+      ? h(props.element, props.wrapperProps, clones_out.value)
+      : h(props.element, props.wrapperProps, clones_in.value)
+    : h(
+        props.element,
+        props.wrapperProps,
+        slots.default ? slots.default() : [],
+      );
 });
 </script>
