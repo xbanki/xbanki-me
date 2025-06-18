@@ -124,7 +124,6 @@ export interface IRevealPropsOptional {
  * Animation target container ref.
  */
 export interface IAnimationTarget {
-
     /**
      * Individual VNode metadata.
      */
