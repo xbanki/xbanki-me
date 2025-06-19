@@ -43,7 +43,7 @@ export enum EMatrixRevealAnimationState {
 /**
  * The direction of origin for the reveal effect.
  */
-export enum ERevealDirection {
+export enum EMatrixRevealDirection {
     RANDOM = 0,
     CENTER = 1,
     RIGHT = 2,
@@ -92,7 +92,7 @@ export interface IRevealPropsOptional {
     /**
      * Animation origin direction relative to the center.
      */
-    direction: ERevealDirection;
+    direction: EMatrixRevealDirection;
 
     /**
      * Duration of animation in miliseconds.
