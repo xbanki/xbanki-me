@@ -20,6 +20,8 @@ import type {
 } from "@/matrix-reveal/lib/types.ts";
 import {
   initializeAnimation,
+  resetTargetOut,
+  resetTargetIn,
   setTargetOut,
   setTargetIn,
 } from "@/matrix-reveal/lib/controller.ts";
@@ -75,6 +77,9 @@ function onAnimationComplete() {
   // Reset node containers
   [clones_out.value, clones_in.value] = [clones_in.value, []];
   [meta_out.value, meta_in.value] = [meta_in.value, []];
+
+  resetTargetOut();
+  resetTargetIn();
 }
 
 watch(

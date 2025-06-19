@@ -83,6 +83,7 @@ export function setTargetOut(nodes: INodeMeta[], animation_cycles: number) {
 export function resetTargetIn() {
     target_in.value = { targets: [], cycles: 0 };
 }
+
 /**
  * Sets the "to" target(s) of the animation.
  * @param nodes            Animation metadata which references the target nodes.
