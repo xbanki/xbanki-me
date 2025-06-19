@@ -11,7 +11,7 @@
 
 <script lang="ts" setup>
 import type { VNode, Ref } from "vue";
-import { onBeforeUpdate, onBeforeMount, shallowRef, watch, ref, h } from "vue";
+import { onBeforeMount, shallowRef, nextTick, watch, ref, h } from "vue";
 
 import type { IRevealSlots, RevealProps } from "@/matrix-reveal/lib/types.ts";
 import { buildVNodeClones } from "@/matrix-reveal/lib/nodes.ts";
@@ -57,7 +57,6 @@ watch(
   flag_state,
   (new_state, old_state) => {
     if (new_state === old_state) return;
-
     switch (new_state) {
       case EMatrixRevealAnimationState.IDLE:
         flag_render_clone.value = false;
@@ -81,7 +80,9 @@ watch(
   { immediate: true },
 );
 
-onBeforeUpdate(() => {
+// @TODO(xbanki): Rework the slot type to not produce overload error.
+// @ts-expect-error Overloading type
+watch(slots.default, () => {
   if (
     ![
       EMatrixRevealAnimationState.INITIAL,
