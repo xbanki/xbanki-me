@@ -51,6 +51,11 @@ export enum EMatrixRevealDirection {
 }
 
 /**
+ * Animation completion callback function.
+ */
+export type DoneFn = () => void;
+
+/**
  * VNode prop type.
  */
 export type Props<T = { [K: string]: any }> = {

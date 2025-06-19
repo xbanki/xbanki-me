@@ -13,7 +13,16 @@
 import type { VNode, Ref } from "vue";
 import { onBeforeMount, shallowRef, nextTick, watch, ref, h } from "vue";
 
-import type { IRevealSlots, RevealProps } from "@/matrix-reveal/lib/types.ts";
+import type {
+  IRevealSlots,
+  RevealProps,
+  INodeMeta,
+} from "@/matrix-reveal/lib/types.ts";
+import {
+  initializeAnimation,
+  setTargetOut,
+  setTargetIn,
+} from "@/matrix-reveal/lib/controller.ts";
 import { buildVNodeClones } from "@/matrix-reveal/lib/nodes.ts";
 import { EMatrixRevealAnimationState } from "@/matrix-reveal/lib/types.ts";
 import { DEFAULT_REVEAL_PROPS_OPTIONAL } from "@/matrix-reveal/lib/constants";
@@ -49,9 +58,24 @@ const flag_render_swap = shallowRef<boolean>(false);
 const clones_out: Ref<VNode[]> = ref([]);
 const clones_in: Ref<VNode[]> = ref([]);
 
+const meta_out: Ref<INodeMeta[]> = ref([]);
+const meta_in: Ref<INodeMeta[]> = ref([]);
+
 //—————————————————————————————————————————————————————————————————————————————
 //  - State change hooks -
 //—————————————————————————————————————————————————————————————————————————————
+
+/**
+ * Callback hook that is executed once the animation completes.
+ */
+function onAnimationComplete() {
+  flag_state.value = EMatrixRevealAnimationState.IDLE;
+  flag_detected_change.value = false;
+
+  // Reset node containers
+  [clones_out.value, clones_in.value] = [clones_in.value, []];
+  [meta_out.value, meta_in.value] = [meta_in.value, []];
+}
 
 watch(
   flag_state,
@@ -133,7 +157,15 @@ defineRender(() => {
       ].includes(flag_state.value)
     ) {
       flag_state.value = EMatrixRevealAnimationState.OUT;
-      nextTick(() => initializeAnimation(flag_state));
+      setTargetOut(meta_out.value, props.cycles);
+      nextTick(() =>
+        initializeAnimation(
+          onAnimationComplete,
+          props.duration,
+          props.direction,
+          flag_state,
+        ),
+      );
     }
     if (
       (flag_is_animating.value &&
@@ -152,6 +184,7 @@ defineRender(() => {
       );
       setTargetIn(clone_meta, props.cycles);
       clones_in.value = clone_vnodes;
+      meta_in.value = clone_meta;
       if (
         [
           EMatrixRevealAnimationState.INITIAL,
@@ -159,7 +192,14 @@ defineRender(() => {
         ].includes(flag_state.value)
       ) {
         flag_state.value = EMatrixRevealAnimationState.IN;
-        nextTick(() => initializeAnimation(flag_state));
+        nextTick(() =>
+          initializeAnimation(
+            onAnimationComplete,
+            props.duration,
+            props.direction,
+            flag_state,
+          ),
+        );
       }
     }
   }

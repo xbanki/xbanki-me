@@ -17,10 +17,14 @@ import type {
     IAnimationTarget,
     INodeMetaPointer,
     INodeMeta,
-    NodeMeta
+    NodeMeta,
+    DoneFn
 } from '@/matrix-reveal/lib/types.ts';
 
-import { EMatrixRevealAnimationState } from '@/matrix-reveal/lib/types.ts';
+import {
+    EMatrixRevealAnimationState,
+    EMatrixRevealDirection
+} from '@/matrix-reveal/lib/types.ts';
 
 //—————————————————————————————————————————————————————————————————————————————
 //  - Animation target containers -
@@ -29,9 +33,20 @@ import { EMatrixRevealAnimationState } from '@/matrix-reveal/lib/types.ts';
 const target_out: Ref<IAnimationTarget> = ref({ targets: [], cycles: 0 });
 const target_in: Ref<IAnimationTarget> = ref({ targets: [], cycles: 0 });
 
-//—————————————————————————————————————————————————————————————————————————————
-//  - Public animation API -
-//—————————————————————————————————————————————————————————————————————————————
+/**
+ * Initializes the animation context & begins animations. When the animation
+ * completes, `onDone` callback is called.
+ * @param onDone     Callback hook which is executed when animation completes.
+ * @param duration   Overall duration of the animation.
+ * @param direction  Direction of animation.
+ * @param flag_state Current animation state.
+ */
+export function initializeAnimation(
+    onDone: DoneFn,
+    duration: number,
+    direction: EMatrixRevealDirection,
+    flag_state: Ref<EMatrixRevealAnimationState>
+) {}
 
 /**
  * Resets the "from" target(s) of the animation.
