@@ -54,6 +54,7 @@ export function initializeAnimation(
 export function resetTargetOut() {
     target_out.value = { targets: [], cycles: 0 };
 }
+
 /**
  * Sets the "from" target(s) of the animation.
  * @param nodes            Animation metadata which references the target nodes.
@@ -66,12 +67,11 @@ export function setTargetOut(nodes: INodeMeta[], animation_cycles: number) {
     for (const node of nodes) {
         const pointers: INodeMetaPointer[] = [];
         const original = node.original;
-        const ref = node.ref;
 
         for (let i = 0; i < original.length; i++)
             pointers.push({ cycles: animation_cycles, position: i });
 
-        targets.push({ pointers, original, ref });
+        targets.push({ ref: node.ref, pointers, original });
         cycles += pointers.length * animation_cycles;
     }
     target_out.value = { targets, cycles };
@@ -96,12 +96,11 @@ export function setTargetIn(nodes: INodeMeta[], animation_cycles: number) {
     for (const node of nodes) {
         const pointers: INodeMetaPointer[] = [];
         const original = node.original;
-        const ref = node.ref;
 
         for (let i = 0; i < original.length; i++)
             pointers.push({ cycles: animation_cycles, position: i });
 
-        targets.push({ pointers, original, ref });
+        targets.push({ ref: node.ref, pointers, original });
         cycles += pointers.length * animation_cycles;
     }
     target_in.value = { targets, cycles };
