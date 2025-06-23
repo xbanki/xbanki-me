@@ -164,11 +164,13 @@ defineRender(() => {
       flag_state.value = EMatrixRevealAnimationState.OUT;
       setTargetOut(meta_out.value, props.cycles);
       nextTick(() =>
-        initializeAnimation(
-          onAnimationComplete,
-          props.duration,
-          props.direction,
-          flag_state,
+        requestAnimationFrame(() =>
+          initializeAnimation(
+            onAnimationComplete,
+            props.duration,
+            props.direction,
+            flag_state,
+          ),
         ),
       );
     }
@@ -198,11 +200,13 @@ defineRender(() => {
       ) {
         flag_state.value = EMatrixRevealAnimationState.IN;
         nextTick(() =>
-          initializeAnimation(
-            onAnimationComplete,
-            props.duration,
-            props.direction,
-            flag_state,
+          requestAnimationFrame(() =>
+            initializeAnimation(
+              onAnimationComplete,
+              props.duration,
+              props.direction,
+              flag_state,
+            ),
           ),
         );
       }

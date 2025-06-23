@@ -33,6 +33,34 @@ import {
 const target_out: Ref<IAnimationTarget> = ref({ targets: [], cycles: 0 });
 const target_in: Ref<IAnimationTarget> = ref({ targets: [], cycles: 0 });
 
+//—————————————————————————————————————————————————————————————————————————————
+//  - Out (from) animators -
+//—————————————————————————————————————————————————————————————————————————————
+
+function animateRandomOut(duration: number, inception: DOMHighResTimeStamp) {}
+
+function animateRightOut(duration: number, inception: DOMHighResTimeStamp) {}
+
+function animateLeftOut(duration: number, inception: DOMHighResTimeStamp) {}
+
+function animateOut(duration: number, inception: DOMHighResTimeStamp) {}
+
+//—————————————————————————————————————————————————————————————————————————————
+//  - In (to) animators -
+//—————————————————————————————————————————————————————————————————————————————
+
+function animateRandomIn(duration: number, inception: DOMHighResTimeStamp) {}
+
+function animateRightIn(duration: number, inception: DOMHighResTimeStamp) {}
+
+function animateLeftIn(duration: number, inception: DOMHighResTimeStamp) {}
+
+function animateIn(duration: number, inception: DOMHighResTimeStamp) {}
+
+//—————————————————————————————————————————————————————————————————————————————
+//  - Animation public API -
+//—————————————————————————————————————————————————————————————————————————————
+
 /**
  * Initializes the animation context & begins animations. When the animation
  * completes, `onDone` callback is called.
@@ -40,12 +68,14 @@ const target_in: Ref<IAnimationTarget> = ref({ targets: [], cycles: 0 });
  * @param duration   Overall duration of the animation.
  * @param direction  Direction of animation.
  * @param flag_state Current animation state.
+ * @param inception  Type `DOMHighResTimeStamp` of when the animation started.
  */
 export function initializeAnimation(
     onDone: DoneFn,
     duration: number,
     direction: EMatrixRevealDirection,
-    flag_state: Ref<EMatrixRevealAnimationState>
+    flag_state: Ref<EMatrixRevealAnimationState>,
+    inception = performance.now()
 ) {}
 
 /**
