@@ -37,25 +37,25 @@ const target_in: Ref<IAnimationTarget> = ref({ targets: [], cycles: 0 });
 //  - Out (from) animators -
 //—————————————————————————————————————————————————————————————————————————————
 
-function animateRandomOut(duration: number, inception: DOMHighResTimeStamp) {}
+function animateOutRandom(duration: number, inception: DOMHighResTimeStamp) {}
 
-function animateRightOut(duration: number, inception: DOMHighResTimeStamp) {}
+function animateOutCenter(duration: number, inception: DOMHighResTimeStamp) {}
 
-function animateLeftOut(duration: number, inception: DOMHighResTimeStamp) {}
+function animateOutRight(duration: number, inception: DOMHighResTimeStamp) {}
 
-function animateOut(duration: number, inception: DOMHighResTimeStamp) {}
+function animateOutLeft(duration: number, inception: DOMHighResTimeStamp) {}
 
 //—————————————————————————————————————————————————————————————————————————————
 //  - In (to) animators -
 //—————————————————————————————————————————————————————————————————————————————
 
-function animateRandomIn(duration: number, inception: DOMHighResTimeStamp) {}
+function animateInRandom(duration: number, inception: DOMHighResTimeStamp) {}
 
-function animateRightIn(duration: number, inception: DOMHighResTimeStamp) {}
+function animateInCenter(duration: number, inception: DOMHighResTimeStamp) {}
 
-function animateLeftIn(duration: number, inception: DOMHighResTimeStamp) {}
+function animateInRight(duration: number, inception: DOMHighResTimeStamp) {}
 
-function animateIn(duration: number, inception: DOMHighResTimeStamp) {}
+function animateInLeft(duration: number, inception: DOMHighResTimeStamp) {}
 
 //—————————————————————————————————————————————————————————————————————————————
 //  - Animation public API -
@@ -76,7 +76,67 @@ export function initializeAnimation(
     direction: EMatrixRevealDirection,
     flag_state: Ref<EMatrixRevealAnimationState>,
     inception = performance.now()
-) {}
+) {
+    switch (flag_state.value) {
+        case EMatrixRevealAnimationState.OUT:
+            switch (direction) {
+                case EMatrixRevealDirection.RANDOM:
+                    animateOutRandom(duration, inception);
+                    break;
+                case EMatrixRevealDirection.CENTER:
+                    animateOutCenter(duration, inception);
+                    break;
+                case EMatrixRevealDirection.RIGHT:
+                    animateOutRight(duration, inception);
+                    break;
+                case EMatrixRevealDirection.LEFT:
+                    animateOutLeft(duration, inception);
+                    break;
+            }
+            if (performance.now() - inception >= duration) {
+                flag_state.value = EMatrixRevealAnimationState.IN;
+                inception = performance.now();
+            }
+            requestAnimationFrame(() =>
+                initializeAnimation(
+                    onDone,
+                    duration,
+                    direction,
+                    flag_state,
+                    inception
+                )
+            );
+            break;
+        case EMatrixRevealAnimationState.IN:
+            switch (direction) {
+                case EMatrixRevealDirection.RANDOM:
+                    animateInRandom(duration, inception);
+                    break;
+                case EMatrixRevealDirection.CENTER:
+                    animateInCenter(duration, inception);
+                    break;
+                case EMatrixRevealDirection.RIGHT:
+                    animateInRight(duration, inception);
+
+                    break;
+                case EMatrixRevealDirection.LEFT:
+                    animateInLeft(duration, inception);
+                    break;
+            }
+            if (performance.now() - inception >= duration) onDone();
+            else
+                requestAnimationFrame(() =>
+                    initializeAnimation(
+                        onDone,
+                        duration,
+                        direction,
+                        flag_state,
+                        inception
+                    )
+                );
+            break;
+    }
+}
 
 /**
  * Resets the "from" target(s) of the animation.
