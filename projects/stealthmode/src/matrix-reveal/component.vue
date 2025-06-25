@@ -166,6 +166,7 @@ defineRender(() => {
       nextTick(() =>
         requestAnimationFrame(() =>
           initializeAnimation(
+            props.chars,
             onAnimationComplete,
             props.duration,
             props.direction,
@@ -202,6 +203,7 @@ defineRender(() => {
         nextTick(() =>
           requestAnimationFrame(() =>
             initializeAnimation(
+              props.chars,
               onAnimationComplete,
               props.duration,
               props.direction,

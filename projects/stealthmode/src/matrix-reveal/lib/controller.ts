@@ -45,28 +45,109 @@ const target_in: Ref<IAnimationTarget> = ref({
 });
 
 //—————————————————————————————————————————————————————————————————————————————
+//  - Internal API -
+//—————————————————————————————————————————————————————————————————————————————
+
+/**
+ * Clamps a value between a minimum and maximum inclusive.
+ * @param  min   Minimum value.
+ * @param  max   Maximum value
+ * @param  value Value which to clamp.
+ * @return       Clamped value.
+ */
+function clamp(min: number, max: number, value: number): number {
+    return Math.min(Math.max(value, min), max);
+}
+
+/**
+ * Normalizes a value from `0` to `1` inclusive.
+ * @param  min   Minimum value.
+ * @param  max   Maximum value.
+ * @param  value Normalization value.
+ * @return       Normalized value.
+ */
+function normalize(min: number, max: number, value: number): number {
+    return (value - min) / (max - min);
+}
+
+/**
+ * Sets a single character for the element `el`.
+ * @param el       Element whose content to set.
+ * @param char     Character which to set.
+ * @param position Position of the character which to set.
+ */
+function setTextCharacter(el: Text, char: string, position: number) {
+    if (typeof el.nodeValue != 'string') el.nodeValue = char;
+    else
+        el.nodeValue =
+            el.nodeValue.slice(0, position) +
+            char +
+            el.nodeValue.slice(position + 1);
+}
+
+//—————————————————————————————————————————————————————————————————————————————
 //  - Out (from) animators -
 //—————————————————————————————————————————————————————————————————————————————
 
-function animateOutRandom(duration: number, inception: DOMHighResTimeStamp) {}
+/**
+ * Animation logic for `Out` and `Random` states.
+ * @param chars    Character set which to choose from.
+ * @param progress Total animation progress.
+ */
+function animateOutRandom(chars: string, progress: number) {}
 
-function animateOutCenter(duration: number, inception: DOMHighResTimeStamp) {}
+/**
+ * Animation logic for `Out` and `Random` states.
+ * @param chars    Character set which to choose from.
+ * @param progress Total animation progress.
+ */
+function animateOutCenter(chars: string, progress: number) {}
 
-function animateOutRight(duration: number, inception: DOMHighResTimeStamp) {}
+/**
+ * Animation logic for `Out` and `Random` states.
+ * @param chars    Character set which to choose from.
+ * @param progress Total animation progress.
+ */
+function animateOutRight(chars: string, progress: number) {}
 
-function animateOutLeft(duration: number, inception: DOMHighResTimeStamp) {}
+/**
+ * Animation logic for `Out` and `Random` states.
+ * @param chars    Character set which to choose from.
+ * @param progress Total animation progress.
+ */
+function animateOutLeft(chars: string, progress: number) {}
 
 //—————————————————————————————————————————————————————————————————————————————
 //  - In (to) animators -
 //—————————————————————————————————————————————————————————————————————————————
 
-function animateInRandom(duration: number, inception: DOMHighResTimeStamp) {}
+/**
+ * Animation logic for `Out` and `Random` states.
+ * @param chars    Character set which to choose from.
+ * @param progress Total animation progress.
+ */
+function animateInRandom(chars: string, progress: number) {}
 
-function animateInCenter(duration: number, inception: DOMHighResTimeStamp) {}
+/**
+ * Animation logic for `Out` and `Random` states.
+ * @param chars    Character set which to choose from.
+ * @param progress Total animation progress.
+ */
+function animateInCenter(chars: string, progress: number) {}
 
-function animateInRight(duration: number, inception: DOMHighResTimeStamp) {}
+/**
+ * Animation logic for `Out` and `Random` states.
+ * @param chars    Character set which to choose from.
+ * @param progress Total animation progress.
+ */
+function animateInRight(chars: string, progress: number) {}
 
-function animateInLeft(duration: number, inception: DOMHighResTimeStamp) {}
+/**
+ * Animation logic for `Out` and `Random` states.
+ * @param chars    Character set which to choose from.
+ * @param progress Total animation progress.
+ */
+function animateInLeft(chars: string, progress: number) {}
 
 //—————————————————————————————————————————————————————————————————————————————
 //  - Animation public API -
@@ -82,34 +163,44 @@ function animateInLeft(duration: number, inception: DOMHighResTimeStamp) {}
  * @param inception  Type `DOMHighResTimeStamp` of when the animation started.
  */
 export function initializeAnimation(
+    chars: string,
     onDone: DoneFn,
     duration: number,
     direction: EMatrixRevealDirection,
     flag_state: Ref<EMatrixRevealAnimationState>,
-    inception = performance.now()
+    inception: DOMHighResTimeStamp = performance.now()
 ) {
+    const progress = normalize(
+        1,
+        duration,
+        clamp(1, duration, performance.now() - inception)
+    );
     switch (flag_state.value) {
         case EMatrixRevealAnimationState.OUT:
             switch (direction) {
                 case EMatrixRevealDirection.RANDOM:
-                    animateOutRandom(duration, inception);
+                    animateOutRandom(chars, progress);
                     break;
                 case EMatrixRevealDirection.CENTER:
-                    animateOutCenter(duration, inception);
+                    animateOutCenter(chars, progress);
                     break;
                 case EMatrixRevealDirection.RIGHT:
-                    animateOutRight(duration, inception);
+                    animateOutRight(chars, progress);
                     break;
                 case EMatrixRevealDirection.LEFT:
-                    animateOutLeft(duration, inception);
+                    animateOutLeft(chars, progress);
                     break;
             }
-            if (performance.now() - inception >= duration) {
+            if (
+                progress >= 1 &&
+                target_out.value.completed >= target_in.value.cycles
+            ) {
                 flag_state.value = EMatrixRevealAnimationState.IN;
                 inception = performance.now();
             }
             requestAnimationFrame(() =>
                 initializeAnimation(
+                    chars,
                     onDone,
                     duration,
                     direction,
@@ -121,23 +212,28 @@ export function initializeAnimation(
         case EMatrixRevealAnimationState.IN:
             switch (direction) {
                 case EMatrixRevealDirection.RANDOM:
-                    animateInRandom(duration, inception);
+                    animateInRandom(chars, progress);
                     break;
                 case EMatrixRevealDirection.CENTER:
-                    animateInCenter(duration, inception);
+                    animateInCenter(chars, progress);
                     break;
                 case EMatrixRevealDirection.RIGHT:
-                    animateInRight(duration, inception);
+                    animateInRight(chars, progress);
 
                     break;
                 case EMatrixRevealDirection.LEFT:
-                    animateInLeft(duration, inception);
+                    animateInLeft(chars, progress);
                     break;
             }
-            if (performance.now() - inception >= duration) onDone();
+            if (
+                progress >= 1 &&
+                target_in.value.completed >= target_in.value.cycles
+            )
+                onDone();
             else
                 requestAnimationFrame(() =>
                     initializeAnimation(
+                        chars,
                         onDone,
                         duration,
                         direction,
