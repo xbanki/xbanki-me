@@ -30,8 +30,19 @@ import {
 //  - Animation target containers -
 //—————————————————————————————————————————————————————————————————————————————
 
-const target_out: Ref<IAnimationTarget> = ref({ targets: [], cycles: 0 });
-const target_in: Ref<IAnimationTarget> = ref({ targets: [], cycles: 0 });
+const target_out: Ref<IAnimationTarget> = ref({
+    completed: 0,
+    fractions: 0,
+    targets: [],
+    cycles: 0
+});
+
+const target_in: Ref<IAnimationTarget> = ref({
+    completed: 0,
+    fractions: 0,
+    targets: [],
+    cycles: 0
+});
 
 //—————————————————————————————————————————————————————————————————————————————
 //  - Out (from) animators -
@@ -142,7 +153,7 @@ export function initializeAnimation(
  * Resets the "from" target(s) of the animation.
  */
 export function resetTargetOut() {
-    target_out.value = { targets: [], cycles: 0 };
+    target_out.value = { completed: 0, fractions: 0, targets: [], cycles: 0 };
 }
 
 /**
@@ -153,6 +164,8 @@ export function resetTargetOut() {
  */
 export function setTargetOut(nodes: INodeMeta[], animation_cycles: number) {
     const targets: NodeMeta[] = [];
+    const completed: number = 0;
+    const fractions: number = 0;
     let cycles: number = 0;
     for (const node of nodes) {
         const pointers: INodeMetaPointer[] = [];
@@ -164,14 +177,14 @@ export function setTargetOut(nodes: INodeMeta[], animation_cycles: number) {
         targets.push({ ref: node.ref, pointers, original });
         cycles += pointers.length * animation_cycles;
     }
-    target_out.value = { targets, cycles };
+    target_out.value = { completed, fractions, targets, cycles };
 }
 
 /**
  * Resets the "to" target(s) of the animation.
  */
 export function resetTargetIn() {
-    target_in.value = { targets: [], cycles: 0 };
+    target_in.value = { completed: 0, fractions: 0, targets: [], cycles: 0 };
 }
 
 /**
@@ -182,6 +195,8 @@ export function resetTargetIn() {
  */
 export function setTargetIn(nodes: INodeMeta[], animation_cycles: number) {
     const targets: NodeMeta[] = [];
+    const completed: number = 0;
+    const fractions: number = 0;
     let cycles: number = 0;
     for (const node of nodes) {
         const pointers: INodeMetaPointer[] = [];
@@ -193,5 +208,5 @@ export function setTargetIn(nodes: INodeMeta[], animation_cycles: number) {
         targets.push({ ref: node.ref, pointers, original });
         cycles += pointers.length * animation_cycles;
     }
-    target_in.value = { targets, cycles };
+    target_in.value = { completed, fractions, targets, cycles };
 }

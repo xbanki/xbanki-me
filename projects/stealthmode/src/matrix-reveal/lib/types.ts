@@ -135,6 +135,16 @@ export interface IAnimationTarget {
     targets: NodeMeta[];
 
     /**
+     * Number of cycles already completed.
+     */
+    completed: number;
+
+    /**
+     * Fractions (of steps) that haven't been completed yet.
+     */
+    fractions: number;
+
+    /**
      * Number of total cycles to perform.
      */
     cycles: number;
