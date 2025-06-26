@@ -126,7 +126,44 @@ function animateOutLeft(chars: string, progress: number) {}
  * @param chars    Character set which to choose from.
  * @param progress Total animation progress.
  */
-function animateInRandom(chars: string, progress: number) {}
+function animateInRandom(chars: string, progress: number) {
+    target_in.value.fractions +=
+        target_in.value.cycles * progress - target_in.value.completed;
+    const steps = Math.floor(target_in.value.fractions);
+    for (let i = 0; i < steps; i++) {
+        if (target_in.value.targets.length <= 0) break;
+
+        const target =
+            target_in.value.targets[
+                Math.floor(Math.random() * target_in.value.targets.length)
+            ];
+        if (!(target.ref instanceof Text)) continue;
+
+        const pointer =
+            target.pointers[Math.floor(Math.random() * target.pointers.length)];
+        if (pointer.cycles > 1) {
+            setTextCharacter(
+                target.ref,
+                chars[Math.floor(Math.random() * chars.length)],
+                pointer.position
+            );
+            pointer.cycles -= 1;
+        } else {
+            setTextCharacter(
+                target.ref,
+                target.original[pointer.position],
+                pointer.position
+            );
+            target.pointers.splice(target.pointers.indexOf(pointer), 1);
+        }
+        if (target.pointers.length <= 0)
+            target_in.value.targets.splice(
+                target_in.value.targets.indexOf(target)
+            );
+
+        target_in.value.completed += 1;
+    }
+}
 
 /**
  * Animation logic for `Out` and `Random` states.
