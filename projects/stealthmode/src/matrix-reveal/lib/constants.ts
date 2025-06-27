@@ -10,14 +10,12 @@
  */
 
 import type { IRevealPropsOptional } from '@/matrix-reveal/lib/types.ts';
-import { EMatrixRevealDirection } from '@/matrix-reveal/lib/types.ts';
 
 export const DEFAULT_REVEAL_PROPS_OPTIONAL: IRevealPropsOptional = {
     cloneProps: (animable, _) => ({
         class: animable ? 'matrix-reveal-animable' : 'matrix-reveal-target'
     }),
     wrapperProps: { class: 'font-mono block' },
-    direction: EMatrixRevealDirection.RANDOM,
     chars: '!@#$%^&[]*():{};|,.<>/?',
     element: 'span',
     initial: false,

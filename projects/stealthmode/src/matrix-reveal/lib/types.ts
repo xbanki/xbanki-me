@@ -41,16 +41,6 @@ export enum EMatrixRevealAnimationState {
 }
 
 /**
- * The direction of origin for the reveal effect.
- */
-export enum EMatrixRevealDirection {
-    RANDOM = 0,
-    CENTER = 1,
-    RIGHT = 2,
-    LEFT = 3
-}
-
-/**
  * Animation completion callback function.
  */
 export type DoneFn = () => void;
@@ -93,11 +83,6 @@ export interface IRevealPropsOptional {
      * content slot.
      */
     cloneProps: CloneProps;
-
-    /**
-     * Animation origin direction relative to the center.
-     */
-    direction: EMatrixRevealDirection;
 
     /**
      * Duration of animation in miliseconds.

@@ -21,10 +21,7 @@ import type {
     DoneFn
 } from '@/matrix-reveal/lib/types.ts';
 
-import {
-    EMatrixRevealAnimationState,
-    EMatrixRevealDirection
-} from '@/matrix-reveal/lib/types.ts';
+import { EMatrixRevealAnimationState } from '@/matrix-reveal/lib/types.ts';
 
 //—————————————————————————————————————————————————————————————————————————————
 //  - Animation target containers -
@@ -86,7 +83,7 @@ function setTextCharacter(el: Text, char: string, position: number) {
 }
 
 //—————————————————————————————————————————————————————————————————————————————
-//  - Out (from) animators -
+//  - Animator functions -
 //—————————————————————————————————————————————————————————————————————————————
 
 /**
@@ -94,39 +91,14 @@ function setTextCharacter(el: Text, char: string, position: number) {
  * @param chars    Character set which to choose from.
  * @param progress Total animation progress.
  */
-function animateOutRandom(chars: string, progress: number) {}
+function animateOut(chars: string, progress: number) {}
 
 /**
  * Animation logic for `Out` and `Random` states.
  * @param chars    Character set which to choose from.
  * @param progress Total animation progress.
  */
-function animateOutCenter(chars: string, progress: number) {}
-
-/**
- * Animation logic for `Out` and `Random` states.
- * @param chars    Character set which to choose from.
- * @param progress Total animation progress.
- */
-function animateOutRight(chars: string, progress: number) {}
-
-/**
- * Animation logic for `Out` and `Random` states.
- * @param chars    Character set which to choose from.
- * @param progress Total animation progress.
- */
-function animateOutLeft(chars: string, progress: number) {}
-
-//—————————————————————————————————————————————————————————————————————————————
-//  - In (to) animators -
-//—————————————————————————————————————————————————————————————————————————————
-
-/**
- * Animation logic for `Out` and `Random` states.
- * @param chars    Character set which to choose from.
- * @param progress Total animation progress.
- */
-function animateInRandom(chars: string, progress: number) {
+function animateIn(chars: string, progress: number) {
     target_in.value.fractions +=
         target_in.value.cycles * progress - target_in.value.completed;
     const steps = Math.floor(target_in.value.fractions);
@@ -165,27 +137,6 @@ function animateInRandom(chars: string, progress: number) {
     }
 }
 
-/**
- * Animation logic for `Out` and `Random` states.
- * @param chars    Character set which to choose from.
- * @param progress Total animation progress.
- */
-function animateInCenter(chars: string, progress: number) {}
-
-/**
- * Animation logic for `Out` and `Random` states.
- * @param chars    Character set which to choose from.
- * @param progress Total animation progress.
- */
-function animateInRight(chars: string, progress: number) {}
-
-/**
- * Animation logic for `Out` and `Random` states.
- * @param chars    Character set which to choose from.
- * @param progress Total animation progress.
- */
-function animateInLeft(chars: string, progress: number) {}
-
 //—————————————————————————————————————————————————————————————————————————————
 //  - Animation public API -
 //—————————————————————————————————————————————————————————————————————————————
@@ -203,7 +154,6 @@ export function initializeAnimation(
     chars: string,
     onDone: DoneFn,
     duration: number,
-    direction: EMatrixRevealDirection,
     flag_state: Ref<EMatrixRevealAnimationState>,
     inception: DOMHighResTimeStamp = performance.now()
 ) {
@@ -214,20 +164,7 @@ export function initializeAnimation(
     );
     switch (flag_state.value) {
         case EMatrixRevealAnimationState.OUT:
-            switch (direction) {
-                case EMatrixRevealDirection.RANDOM:
-                    animateOutRandom(chars, progress);
-                    break;
-                case EMatrixRevealDirection.CENTER:
-                    animateOutCenter(chars, progress);
-                    break;
-                case EMatrixRevealDirection.RIGHT:
-                    animateOutRight(chars, progress);
-                    break;
-                case EMatrixRevealDirection.LEFT:
-                    animateOutLeft(chars, progress);
-                    break;
-            }
+            animateOut(chars, progress);
             if (
                 progress >= 1 &&
                 target_out.value.completed >= target_in.value.cycles
@@ -240,28 +177,13 @@ export function initializeAnimation(
                     chars,
                     onDone,
                     duration,
-                    direction,
                     flag_state,
                     inception
                 )
             );
             break;
         case EMatrixRevealAnimationState.IN:
-            switch (direction) {
-                case EMatrixRevealDirection.RANDOM:
-                    animateInRandom(chars, progress);
-                    break;
-                case EMatrixRevealDirection.CENTER:
-                    animateInCenter(chars, progress);
-                    break;
-                case EMatrixRevealDirection.RIGHT:
-                    animateInRight(chars, progress);
-
-                    break;
-                case EMatrixRevealDirection.LEFT:
-                    animateInLeft(chars, progress);
-                    break;
-            }
+            animateIn(chars, progress);
             if (
                 progress >= 1 &&
                 target_in.value.completed >= target_in.value.cycles
@@ -273,7 +195,6 @@ export function initializeAnimation(
                         chars,
                         onDone,
                         duration,
-                        direction,
                         flag_state,
                         inception
                     )
