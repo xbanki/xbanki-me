@@ -1474,6 +1474,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@storybook/addon-themes@npm:^9.0.16":
+  version: 9.0.16
+  resolution: "@storybook/addon-themes@npm:9.0.16"
+  dependencies:
+    ts-dedent: "npm:^2.0.0"
+  peerDependencies:
+    storybook: ^9.0.16
+  checksum: 10c0/4adfc76f933f12fa9db28ebb2b584bfa2527ea45fde9422867917d3feb9f49072f267d0448b7f244a02f1b06eee1ee3c31ab0722dec4ec231d8394c887e1b870
+  languageName: node
+  linkType: hard
+
 "@storybook/builder-vite@npm:9.0.16":
   version: 9.0.16
   resolution: "@storybook/builder-vite@npm:9.0.16"
@@ -2616,6 +2627,7 @@ __metadata:
     "@biomejs/biome": "npm:^1.9.4"
     "@eslint/js": "npm:^9.25.1"
     "@storybook/addon-docs": "npm:^9.0.16"
+    "@storybook/addon-themes": "npm:^9.0.16"
     "@storybook/types": "npm:^8.6.14"
     "@storybook/vue3-vite": "npm:^9.0.16"
     "@tailwindcss/typography": "npm:^0.5.16"
