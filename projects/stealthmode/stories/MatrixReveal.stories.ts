@@ -43,4 +43,50 @@ export const Default: Story = {
     }
 };
 
+/**
+ * `@TODO(xbanki): Document.`
+ */
+export const NestedDOMTree: Story = {
+    parameters: {
+        slots: {
+            default: {
+                template: `
+                    <span>
+                        Nested
+                        <span>
+                            DOM
+                            <span>
+                                Tree
+                            </span>
+                        </span>
+                    </span>
+                `
+            }
+        }
+    }
+};
+
+/**
+ * `@TODO(xbanki): Document.`
+ */
+export const ContentReactive: Story = {
+    render: args => ({
+        components: { MatrixReveal },
+        data() {
+            const beta = 'Hey! We changed the label.';
+            const alpha = 'Click the button.';
+            const toggle = false;
+            return { toggle, alpha, beta, args };
+        },
+        template: `
+            <MatrixReveal v-bind="args">
+                {{ !toggle ? alpha : beta }}
+            </MatrixReveal>
+            <button v-on:click="toggle = !toggle">
+                Toggle Label
+            </button>
+        `
+    })
+};
+
 export default Meta;
