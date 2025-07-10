@@ -13,3 +13,6 @@
 /* Tailwind dependencies */
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
+
+/* Enable theme via data attribute */
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
