@@ -9,12 +9,14 @@
  *    @version   1.0.0
  */
 
-import type { StoryObj, Meta } from '@storybook/vue3';
+import type { StoryObj, Meta } from '@storybook/vue3-vite';
 
 import { MatrixReveal } from '@/library.ts';
 
+type Story = StoryObj<typeof MatrixReveal>;
+
 /**
- * [Source Code](https://github.com/xbanki/xbanki-me/blob/main/projects/stealthmode/src/reveal/component.vue)
+ * [Source Code](https://github.com/xbanki/xbanki-me/blob/main/projects/ui/src/matrix-reveal/component.vue)
  */
 const Meta: Meta<typeof MatrixReveal> = {
     title: 'Components/MatrixReveal',
@@ -31,7 +33,7 @@ const Meta: Meta<typeof MatrixReveal> = {
 /**
  * `@TODO(xbanki): Document.`
  */
-export const Default: StoryObj<typeof MatrixReveal> = {
+export const Default: Story = {
     parameters: {
         slots: {
             default: {

@@ -22,8 +22,8 @@ export default defineConfig({
     build: {
         lib: {
             entry: resolve(join(process.cwd(), 'src', 'library.ts')),
-            fileName: 'xbanki-me-stealthmode',
-            name: 'stealthmode'
+            fileName: 'xbanki-me-ui',
+            name: 'ui'
         },
         rollupOptions: {
             external: ['vue'],

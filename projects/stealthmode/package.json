@@ -3,7 +3,7 @@
     "animejs": "^4.0.2",
     "vue": "^3.5.13"
   },
-  "name": "@xbanki-me/stealthmode",
+  "name": "@xbanki-me/ui",
   "packageManager": "yarn@4.6.0",
   "scripts": {
     "build": "yarn build:lib",

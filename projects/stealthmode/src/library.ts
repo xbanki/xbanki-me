@@ -1,5 +1,5 @@
 /**
- *    @xbanki-me/stealthmode
+ *    @xbanki-me/ui
  *
  * Minimal grayscale-inspired UI component library.
  *
