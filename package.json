@@ -1,20 +1,20 @@
 {
-	"devDependencies": {
-		"@commitlint/cli": "^19.6.1",
-		"@commitlint/config-conventional": "^19.6.0",
-		"husky": "^9.1.7"
-	},
-	"license": "MIT",
-	"name": "xbanki-me",
-	"packageManager": "yarn@4.6.0",
-	"private": true,
-	"scripts": {
-		"postinstall": "husky init",
-		"prepare": "husky",
-		"test": "echo \"No tests specified\""
-	},
-	"type": "module",
-	"workspaces": [
-		"projects/*"
-	]
+  "devDependencies": {
+    "@commitlint/cli": "^19.6.1",
+    "@commitlint/config-conventional": "^19.6.0",
+    "husky": "^9.1.7"
+  },
+  "license": "MIT",
+  "name": "xbanki-me",
+  "packageManager": "yarn@4.6.0",
+  "private": true,
+  "scripts": {
+    "postinstall": "husky init",
+    "prepare": "husky",
+    "test": "echo \"No tests specified\""
+  },
+  "type": "module",
+  "workspaces": [
+    "projects/*"
+  ]
 }

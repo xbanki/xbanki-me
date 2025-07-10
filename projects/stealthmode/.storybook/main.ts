@@ -1,3 +1,5 @@
+import { createRequire } from 'node:module';
+import { dirname, join } from 'node:path';
 /**
  * Storybook configuration. Allows us to preview & test UI components in a sandboxed environment.
  *
@@ -12,9 +14,8 @@ import type { StorybookConfig } from '@storybook/vue3-vite';
 
 const config: StorybookConfig = {
     addons: [
-        '@storybook/addon-essentials',
-        '@storybook/addon-postcss',
-        'storybook-addon-vue-slots'
+        'storybook-addon-vue-slots',
+        '@storybook/addon-docs',
     ],
     docs: {
         defaultName: 'Overview'
