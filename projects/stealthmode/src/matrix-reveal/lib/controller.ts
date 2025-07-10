@@ -11,7 +11,6 @@
  */
 
 import type { Ref } from 'vue';
-import { ref } from 'vue';
 
 import type {
     IAnimationTarget,
@@ -28,19 +27,19 @@ import { STRING_WHITESPACE } from '@/matrix-reveal/lib/constants.ts';
 //  - Animation target containers -
 //——————————————————————————————————————————————————————————————————————————————
 
-const target_out: Ref<IAnimationTarget> = ref({
+const target_out: IAnimationTarget = {
     completed: 0,
     fractions: 0,
     targets: [],
     cycles: 0
-});
+};
 
-const target_in: Ref<IAnimationTarget> = ref({
+const target_in: IAnimationTarget = {
     completed: 0,
     fractions: 0,
     targets: [],
     cycles: 0
-});
+};
 
 //——————————————————————————————————————————————————————————————————————————————
 //  - Internal API -
@@ -93,37 +92,39 @@ function setTextCharacter(el: Text, char: string, position: number) {
  * @param progress Total animation progress.
  */
 function animateOut(chars: string, progress: number) {
-    target_in.value.fractions +=
-        target_in.value.cycles * progress - target_in.value.completed;
-    const steps = Math.floor(target_in.value.fractions);
+    target_out.fractions += target_out.cycles * progress - target_out.completed;
+    const steps = Math.floor(target_out.fractions);
     for (let i = 0; i < steps; i++) {
-        if (target_in.value.targets.length <= 0) break;
+        if (target_out.targets.length <= 0) break;
 
         const target =
-            target_in.value.targets[
-                Math.floor(Math.random() * target_in.value.targets.length)
+            target_out.targets[
+                Math.floor(Math.random() * target_out.targets.length)
             ];
-        if (!(target.ref instanceof Text)) continue;
+        if (!(target.ref.value instanceof Text)) continue;
 
         const pointer =
             target.pointers[Math.floor(Math.random() * target.pointers.length)];
         if (pointer.cycles > 1) {
             setTextCharacter(
-                target.ref,
+                target.ref.value,
                 chars[Math.floor(Math.random() * chars.length)],
                 pointer.position
             );
             pointer.cycles -= 1;
         } else {
-            setTextCharacter(target.ref, STRING_WHITESPACE, pointer.position);
+            setTextCharacter(
+                target.ref.value,
+                STRING_WHITESPACE,
+                pointer.position
+            );
             target.pointers.splice(target.pointers.indexOf(pointer), 1);
         }
-        if (target.pointers.length <= 0)
-            target_in.value.targets.splice(
-                target_in.value.targets.indexOf(target)
-            );
 
-        target_in.value.completed += 1;
+        if (target.pointers.length <= 0)
+            target_out.targets.splice(target_out.targets.indexOf(target));
+
+        target_out.completed += 1;
     }
 }
 
@@ -133,41 +134,39 @@ function animateOut(chars: string, progress: number) {
  * @param progress Total animation progress.
  */
 function animateIn(chars: string, progress: number) {
-    target_in.value.fractions +=
-        target_in.value.cycles * progress - target_in.value.completed;
-    const steps = Math.floor(target_in.value.fractions);
+    target_in.fractions += target_in.cycles * progress - target_in.completed;
+    const steps = Math.floor(target_in.fractions);
     for (let i = 0; i < steps; i++) {
-        if (target_in.value.targets.length <= 0) break;
+        if (target_in.targets.length <= 0) break;
 
         const target =
-            target_in.value.targets[
-                Math.floor(Math.random() * target_in.value.targets.length)
+            target_in.targets[
+                Math.floor(Math.random() * target_in.targets.length)
             ];
-        if (!(target.ref instanceof Text)) continue;
+        if (!(target.ref.value instanceof Text)) return;
 
         const pointer =
             target.pointers[Math.floor(Math.random() * target.pointers.length)];
         if (pointer.cycles > 1) {
             setTextCharacter(
-                target.ref,
+                target.ref.value,
                 chars[Math.floor(Math.random() * chars.length)],
                 pointer.position
             );
             pointer.cycles -= 1;
         } else {
             setTextCharacter(
-                target.ref,
+                target.ref.value,
                 target.original[pointer.position],
                 pointer.position
             );
             target.pointers.splice(target.pointers.indexOf(pointer), 1);
         }
-        if (target.pointers.length <= 0)
-            target_in.value.targets.splice(
-                target_in.value.targets.indexOf(target)
-            );
 
-        target_in.value.completed += 1;
+        if (target.pointers.length <= 0)
+            target_in.targets.splice(target_in.targets.indexOf(target));
+
+        target_in.completed += 1;
     }
 }
 
@@ -199,13 +198,11 @@ export function initializeAnimation(
     switch (flag_state.value) {
         case EMatrixRevealAnimationState.OUT:
             animateOut(chars, progress);
-            if (
-                progress >= 1 &&
-                target_out.value.completed >= target_in.value.cycles
-            ) {
+            if (progress >= 1 && target_out.completed >= target_out.cycles) {
                 flag_state.value = EMatrixRevealAnimationState.IN;
                 inception = performance.now();
             }
+
             requestAnimationFrame(() =>
                 initializeAnimation(
                     chars,
@@ -218,10 +215,7 @@ export function initializeAnimation(
             break;
         case EMatrixRevealAnimationState.IN:
             animateIn(chars, progress);
-            if (
-                progress >= 1 &&
-                target_in.value.completed >= target_in.value.cycles
-            )
+            if (progress >= 1 && target_in.completed >= target_in.cycles)
                 onDone();
             else
                 requestAnimationFrame(() =>
@@ -241,7 +235,10 @@ export function initializeAnimation(
  * Resets the "from" target(s) of the animation.
  */
 export function resetTargetOut() {
-    target_out.value = { completed: 0, fractions: 0, targets: [], cycles: 0 };
+    target_out.completed = 0;
+    target_out.fractions = 0;
+    target_out.targets = [];
+    target_out.cycles = 0;
 }
 
 /**
@@ -265,14 +262,21 @@ export function setTargetOut(nodes: INodeMeta[], animation_cycles: number) {
         targets.push({ ref: node.ref, pointers, original });
         cycles += pointers.length * animation_cycles;
     }
-    target_out.value = { completed, fractions, targets, cycles };
+
+    target_out.completed = completed;
+    target_out.fractions = fractions;
+    target_out.targets = targets;
+    target_out.cycles = cycles;
 }
 
 /**
  * Resets the "to" target(s) of the animation.
  */
 export function resetTargetIn() {
-    target_in.value = { completed: 0, fractions: 0, targets: [], cycles: 0 };
+    target_in.completed = 0;
+    target_in.fractions = 0;
+    target_in.targets = [];
+    target_in.cycles = 0;
 }
 
 /**
@@ -296,5 +300,9 @@ export function setTargetIn(nodes: INodeMeta[], animation_cycles: number) {
         targets.push({ ref: node.ref, pointers, original });
         cycles += pointers.length * animation_cycles;
     }
-    target_in.value = { completed, fractions, targets, cycles };
+
+    target_in.completed = completed;
+    target_in.fractions = fractions;
+    target_in.targets = targets;
+    target_in.cycles = cycles;
 }

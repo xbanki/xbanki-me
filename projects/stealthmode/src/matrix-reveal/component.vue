@@ -10,8 +10,8 @@
  //-->
 
 <script lang="ts" setup>
-import type { VNode, Ref } from "vue";
-import { onBeforeMount, shallowRef, nextTick, watch, ref, h } from "vue";
+import type { VNode } from "vue";
+import { onBeforeMount, shallowRef, nextTick, watch, h } from "vue";
 
 import type {
   IRevealSlots,
@@ -57,11 +57,11 @@ const flag_render_swap = shallowRef<boolean>(false);
 //  - Cloned VNode containers -
 //——————————————————————————————————————————————————————————————————————————————
 
-const clones_out: Ref<VNode[]> = ref([]);
-const clones_in: Ref<VNode[]> = ref([]);
+let clones_out: VNode[] = [];
+let clones_in: VNode[] = [];
 
-const meta_out: Ref<INodeMeta[]> = ref([]);
-const meta_in: Ref<INodeMeta[]> = ref([]);
+let meta_out: INodeMeta[] = [];
+let meta_in: INodeMeta[] = [];
 
 //——————————————————————————————————————————————————————————————————————————————
 //  - State change hooks -
@@ -75,8 +75,8 @@ function onAnimationComplete() {
   flag_detected_change.value = false;
 
   // Reset node containers
-  [clones_out.value, clones_in.value] = [clones_in.value, []];
-  [meta_out.value, meta_in.value] = [meta_in.value, []];
+  [clones_out, clones_in] = [clones_in, []];
+  [meta_out, meta_in] = [meta_in, []];
 
   resetTargetOut();
   resetTargetIn();
@@ -146,77 +146,43 @@ onBeforeMount(() => {
 defineRender(() => {
   if (
     slots.default &&
+    !flag_is_animating.value &&
     flag_detected_change.value &&
     [
       EMatrixRevealAnimationState.INITIAL,
       EMatrixRevealAnimationState.IDLE,
-      EMatrixRevealAnimationState.OUT,
     ].includes(flag_state.value)
   ) {
-    if (
-      !flag_is_animating.value &&
-      clones_out.value.length >= 1 &&
-      [
-        EMatrixRevealAnimationState.INITIAL,
-        EMatrixRevealAnimationState.IDLE,
-      ].includes(flag_state.value)
-    ) {
+    const [clone_vnodes, clone_meta] = buildVNodeClones(
+      slots.default(),
+      props.cloneProps,
+      props.initial,
+      props.chars,
+    );
+    setTargetIn(clone_meta, props.cycles);
+    clones_in = clone_vnodes;
+    meta_in = clone_meta;
+    if (clones_out.length >= 1 && meta_out.length >= 1) {
+      setTargetOut(meta_out, props.cycles);
       flag_state.value = EMatrixRevealAnimationState.OUT;
-      setTargetOut(meta_out.value, props.cycles);
-      nextTick(() =>
-        requestAnimationFrame(() =>
-          initializeAnimation(
-            props.chars,
-            onAnimationComplete,
-            props.duration,
-            flag_state,
-          ),
+    } else flag_state.value = EMatrixRevealAnimationState.IN;
+
+    nextTick(() =>
+      requestAnimationFrame(() =>
+        initializeAnimation(
+          props.chars,
+          onAnimationComplete,
+          props.duration,
+          flag_state,
         ),
-      );
-    }
-    if (
-      (flag_is_animating.value &&
-        flag_state.value === EMatrixRevealAnimationState.OUT) ||
-      (!flag_is_animating.value &&
-        [
-          EMatrixRevealAnimationState.INITIAL,
-          EMatrixRevealAnimationState.IDLE,
-        ].includes(flag_state.value))
-    ) {
-      const [clone_vnodes, clone_meta] = buildVNodeClones(
-        slots.default(),
-        props.cloneProps,
-        props.initial,
-        props.chars,
-      );
-      setTargetIn(clone_meta, props.cycles);
-      clones_in.value = clone_vnodes;
-      meta_in.value = clone_meta;
-      if (
-        [
-          EMatrixRevealAnimationState.INITIAL,
-          EMatrixRevealAnimationState.IDLE,
-        ].includes(flag_state.value)
-      ) {
-        flag_state.value = EMatrixRevealAnimationState.IN;
-        nextTick(() =>
-          requestAnimationFrame(() =>
-            initializeAnimation(
-              props.chars,
-              onAnimationComplete,
-              props.duration,
-              flag_state,
-            ),
-          ),
-        );
-      }
-    }
+      ),
+    );
   }
 
   return flag_render_clone.value
     ? flag_render_swap.value
-      ? h(props.element, props.wrapperProps, clones_out.value)
-      : h(props.element, props.wrapperProps, clones_in.value)
+      ? h(props.element, props.wrapperProps, clones_out)
+      : h(props.element, props.wrapperProps, clones_in)
     : h(
         props.element,
         props.wrapperProps,
