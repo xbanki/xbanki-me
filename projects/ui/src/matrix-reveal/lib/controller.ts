@@ -82,92 +82,82 @@ function setTextCharacter(el: Text, char: string, position: number) {
             el.nodeValue.slice(position + 1);
 }
 
-//——————————————————————————————————————————————————————————————————————————————
-//  - Animator functions -
-//——————————————————————————————————————————————————————————————————————————————
-
 /**
- * Animation logic for `Out` and `Random` states.
- * @param chars    Character set which to choose from.
- * @param progress Total animation progress.
+ * Animates a single frame of the randomization animation in-line with the
+ * current animation progress.
+ * @param progress                    Total progress of the animation.
+ * @param characters                  Random character set.
+ * @param targets                     Targets, which to animate.
+ * @param final_character_whitespace  Wether to render final cycle as empty
+ *                                    whitespace or original string character.
  */
-function animateOut(chars: string, progress: number) {
-    target_out.fractions += target_out.cycles * progress - target_out.completed;
-    const steps = Math.floor(target_out.fractions);
-    for (let i = 0; i < steps; i++) {
-        if (target_out.targets.length <= 0) break;
-
-        const target =
-            target_out.targets[
-                Math.floor(Math.random() * target_out.targets.length)
-            ];
-        if (!(target.ref.value instanceof Text)) continue;
-
-        const pointer =
-            target.pointers[Math.floor(Math.random() * target.pointers.length)];
-        if (pointer.cycles > 1) {
-            setTextCharacter(
-                target.ref.value,
-                chars[Math.floor(Math.random() * chars.length)],
-                pointer.position
-            );
-            pointer.cycles -= 1;
-        } else {
-            setTextCharacter(
-                target.ref.value,
-                STRING_WHITESPACE,
-                pointer.position
-            );
-            target.pointers.splice(target.pointers.indexOf(pointer), 1);
-        }
-
-        if (target.pointers.length <= 0)
-            target_out.targets.splice(target_out.targets.indexOf(target));
-
-        target_out.completed += 1;
+function animateFrame(
+    progress: number,
+    characters: string,
+    targets: IAnimationTarget,
+    final_character_whitespace: boolean = false
+) {
+    if (
+        (targets.completed != targets.cycles && targets.targets.length <= 0) ||
+        progress >= 1
+    ) {
+        targets.completed = targets.cycles;
+        return;
     }
-}
 
-/**
- * Animation logic for `Out` and `Random` states.
- * @param chars    Character set which to choose from.
- * @param progress Total animation progress.
- */
-function animateIn(chars: string, progress: number) {
-    target_in.fractions += target_in.cycles * progress - target_in.completed;
-    const steps = Math.floor(target_in.fractions);
-    for (let i = 0; i < steps; i++) {
-        if (target_in.targets.length <= 0) break;
+    targets.fractions += targets.cycles * progress - targets.completed;
+    if (targets.targets.length >= 1)
+        for (let i = 0; i < Math.floor(targets.fractions); i++) {
+            if (targets.targets.length <= 0) break;
 
-        const target =
-            target_in.targets[
-                Math.floor(Math.random() * target_in.targets.length)
-            ];
-        if (!(target.ref.value instanceof Text)) return;
+            const target =
+                targets.targets[
+                    Math.floor(Math.random() * targets.targets.length)
+                ];
+            if (
+                !(target.ref.value instanceof Text) &&
+                target.ref.value instanceof Node &&
+                target.ref.value.hasChildNodes()
+            ) {
+                for (const child of target.ref.value.childNodes)
+                    if (child instanceof Text) {
+                        // @ts-expect-error VNode type gets unwrapped for some reason.
+                        target.ref.value = child;
+                        break;
+                    }
+            } else if (!target || !(target.ref.value instanceof Text)) continue;
 
-        const pointer =
-            target.pointers[Math.floor(Math.random() * target.pointers.length)];
-        if (pointer.cycles > 1) {
-            setTextCharacter(
-                target.ref.value,
-                chars[Math.floor(Math.random() * chars.length)],
-                pointer.position
-            );
-            pointer.cycles -= 1;
-        } else {
-            setTextCharacter(
-                target.ref.value,
-                target.original[pointer.position],
-                pointer.position
-            );
-            target.pointers.splice(target.pointers.indexOf(pointer), 1);
+            const pointer =
+                target.pointers[
+                    Math.floor(Math.random() * target.pointers.length)
+                ];
+            if (pointer.cycles > 1) {
+                setTextCharacter(
+                    // @ts-expect-error Bad compiler type inference
+                    target.ref.value,
+                    characters.charAt(
+                        Math.floor(Math.random() * characters.length)
+                    ),
+                    pointer.position
+                );
+                pointer.cycles -= 1;
+            } else {
+                setTextCharacter(
+                    // @ts-expect-error Bad compiler type inference
+                    target.ref.value,
+                    !final_character_whitespace
+                        ? target.original.charAt(pointer.position)
+                        : STRING_WHITESPACE,
+                    pointer.position
+                );
+                target.pointers.splice(target.pointers.indexOf(pointer), 1);
+            }
+
+            if (target.pointers.length <= 0)
+                targets.targets.splice(targets.targets.indexOf(target), 1);
+
+            targets.completed += 1;
         }
-
-        if (target.pointers.length <= 0)
-            target_in.targets.splice(target_in.targets.indexOf(target));
-
-        target_in.completed += 1;
-    }
 }
 
 //——————————————————————————————————————————————————————————————————————————————
@@ -197,7 +187,7 @@ export function initializeAnimation(
     );
     switch (flag_state.value) {
         case EMatrixRevealAnimationState.OUT:
-            animateOut(chars, progress);
+            animateFrame(progress, chars, target_out, true);
             if (progress >= 1 && target_out.completed >= target_out.cycles) {
                 flag_state.value = EMatrixRevealAnimationState.IN;
                 inception = performance.now();
@@ -214,7 +204,7 @@ export function initializeAnimation(
             );
             break;
         case EMatrixRevealAnimationState.IN:
-            animateIn(chars, progress);
+            animateFrame(progress, chars, target_in);
             if (progress >= 1 && target_in.completed >= target_in.cycles)
                 onDone();
             else
