@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "allowImportingTsExtensions": true,
+    "baseUrl": ".",
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "esModuleInterop": true,
+    "jsx": "Preserve",
+    "jsxImportSource": "vue",
+    "lib": ["DOM.Iterable", "ES2020", "DOM"],
+    "module": "ESNext",
+    "moduleDetection": "Force",
+    "moduleResolution": "Bundler",
+    "noImplicitThis": true,
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": true,
+    "target": "ES2022",
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.ui.tsbuildinfo",
+    "types": ["vue-macros/macros-global"],
+    "useDefineForClassFields": true,
+    "verbatimModuleSyntax": true
+  },
+  "exclude": ["node_modules/", ".storybook/", "build/", "dist/"],
+  "include": ["**/*.json", "**/*.vue", "**/*.ts"]
+}
