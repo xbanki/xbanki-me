@@ -20,11 +20,11 @@ type Story = StoryObj<typeof MatrixReveal>;
  *
  * # Overview
 
- * The `MatrixReveal` component is an animated text effect designed to add visual
- * flair to text elements such as logos, articles, or other UI components. It
- * accepts any DOM structure in the `default` slot, as long as the content
- * resolves to animatable text nodes. Overall, `MatrixReveal` is designed for
- * maximum flexibility.
+ * The `MatrixReveal` component is an animated text effect designed to add
+ * visual flair to text elements such as logos, articles, or other UI
+ * components. It accepts any DOM structure in the `default` slot, as long as
+ * the content resolves to animatable text nodes. Overall, `MatrixReveal` is
+ * designed for maximum flexibility.
  */
 const Meta: Meta<typeof MatrixReveal> = {
     title: 'Components/MatrixReveal',
