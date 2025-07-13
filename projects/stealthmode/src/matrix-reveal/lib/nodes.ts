@@ -1,7 +1,11 @@
-import type { VNodeArrayChildren, VNode } from 'vue';
-import { mergeProps, isVNode, ref, cloneVNode } from 'vue';
+import type { VNodeArrayChildren, VNodeRef, VNode } from 'vue';
+import { mergeProps, isVNode, cloneVNode, Text, ref } from 'vue';
 
-import type { CloneProps, INodeMeta } from '@/matrix-reveal/lib/types.ts';
+import type {
+    ClonedNodes,
+    CloneProps,
+    INodeMeta
+} from '@/matrix-reveal/lib/types.ts';
 import { STRING_WHITESPACE } from '@/matrix-reveal/lib/constants.ts';
 
 /**
@@ -43,83 +47,73 @@ function generateRandomString(characters: string, length: number): string {
  * Clones a VNode tree and constructs a animable target metadata array
  * containing all animable text nodes.
  * @param  nodes       Original nodes which to clone.
- * @param  clone_props Props which to apply to cloned nodes.
- * @return             Cloned node tree with replaced target content.
- */
-export function buildVNodeClones(
-    nodes: VNode | VNodeArrayChildren,
-    clone_props: CloneProps,
-    initial: boolean
-): [VNode[], INodeMeta[]];
-
-/**
- * Clones a VNode tree and constructs a animable target metadata array
- * containing all animable text nodes.
- * @param  nodes       Original nodes which to clone.
- * @param  clone_props Props which to apply to cloned nodes.
  * @param  initial     Wether to render initial animation frame or whitespace.
+ * @param  props       Props which to apply to cloned nodes.
  * @param  chars       Characters which to render the initial frame from.
  * @return             Cloned node tree with replaced target content.
  */
 export function buildVNodeClones(
-    nodes: VNode | VNodeArrayChildren,
-    clone_props: CloneProps,
+    target: VNode | VNodeArrayChildren,
     initial: boolean,
-    chars: string
-): [VNode[], INodeMeta[]];
+    props: CloneProps,
+    chars: string = STRING_WHITESPACE
+): ClonedNodes {
+    const out_meta: INodeMeta[] = [];
+    const out_nodes: VNode[] = [];
 
-// Implementing overload
-export function buildVNodeClones(
-    nodes: VNode | VNodeArrayChildren,
-    clone_props: CloneProps,
-    initial = false,
-    chars = STRING_WHITESPACE
-): [VNode[], INodeMeta[]] {
-    const cloned_meta: INodeMeta[] = [];
-    const cloned_nodes: VNode[] = [];
+    const in_meta: INodeMeta[] = [];
+    const in_nodes: VNode[] = [];
 
-    const vnodes = !Array.isArray(nodes) ? [nodes] : nodes;
-
-    for (const vnode of vnodes)
-        if (isVNode(vnode)) {
-            let children: VNode[] | string | null = null;
+    for (const node of !Array.isArray(target) ? [target] : target)
+        if (isVNode(node)) {
+            let children_out: VNodeArrayChildren | string | null = null;
+            let children_in: VNodeArrayChildren | string | null = null;
             let original: string | null = null;
-
-            if (typeof vnode?.children === 'string') {
-                original = copyString(vnode.children);
-                if (initial)
-                    children = generateRandomString(chars, original.length);
-                else children = generateWhitespaceString(original.length);
-            } else if (Array.isArray(vnode.children)) {
-                children = [];
-                const [child_nodes, child_meta] = initial
-                    ? buildVNodeClones(
-                          vnode.children,
-                          clone_props,
-                          initial,
-                          chars
-                      )
-                    : buildVNodeClones(vnode.children, clone_props, initial);
-
-                cloned_meta.push(...child_meta);
-                children.push(...child_nodes);
+            if (
+                (node.type == Text && typeof node.children == 'string') ||
+                typeof node.children == 'string'
+            ) {
+                children_in = !initial
+                    ? generateRandomString(chars, node.children.length)
+                    : generateWhitespaceString(node.children.length);
+                original = copyString(node.children);
+                children_out = original;
+            } else if (Array.isArray(node.children)) {
+                children_out = [];
+                children_in = [];
+                const [
+                    [clone_out_nodes, clone_out_meta],
+                    [clone_in_nodes, clone_in_meta]
+                ] = buildVNodeClones(node.children, initial, props, chars);
+                children_out.push(...clone_out_nodes);
+                children_in.push(...clone_in_nodes);
+                out_meta.push(...clone_out_meta);
+                in_meta.push(...clone_in_meta);
             }
 
-            const clone_ref = ref<Node | null>(null);
-            const props = mergeProps(
-                { ref: clone_ref },
-                typeof clone_props === 'function'
-                    ? clone_props(original !== null, vnode)
-                    : clone_props
+            const ref_out = ref<VNodeRef | null>(null);
+            const ref_in = ref<VNodeRef | null>(null);
+            const node_out = cloneVNode(
+                node,
+                mergeProps({ ref: ref_out }, props(original !== null, node))
             );
+            const node_in = cloneVNode(
+                node,
+                mergeProps({ ref: ref_in }, props(original !== null, node))
+            );
+            node_out.children = children_out;
+            node_in.children = children_in;
+            if (original !== null) {
+                out_meta.push({ ref: ref_out, original });
+                in_meta.push({ ref: ref_in, original });
+            }
 
-            const clone = cloneVNode(vnode, props);
-            clone.children = children;
-
-            if (original !== null)
-                cloned_meta.push({ ref: clone_ref, original });
-            cloned_nodes.push(clone);
+            out_nodes.push(node_out);
+            in_nodes.push(node_in);
         }
 
-    return [cloned_nodes, cloned_meta];
+    return [
+        [out_nodes, out_meta],
+        [in_nodes, in_meta]
+    ];
 }

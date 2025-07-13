@@ -15,7 +15,8 @@ export const DEFAULT_REVEAL_PROPS_OPTIONAL: IRevealPropsOptional = {
     cloneProps: (animable, _) => ({
         class: animable ? 'matrix-reveal-animable' : 'matrix-reveal-target'
     }),
-    wrapperProps: { class: 'font-mono block' },
+
+    wrapperProps: { class: 'dark:text-white font-mono block' },
     chars: '!@#$%^&[]*():{};|,.<>/?',
     element: 'span',
     initial: false,

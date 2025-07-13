@@ -9,7 +9,7 @@
  *    @version   1.0.0
  */
 
-import type { VNodeProps, VNode, Ref } from 'vue';
+import type { VNodeProps, VNodeRef, VNode, Ref } from 'vue';
 
 /**
  * Current state of the component animation. The state is set dynamically once
@@ -167,10 +167,24 @@ export interface INodeMeta {
     /**
      * DOM tree element ref.
      */
-    ref: Ref<Node | null>;
+    ref: Ref<VNodeRef | null>;
 
     /**
      * Original label of the node.
      */
     original: string;
 }
+
+/**
+ * VNode clone return type.
+ */
+export type ClonedNodes = [
+    /**
+     * Original un-touched clone of the original VNodes.
+     */
+    clones_out: [VNode[], INodeMeta[]],
+    /**
+     * Mutated VNodes, mutation depending on `initial` value.
+     */
+    clones_in: [VNode[], INodeMeta[]]
+];

@@ -57,9 +57,11 @@ const flag_render_swap = shallowRef<boolean>(false);
 //  - Cloned VNode containers -
 //——————————————————————————————————————————————————————————————————————————————
 
+let clones_in_clean: VNode[] = [];
 let clones_out: VNode[] = [];
 let clones_in: VNode[] = [];
 
+let meta_in_clean: INodeMeta[] = [];
 let meta_out: INodeMeta[] = [];
 let meta_in: INodeMeta[] = [];
 
@@ -75,8 +77,8 @@ function onAnimationComplete() {
   flag_detected_change.value = false;
 
   // Reset node containers
-  [clones_out, clones_in] = [clones_in, []];
-  [meta_out, meta_in] = [meta_in, []];
+  [clones_out, clones_in] = [clones_in_clean, []];
+  [meta_out, meta_in] = [meta_in_clean, []];
 
   resetTargetOut();
   resetTargetIn();
@@ -153,15 +155,17 @@ defineRender(() => {
       EMatrixRevealAnimationState.IDLE,
     ].includes(flag_state.value)
   ) {
-    const [clone_vnodes, clone_meta] = buildVNodeClones(
+    const [[out_nodes, out_meta], [in_nodes, in_meta]] = buildVNodeClones(
       slots.default(),
-      props.cloneProps,
       props.initial,
+      props.cloneProps,
       props.chars,
     );
-    setTargetIn(clone_meta, props.cycles);
-    clones_in = clone_vnodes;
-    meta_in = clone_meta;
+    setTargetIn(in_meta, props.cycles);
+    clones_in_clean = out_nodes;
+    meta_in_clean = out_meta;
+    clones_in = in_nodes;
+    meta_in = in_meta;
     if (clones_out.length >= 1 && meta_out.length >= 1) {
       setTargetOut(meta_out, props.cycles);
       flag_state.value = EMatrixRevealAnimationState.OUT;
