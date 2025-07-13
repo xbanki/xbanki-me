@@ -12,7 +12,8 @@
  *
  */
 
+import { EMatrixRevealAnimationState } from '@/matrix-reveal/lib/types.ts';
 import MatrixReveal from '@/matrix-reveal/component.vue';
 import '@/tailwind.css';
 
-export { MatrixReveal };
+export { EMatrixRevealAnimationState as MatrixRevealState, MatrixReveal };

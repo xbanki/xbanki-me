@@ -70,6 +70,17 @@ export interface IRevealSlots {
 }
 
 /**
+ * Events emitted by the component.
+ */
+export interface IRevealEvents {
+    /**
+     * @param e     Event name.
+     * @param state New state of the component.
+     */
+    (e: 'stateChange', state: EMatrixRevealAnimationState): void;
+}
+
+/**
  * Matrix Reveal component optional props.
  */
 export interface IRevealPropsOptional {

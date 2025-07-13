@@ -14,7 +14,8 @@ import type { VNode } from "vue";
 import { onBeforeMount, shallowRef, nextTick, watch, h } from "vue";
 
 import type {
-  IRevealSlots,
+    IRevealEvents,
+    IRevealSlots,
   RevealProps,
   INodeMeta,
 } from "@/matrix-reveal/lib/types.ts";
@@ -38,6 +39,7 @@ const props = withDefaults(
   // @ts-expect-error Incompatible type that is compatible
   DEFAULT_REVEAL_PROPS_OPTIONAL,
 );
+const events = defineEmits<IRevealEvents>();
 const slots = defineSlots<IRevealSlots>();
 
 //——————————————————————————————————————————————————————————————————————————————
@@ -107,6 +109,7 @@ watch(
         flag_render_swap.value = false;
         break;
     }
+    events('stateChange', new_state);
   },
   { immediate: true },
 );
