@@ -14,8 +14,8 @@ import type { VNode } from "vue";
 import { onBeforeMount, shallowRef, nextTick, watch, h } from "vue";
 
 import type {
-    IRevealEvents,
-    IRevealSlots,
+  IRevealEvents,
+  IRevealSlots,
   RevealProps,
   INodeMeta,
 } from "@/matrix-reveal/lib/types.ts";
@@ -109,7 +109,7 @@ watch(
         flag_render_swap.value = false;
         break;
     }
-    events('stateChange', new_state);
+    events("stateChange", new_state);
   },
   { immediate: true },
 );
