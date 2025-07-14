@@ -84,7 +84,7 @@ export const NestedDOMTree: Story = {
             default: {
                 template: `
                     <div>
-                        Neste
+                        Nested
                         <div>
                             DOM
                             <div>
