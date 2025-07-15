@@ -20,6 +20,48 @@ const Meta: Meta<typeof Button> = {
     component: Button
 };
 
-export const Default: Story = {};
+/**
+ * `@TODO(xbanki): Document.`
+ */
+export const Default: Story = {
+    render: args => ({
+        components: {
+            Button
+        },
+        data() {
+            return { args };
+        },
+        template: `
+            <div class="gap-4 mb-8 flex">
+                <Button variant="primary" v-bind="args">
+                    Button
+                    </Button>
+                <Button variant="secondary" v-bind="args">
+                    Button
+                </Button>
+                <Button variant="tertiary" v-bind="args">
+                    Button
+                </Button>
+                <Button variant="danger" v-bind="args">
+                    Button
+                </Button>
+            </div>
+            <div class="gap-4 flex">
+                <Button ghost variant="primary" v-bind="args">
+                    Button
+                </Button>
+                <Button ghost variant="secondary" v-bind="args">
+                    Button
+                </Button>
+                <Button ghost variant="tertiary" v-bind="args">
+                    Button
+                </Button>
+                <Button ghost variant="danger" v-bind="args">
+                    Button
+                </Button>
+            </div>
+        `
+    })
+};
 
 export default Meta;

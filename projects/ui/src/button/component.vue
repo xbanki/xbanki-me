@@ -9,5 +9,26 @@
  //    Version:   1.0.0
  //-->
 
-<template>
-</template>
+ <template>
+
+    <!-- Component root. //-->
+   <button>
+
+     <!-- Button content slot. //-->
+     <slot/>
+   </button>
+ </template>
+
+ <script lang="ts" setup>
+import { useTemplateRef } from "vue";
+
+import type { ButtonProps } from "@/button/lib/types.ts";
+import { DEFAULT_BUTTON_PROPS_OPTIONAL } from "@/button/lib/constants.ts";
+
+const props = withDefaults(
+  defineProps<ButtonProps>(),
+  DEFAULT_BUTTON_PROPS_OPTIONAL,
+);
+const id = (Math.random() + 1).toString(36).substring(7);
+const element = useTemplateRef<HTMLButtonElement>(id);
+</script>
