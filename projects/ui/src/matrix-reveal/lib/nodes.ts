@@ -1,5 +1,5 @@
 import type { VNodeArrayChildren, VNodeRef, VNode } from 'vue';
-import { mergeProps, isVNode, cloneVNode, Text, ref } from 'vue';
+import { mergeProps, isVNode, cloneVNode, Comment, Text, ref } from 'vue';
 
 import type {
     ClonedNodes,
