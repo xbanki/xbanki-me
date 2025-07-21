@@ -1,13 +1,28 @@
 {
-    "$schema": "https://json.schemastore.org/commitlintrc.json",
-    "extends": ["@commitlint/config-conventional"],
-    "rules": {
-        "scope-empty": [2, "never"],
-        "scope-enum": [
-            2,
-            "always",
-            ["webgl-render-api", "website", "repo", "ui"]
-        ],
-        "subject-case": [1, "always", "sentence-case"]
-    }
+	"$schema": "https://json.schemastore.org/commitlintrc.json",
+	"extends": [
+		"@commitlint/config-conventional"
+	],
+	"rules": {
+		"scope-empty": [
+			2,
+			"never"
+		],
+		"scope-enum": [
+			2,
+			"always",
+			[
+				"webgl-render-api",
+				"website",
+				"config",
+				"repo",
+				"ui"
+			]
+		],
+		"subject-case": [
+			1,
+			"always",
+			"sentence-case"
+		]
+	}
 }
