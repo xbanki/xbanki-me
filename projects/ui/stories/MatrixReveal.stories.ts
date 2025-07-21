@@ -11,7 +11,11 @@
 
 import type { StoryObj, Meta } from '@storybook/vue3-vite';
 
-import { MatrixRevealState, ComponentMatrixReveal } from '@/library.ts';
+import {
+    ComponentMatrixReveal,
+    MatrixRevealState,
+    ComponentButton,
+} from '@/library.ts';
 
 type Story = StoryObj<typeof ComponentMatrixReveal>;
 
@@ -58,6 +62,7 @@ export const ContentReactive: Story = {
     render: args => ({
         components: {
             ComponentMatrixReveal,
+            ComponentButton,
         },
         data() {
             const beta = 'Hey! We changed the label.';
@@ -74,9 +79,9 @@ export const ContentReactive: Story = {
             <ComponentMatrixReveal v-bind="args">
                 {{ !toggle ? alpha : beta }}
             </ComponentMatrixReveal>
-            <button class="mt-4" v-on:click="toggle = !toggle">
+            <ComponentButton class="mt-4" v-on:click="toggle = !toggle">
                 Toggle Label
-            </button>
+            </ComponentButton>
         `,
     }),
 };
@@ -112,6 +117,7 @@ export const ReactiveDOMTree: Story = {
     render: args => ({
         components: {
             ComponentMatrixReveal,
+            ComponentButton,
         },
         data() {
             const toggle = true;
@@ -135,9 +141,9 @@ export const ReactiveDOMTree: Story = {
                     </p>
                 </span>
             </ComponentMatrixReveal>
-            <button class="mt-4" v-on:click="toggle = !toggle">
+            <ComponentButton class="mt-4" v-on:click="toggle = !toggle">
                 Toggle DOM Tree
-            </button>
+            </ComponentButton>
         `,
     }),
 };
@@ -149,6 +155,7 @@ export const AnimationStateEvents: Story = {
     render: args => ({
         components: {
             ComponentMatrixReveal,
+            ComponentButton,
         },
         data() {
             const state = MatrixRevealState.INITIAL;
@@ -187,9 +194,9 @@ export const AnimationStateEvents: Story = {
                     {{ convertEventToString }}
                 </samp>
             </p>
-            <button class="mt-4" v-on:click="index += 1">
+            <ComponentButton class="mt-4" v-on:click="index += 1">
                 Force Re-Render
-            </button>
+            </ComponentButton>
         `,
     }),
 };
