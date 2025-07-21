@@ -1,5 +1,5 @@
 import type { VNodeArrayChildren, VNodeRef, VNode } from 'vue';
-import { mergeProps, isVNode, cloneVNode, Text, ref } from 'vue';
+import { mergeProps, isVNode, cloneVNode, Comment, Text, ref } from 'vue';
 
 import type {
     ClonedNodes,
@@ -65,7 +65,7 @@ export function buildVNodeClones(
     const in_nodes: VNode[] = [];
 
     for (const node of !Array.isArray(target) ? [target] : target)
-        if (isVNode(node)) {
+        if (isVNode(node) && node.type !== Comment) {
             let children_out: VNodeArrayChildren | string | null = null;
             let children_in: VNodeArrayChildren | string | null = null;
             let original: string | null = null;

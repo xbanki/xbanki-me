@@ -12,6 +12,21 @@
 import type { VNodeProps, VNodeRef, VNode, Ref } from 'vue';
 
 /**
+ * Animation context object.
+ */
+export interface IAnimationContext {
+    /**
+     * Outbound animation targets.
+     */
+    out: IAnimationTarget;
+
+    /**
+     * Inbound animation targets.
+     */
+    in: IAnimationTarget;
+}
+
+/**
  * Current state of the component animation. The state is set dynamically once
  * the scripted animations hit specific keyframes.
  *
@@ -134,11 +149,6 @@ export interface IAnimationTarget {
      * Number of cycles already completed.
      */
     completed: number;
-
-    /**
-     * Fractions (of steps) that haven't been completed yet.
-     */
-    fractions: number;
 
     /**
      * Number of total cycles to perform.

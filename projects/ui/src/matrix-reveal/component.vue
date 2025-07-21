@@ -20,9 +20,9 @@ import type {
   INodeMeta,
 } from "@/matrix-reveal/lib/types.ts";
 import {
+  createAnimationContext,
   initializeAnimation,
-  resetTargetOut,
-  resetTargetIn,
+  resetContext,
   setTargetOut,
   setTargetIn,
 } from "@/matrix-reveal/lib/controller.ts";
@@ -59,6 +59,8 @@ const flag_render_swap = shallowRef<boolean>(false);
 //  - Cloned VNode containers -
 //——————————————————————————————————————————————————————————————————————————————
 
+let context = createAnimationContext();
+
 let clones_in_clean: VNode[] = [];
 let clones_out: VNode[] = [];
 let clones_in: VNode[] = [];
@@ -81,9 +83,7 @@ function onAnimationComplete() {
   // Reset node containers
   [clones_out, clones_in] = [clones_in_clean, []];
   [meta_out, meta_in] = [meta_in_clean, []];
-
-  resetTargetOut();
-  resetTargetIn();
+  context = resetContext(context);
 }
 
 watch(
@@ -164,13 +164,13 @@ defineRender(() => {
       props.cloneProps,
       props.chars,
     );
-    setTargetIn(in_meta, props.cycles);
+    setTargetIn(context, in_meta, props.cycles);
     clones_in_clean = out_nodes;
     meta_in_clean = out_meta;
     clones_in = in_nodes;
     meta_in = in_meta;
     if (clones_out.length >= 1 && meta_out.length >= 1) {
-      setTargetOut(meta_out, props.cycles);
+      setTargetOut(context, meta_out, props.cycles);
       flag_state.value = EMatrixRevealAnimationState.OUT;
     } else flag_state.value = EMatrixRevealAnimationState.IN;
 
@@ -179,6 +179,7 @@ defineRender(() => {
         initializeAnimation(
           props.chars,
           onAnimationComplete,
+          context,
           props.duration,
           flag_state,
         ),
