@@ -9,26 +9,28 @@
  //    Version:   1.0.0
  //-->
 
- <template>
-
-    <!-- Component root. //-->
-    <button>
-
-      <!-- Button content slot. //-->
-      <slot/>
-    </button>
- </template>
+<template>
+  <!-- Button component surrounding wrapper. //-->
+  <button>
+    <!-- Default slot wrapper. //-->
+    <section v-if="!props.iconOnly && $slots.default">
+      <!-- Default slot outlet. Supports any arbitrary content. //-->
+      <slot name="default" />
+    </section>
+    <!-- Icon slot wrapper. //-->
+    <section v-if="$slots.icon">
+      <!-- Icon slot outlet. Meant for rendering the icon component. //-->
+      <slot name="icon" />
+    </section>
+  </button>
+</template>
 
  <script lang="ts" setup>
-import { useTemplateRef } from 'vue';
-
-import type { ButtonProps } from '@/button/lib/types.ts';
+import { EButtonVariant, type ButtonProps } from '@/button/lib/types.ts';
 import { DEFAULT_BUTTON_PROPS_OPTIONAL } from '@/button/lib/constants.ts';
 
 const props = withDefaults(
     defineProps<ButtonProps>(),
     DEFAULT_BUTTON_PROPS_OPTIONAL,
 );
-const id = (Math.random() + 1).toString(36).substring(7);
-const element = useTemplateRef<HTMLButtonElement>(id);
 </script>

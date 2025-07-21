@@ -11,7 +11,7 @@
 
 import type { StoryObj, Meta } from '@storybook/vue3-vite';
 
-import { ComponentButton } from '@/library.ts';
+import { ComponentButton, ButtonVariant } from '@/library.ts';
 
 type Story = StoryObj<typeof ComponentButton>;
 
@@ -23,47 +23,93 @@ const Meta: Meta<typeof ComponentButton> = {
 /**
  * `@TODO(xbanki): Document.`
  */
-export const Default: Story = {
-    render: args => ({
-        components: {
-            ComponentButton,
+export const Primary: Story = {
+    args: {
+        variant: ButtonVariant.PRIMARY,
+    },
+    parameters: {
+        slots: {
+            default: {
+                template: 'Primary',
+            },
         },
-        data() {
-            return {
-                args,
-            };
+    },
+};
+
+/**
+ * `@TODO(xbanki): Document.`
+ */
+export const Secondary: Story = {
+    args: {
+        variant: ButtonVariant.SECONDARY,
+    },
+    parameters: {
+        slots: {
+            default: {
+                template: 'Secondary',
+            },
         },
-        template: `
-            <div class="gap-4 mb-8 flex">
-                <ComponentButton variant="primary" v-bind="args">
-                    Button
-                </ComponentButton>
-                <ComponentButton variant="secondary" v-bind="args">
-                    Button
-                </ComponentButton>
-                <ComponentButton variant="tertiary" v-bind="args">
-                    Button
-                </ComponentButton>
-                <ComponentButton variant="danger" v-bind="args">
-                    Button
-                </ComponentButton>
-            </div>
-            <div class="gap-4 flex">
-                <ComponentButton ghost variant="primary" v-bind="args">
-                    Button
-                </ComponentButton>
-                <ComponentButton ghost variant="secondary" v-bind="args">
-                    Button
-                </ComponentButton>
-                <ComponentButton ghost variant="tertiary" v-bind="args">
-                    Button
-                </ComponentButton>
-                <ComponentButton ghost variant="danger" v-bind="args">
-                    Button
-                </ComponentButton>
-            </div>
-        `,
-    }),
+    },
+};
+
+/**
+ * `@TODO(xbanki): Document.`
+ */
+export const Danger: Story = {
+    args: {
+        variant: ButtonVariant.DANGER,
+    },
+    parameters: {
+        slots: {
+            default: {
+                template: 'Danger',
+            },
+        },
+    },
+};
+
+/**
+ * `@TODO(xbanki): Document.`
+ */
+export const IconOnly: Story = {
+    args: {
+        variant: ButtonVariant.PRIMARY,
+        iconOnly: true,
+    },
+};
+
+/**
+ * `@TODO(xbanki): Document.`
+ */
+export const Ghost: Story = {
+    args: {
+        variant: ButtonVariant.PRIMARY,
+        ghost: true,
+    },
+    parameters: {
+        slots: {
+            default: {
+                template: 'Ghost',
+            },
+        },
+    },
+};
+
+/**
+ * `@TODO(xbanki): Document.`
+ */
+export const Disabled: Story = {
+    args: {
+        variant: ButtonVariant.PRIMARY,
+        disabled: true,
+    },
+    parameters: {
+        slots: {
+            default: {
+                template: 'Disabled',
+            },
+        },
+    },
 };
 
 export default Meta;

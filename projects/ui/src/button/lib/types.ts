@@ -14,7 +14,6 @@
  */
 export enum EButtonVariant {
     SECONDARY = 'secondary',
-    TERTIARY = 'tertiary',
     PRIMARY = 'primary',
     DANGER = 'danger',
 }
@@ -27,6 +26,16 @@ export interface IButtonPropsOptional {
      *  The kind of button, which dictates the overall style and presence.
      */
     variant: EButtonVariant;
+
+    /**
+     * Wether this button should be rendered in the disabled state.
+     */
+    disabled: boolean;
+
+    /**
+     * Wether the button should be rendered with only a single icon.
+     */
+    iconOnly: boolean;
 
     /**
      * Wether to render the button as a faint skeleton.

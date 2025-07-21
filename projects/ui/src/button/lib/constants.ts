@@ -14,5 +14,7 @@ import { EButtonVariant } from '@/button/lib/types.ts';
 
 export const DEFAULT_BUTTON_PROPS_OPTIONAL: IButtonPropsOptional = {
     variant: EButtonVariant.PRIMARY,
+    disabled: false,
+    iconOnly: false,
     ghost: false,
 };
