@@ -3,7 +3,9 @@
 	"overrides": [
 		{
 			"includes": [
-				"**/*.ts"
+				"**/*.ts",
+				"**/*.tsx",
+				"**/*.vue"
 			],
 			"javascript": {
 				"assist": {

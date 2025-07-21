@@ -7,7 +7,8 @@
 				"**/*.es",
 				"**/*.js",
 				"**/*.jsx",
-				"**/*.mjs"
+				"**/*.mjs",
+				"**/*.vue"
 			],
 			"javascript": {
 				"assist": {
