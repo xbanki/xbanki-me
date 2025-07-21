@@ -11,13 +11,13 @@
 
 import type { StoryObj, Meta } from '@storybook/vue3-vite';
 
-import { Button } from '@/library.ts';
+import { ComponentButton } from '@/library.ts';
 
-type Story = StoryObj<typeof Button>;
+type Story = StoryObj<typeof ComponentButton>;
 
-const Meta: Meta<typeof Button> = {
+const Meta: Meta<typeof ComponentButton> = {
     title: 'Components/Button',
-    component: Button
+    component: ComponentButton
 };
 
 /**
@@ -26,39 +26,39 @@ const Meta: Meta<typeof Button> = {
 export const Default: Story = {
     render: args => ({
         components: {
-            Button
+            ComponentButton
         },
         data() {
             return { args };
         },
         template: `
             <div class="gap-4 mb-8 flex">
-                <Button variant="primary" v-bind="args">
+                <ComponentButton variant="primary" v-bind="args">
                     Button
-                    </Button>
-                <Button variant="secondary" v-bind="args">
+                </ComponentButton>
+                <ComponentButton variant="secondary" v-bind="args">
                     Button
-                </Button>
-                <Button variant="tertiary" v-bind="args">
+                </ComponentButton>
+                <ComponentButton variant="tertiary" v-bind="args">
                     Button
-                </Button>
-                <Button variant="danger" v-bind="args">
+                </ComponentButton>
+                <ComponentButton variant="danger" v-bind="args">
                     Button
-                </Button>
+                </ComponentButton>
             </div>
             <div class="gap-4 flex">
-                <Button ghost variant="primary" v-bind="args">
+                <ComponentButton ghost variant="primary" v-bind="args">
                     Button
-                </Button>
-                <Button ghost variant="secondary" v-bind="args">
+                </ComponentButton>
+                <ComponentButton ghost variant="secondary" v-bind="args">
                     Button
-                </Button>
-                <Button ghost variant="tertiary" v-bind="args">
+                </ComponentButton>
+                <ComponentButton ghost variant="tertiary" v-bind="args">
                     Button
-                </Button>
-                <Button ghost variant="danger" v-bind="args">
+                </ComponentButton>
+                <ComponentButton ghost variant="danger" v-bind="args">
                     Button
-                </Button>
+                </ComponentButton>
             </div>
         `
     })
