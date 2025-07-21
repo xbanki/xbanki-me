@@ -13,6 +13,7 @@
 import type { Ref } from 'vue';
 
 import type {
+    IAnimationContext,
     IAnimationTarget,
     INodeMetaPointer,
     INodeMeta,
@@ -22,24 +23,6 @@ import type {
 
 import { EMatrixRevealAnimationState } from '@/matrix-reveal/lib/types.ts';
 import { STRING_WHITESPACE } from '@/matrix-reveal/lib/constants.ts';
-
-//——————————————————————————————————————————————————————————————————————————————
-//  - Animation target containers -
-//——————————————————————————————————————————————————————————————————————————————
-
-const target_out: IAnimationTarget = {
-    completed: 0,
-    fractions: 0,
-    targets: [],
-    cycles: 0
-};
-
-const target_in: IAnimationTarget = {
-    completed: 0,
-    fractions: 0,
-    targets: [],
-    cycles: 0
-};
 
 //——————————————————————————————————————————————————————————————————————————————
 //  - Internal API -
@@ -105,9 +88,11 @@ function animateFrame(
         return;
     }
 
-    targets.fractions += targets.cycles * progress - targets.completed;
+    const steps = Math.floor(
+        Math.max(targets.cycles * progress - targets.completed, 0)
+    );
     if (targets.targets.length >= 1)
-        for (let i = 0; i < Math.floor(targets.fractions); i++) {
+        for (let i = 0; i < steps; i++) {
             if (targets.targets.length <= 0) break;
 
             const target =
@@ -165,10 +150,30 @@ function animateFrame(
 //——————————————————————————————————————————————————————————————————————————————
 
 /**
+ * Creates a new animation context, which is required to start animating text.
+ * @return The new animation context.
+ */
+export function createAnimationContext(): IAnimationContext {
+    return {
+        out: {
+            completed: 0,
+            targets: [],
+            cycles: 0
+        },
+        in: {
+            completed: 0,
+            targets: [],
+            cycles: 0
+        }
+    };
+}
+
+/**
  * Initializes the animation context & begins animations. When the animation
  * completes, `onDone` callback is called.
  * @param onDone     Callback hook which is executed when animation completes.
  * @param duration   Overall duration of the animation.
+ * @param context    Animation context.
  * @param direction  Direction of animation.
  * @param flag_state Current animation state.
  * @param inception  Type `DOMHighResTimeStamp` of when the animation started.
@@ -176,6 +181,7 @@ function animateFrame(
 export function initializeAnimation(
     chars: string,
     onDone: DoneFn,
+    context: IAnimationContext,
     duration: number,
     flag_state: Ref<EMatrixRevealAnimationState>,
     inception: DOMHighResTimeStamp = performance.now()
@@ -187,8 +193,8 @@ export function initializeAnimation(
     );
     switch (flag_state.value) {
         case EMatrixRevealAnimationState.OUT:
-            animateFrame(progress, chars, target_out, true);
-            if (progress >= 1 && target_out.completed >= target_out.cycles) {
+            animateFrame(progress, chars, context.out, true);
+            if (progress >= 1 && context.out.completed >= context.out.cycles) {
                 flag_state.value = EMatrixRevealAnimationState.IN;
                 inception = performance.now();
             }
@@ -197,6 +203,7 @@ export function initializeAnimation(
                 initializeAnimation(
                     chars,
                     onDone,
+                    context,
                     duration,
                     flag_state,
                     inception
@@ -204,14 +211,15 @@ export function initializeAnimation(
             );
             break;
         case EMatrixRevealAnimationState.IN:
-            animateFrame(progress, chars, target_in);
-            if (progress >= 1 && target_in.completed >= target_in.cycles)
+            animateFrame(progress, chars, context.in);
+            if (progress >= 1 && context.in.completed >= context.in.cycles)
                 onDone();
             else
                 requestAnimationFrame(() =>
                     initializeAnimation(
                         chars,
                         onDone,
+                        context,
                         duration,
                         flag_state,
                         inception
@@ -222,25 +230,34 @@ export function initializeAnimation(
 }
 
 /**
- * Resets the "from" target(s) of the animation.
+ * Resets the given animation context instance.
+ * @param  context Context in question which to reset.
+ * @return         The reset animation context.
  */
-export function resetTargetOut() {
-    target_out.completed = 0;
-    target_out.fractions = 0;
-    target_out.targets = [];
-    target_out.cycles = 0;
+export function resetContext(context: IAnimationContext): IAnimationContext {
+    context.out.completed = 0;
+    context.in.completed = 0;
+    context.out.targets = [];
+    context.in.targets = [];
+    context.out.cycles = 0;
+    context.in.cycles = 0;
+    return context;
 }
 
 /**
  * Sets the "from" target(s) of the animation.
+ * @param context          Animation context.
  * @param nodes            Animation metadata which references the target nodes.
  * @param animation_cycles Number of cycles per character for the animation.
  * @see   buildVNodeClones
  */
-export function setTargetOut(nodes: INodeMeta[], animation_cycles: number) {
+export function setTargetOut(
+    context: IAnimationContext,
+    nodes: INodeMeta[],
+    animation_cycles: number
+) {
     const targets: NodeMeta[] = [];
     const completed: number = 0;
-    const fractions: number = 0;
     let cycles: number = 0;
     for (const node of nodes) {
         const pointers: INodeMetaPointer[] = [];
@@ -253,20 +270,9 @@ export function setTargetOut(nodes: INodeMeta[], animation_cycles: number) {
         cycles += pointers.length * animation_cycles;
     }
 
-    target_out.completed = completed;
-    target_out.fractions = fractions;
-    target_out.targets = targets;
-    target_out.cycles = cycles;
-}
-
-/**
- * Resets the "to" target(s) of the animation.
- */
-export function resetTargetIn() {
-    target_in.completed = 0;
-    target_in.fractions = 0;
-    target_in.targets = [];
-    target_in.cycles = 0;
+    context.out.completed = completed;
+    context.out.targets = targets;
+    context.out.cycles = cycles;
 }
 
 /**
@@ -275,10 +281,13 @@ export function resetTargetIn() {
  * @param animation_cycles Number of cycles per character for the animation.
  * @see   buildVNodeClones
  */
-export function setTargetIn(nodes: INodeMeta[], animation_cycles: number) {
+export function setTargetIn(
+    context: IAnimationContext,
+    nodes: INodeMeta[],
+    animation_cycles: number
+) {
     const targets: NodeMeta[] = [];
     const completed: number = 0;
-    const fractions: number = 0;
     let cycles: number = 0;
     for (const node of nodes) {
         const pointers: INodeMetaPointer[] = [];
@@ -291,8 +300,7 @@ export function setTargetIn(nodes: INodeMeta[], animation_cycles: number) {
         cycles += pointers.length * animation_cycles;
     }
 
-    target_in.completed = completed;
-    target_in.fractions = fractions;
-    target_in.targets = targets;
-    target_in.cycles = cycles;
+    context.in.completed = completed;
+    context.in.targets = targets;
+    context.in.cycles = cycles;
 }
