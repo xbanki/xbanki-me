@@ -23,7 +23,6 @@ import '@/tailwind.css';
 export {
     EMatrixRevealAnimationState as MatrixRevealState,
     EButtonVariant as ButtonVariant,
-
     ComponentMatrixReveal,
-    ComponentButton
+    ComponentButton,
 };

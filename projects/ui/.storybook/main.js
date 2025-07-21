@@ -12,19 +12,19 @@ const config = {
   addons: [
     'storybook-addon-vue-slots',
     '@storybook/addon-themes',
-    '@storybook/addon-docs'
+    '@storybook/addon-docs',
   ],
   docs: {
-    defaultName: 'Overview'
+    defaultName: 'Overview',
   },
   framework: {
     name: '@storybook/vue3-vite',
-    options: {}
+    options: {},
   },
   stories: [
     '../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)',
-    '../stories/**/*.mdx'
-  ]
+    '../stories/**/*.mdx',
+  ],
 };
 
 export default config;

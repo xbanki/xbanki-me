@@ -17,10 +17,13 @@ import createVuePlugin from '@vitejs/plugin-vue';
 
 export default defineConfig({
     build: {},
-    plugins: [createVuePlugin(), createHtmlPlugin()],
+    plugins: [
+        createVuePlugin(),
+        createHtmlPlugin(),
+    ],
     resolve: {
         alias: {
-            '@': resolve(join(process.cwd(), 'src/'))
-        }
-    }
+            '@': resolve(join(process.cwd(), 'src/')),
+        },
+    },
 });

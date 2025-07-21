@@ -18,7 +18,7 @@ import type {
     INodeMetaPointer,
     INodeMeta,
     NodeMeta,
-    DoneFn
+    DoneFn,
 } from '@/matrix-reveal/lib/types.ts';
 
 import { EMatrixRevealAnimationState } from '@/matrix-reveal/lib/types.ts';
@@ -78,7 +78,7 @@ function animateFrame(
     progress: number,
     characters: string,
     targets: IAnimationTarget,
-    final_character_whitespace: boolean = false
+    final_character_whitespace: boolean = false,
 ) {
     if (
         (targets.completed != targets.cycles && targets.targets.length <= 0) ||
@@ -89,7 +89,7 @@ function animateFrame(
     }
 
     const steps = Math.floor(
-        Math.max(targets.cycles * progress - targets.completed, 0)
+        Math.max(targets.cycles * progress - targets.completed, 0),
     );
     if (targets.targets.length >= 1)
         for (let i = 0; i < steps; i++) {
@@ -121,9 +121,9 @@ function animateFrame(
                     // @ts-expect-error Bad compiler type inference
                     target.ref.value,
                     characters.charAt(
-                        Math.floor(Math.random() * characters.length)
+                        Math.floor(Math.random() * characters.length),
                     ),
-                    pointer.position
+                    pointer.position,
                 );
                 pointer.cycles -= 1;
             } else {
@@ -133,7 +133,7 @@ function animateFrame(
                     !final_character_whitespace
                         ? target.original.charAt(pointer.position)
                         : STRING_WHITESPACE,
-                    pointer.position
+                    pointer.position,
                 );
                 target.pointers.splice(target.pointers.indexOf(pointer), 1);
             }
@@ -158,13 +158,13 @@ export function createAnimationContext(): IAnimationContext {
         out: {
             completed: 0,
             targets: [],
-            cycles: 0
+            cycles: 0,
         },
         in: {
             completed: 0,
             targets: [],
-            cycles: 0
-        }
+            cycles: 0,
+        },
     };
 }
 
@@ -184,12 +184,12 @@ export function initializeAnimation(
     context: IAnimationContext,
     duration: number,
     flag_state: Ref<EMatrixRevealAnimationState>,
-    inception: DOMHighResTimeStamp = performance.now()
+    inception: DOMHighResTimeStamp = performance.now(),
 ) {
     const progress = normalize(
         1,
         duration,
-        clamp(1, duration, performance.now() - inception)
+        clamp(1, duration, performance.now() - inception),
     );
     switch (flag_state.value) {
         case EMatrixRevealAnimationState.OUT:
@@ -206,8 +206,8 @@ export function initializeAnimation(
                     context,
                     duration,
                     flag_state,
-                    inception
-                )
+                    inception,
+                ),
             );
             break;
         case EMatrixRevealAnimationState.IN:
@@ -222,8 +222,8 @@ export function initializeAnimation(
                         context,
                         duration,
                         flag_state,
-                        inception
-                    )
+                        inception,
+                    ),
                 );
             break;
     }
@@ -254,7 +254,7 @@ export function resetContext(context: IAnimationContext): IAnimationContext {
 export function setTargetOut(
     context: IAnimationContext,
     nodes: INodeMeta[],
-    animation_cycles: number
+    animation_cycles: number,
 ) {
     const targets: NodeMeta[] = [];
     const completed: number = 0;
@@ -264,9 +264,16 @@ export function setTargetOut(
         const original = node.original;
 
         for (let i = 0; i < original.length; i++)
-            pointers.push({ cycles: animation_cycles, position: i });
+            pointers.push({
+                cycles: animation_cycles,
+                position: i,
+            });
 
-        targets.push({ ref: node.ref, pointers, original });
+        targets.push({
+            ref: node.ref,
+            pointers,
+            original,
+        });
         cycles += pointers.length * animation_cycles;
     }
 
@@ -284,7 +291,7 @@ export function setTargetOut(
 export function setTargetIn(
     context: IAnimationContext,
     nodes: INodeMeta[],
-    animation_cycles: number
+    animation_cycles: number,
 ) {
     const targets: NodeMeta[] = [];
     const completed: number = 0;
@@ -294,9 +301,16 @@ export function setTargetIn(
         const original = node.original;
 
         for (let i = 0; i < original.length; i++)
-            pointers.push({ cycles: animation_cycles, position: i });
+            pointers.push({
+                cycles: animation_cycles,
+                position: i,
+            });
 
-        targets.push({ ref: node.ref, pointers, original });
+        targets.push({
+            ref: node.ref,
+            pointers,
+            original,
+        });
         cycles += pointers.length * animation_cycles;
     }
 

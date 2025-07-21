@@ -26,8 +26,8 @@ import type { ButtonProps } from "@/button/lib/types.ts";
 import { DEFAULT_BUTTON_PROPS_OPTIONAL } from "@/button/lib/constants.ts";
 
 const props = withDefaults(
-  defineProps<ButtonProps>(),
-  DEFAULT_BUTTON_PROPS_OPTIONAL,
+	defineProps<ButtonProps>(),
+	DEFAULT_BUTTON_PROPS_OPTIONAL,
 );
 const id = (Math.random() + 1).toString(36).substring(7);
 const element = useTemplateRef<HTMLButtonElement>(id);

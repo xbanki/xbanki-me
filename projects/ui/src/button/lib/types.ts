@@ -16,7 +16,7 @@ export enum EButtonVariant {
     SECONDARY = 'secondary',
     TERTIARY = 'tertiary',
     PRIMARY = 'primary',
-    DANGER = 'danger'
+    DANGER = 'danger',
 }
 
 /**

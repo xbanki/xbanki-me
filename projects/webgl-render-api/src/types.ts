@@ -15,7 +15,7 @@
  */
 export enum EShaderType {
     FRAGMENT = 35632,
-    VERTEX = 35633
+    VERTEX = 35633,
 }
 
 /**
@@ -215,7 +215,7 @@ export type OnInitFn = (context: Context) => void;
 export enum EPowerPreference {
     HIGH_PERFORMANCE = 'high-performance',
     LOW_POWER = 'low-power',
-    DEFAULT = 'default'
+    DEFAULT = 'default',
 }
 
 /**

@@ -23,27 +23,35 @@ export default defineConfig({
         lib: {
             entry: resolve(join(process.cwd(), 'src', 'library.ts')),
             fileName: 'xbanki-me-ui',
-            name: 'ui'
+            name: 'ui',
         },
         rollupOptions: {
-            external: ['vue'],
+            external: [
+                'vue',
+            ],
             output: {
                 assetFileNames: 'assets/[name][extname]',
                 globals: {
-                    vue: 'Vue'
-                }
-            }
-        }
+                    vue: 'Vue',
+                },
+            },
+        },
     },
     plugins: [
-        pluginVueMacros({ plugins: { vue: pluginVue() } }),
-        pluginDTS({ rollupTypes: true }),
+        pluginVueMacros({
+            plugins: {
+                vue: pluginVue(),
+            },
+        }),
+        pluginDTS({
+            rollupTypes: true,
+        }),
         pluginInjectCSS(),
-        pluginTailwind()
+        pluginTailwind(),
     ],
     resolve: {
         alias: {
-            '@': resolve(join(process.cwd(), 'src'))
-        }
-    }
+            '@': resolve(join(process.cwd(), 'src')),
+        },
+    },
 });

@@ -27,22 +27,38 @@ export const DEFAULT_OPTIONS_PROPERTIES: IOptionsProperties = {
             height: '100vh',
             width: '100vw',
             left: '0',
-            top: '0'
+            top: '0',
         },
         parent: document.body,
-        resize: true
+        resize: true,
     },
     shader: {
         fragment: SHADER_FRAGMENT,
         uniform: SHADER_UNIFORM,
-        vertex: SHADER_VERTEX
-    }
+        vertex: SHADER_VERTEX,
+    },
 };
 
-export const QUAD_VERTICES = new Float32Array([-1.0, -1.0, 1.0, -1.0, -1.0, 1.0, 1.0, 1.0, -1.0, 1.0, 1.0, -1.0]);
+export const QUAD_VERTICES = new Float32Array([
+    -1.0,
+    -1.0,
+    1.0,
+    -1.0,
+    -1.0,
+    1.0,
+    1.0,
+    1.0,
+    -1.0,
+    1.0,
+    1.0,
+    -1.0,
+]);
 
-export const MESSAGE_ERROR_FAILED_COMPILING_SHADER = 'Could not compile WebGL shader';
+export const MESSAGE_ERROR_FAILED_COMPILING_SHADER =
+    'Could not compile WebGL shader';
 
-export const MESSAGE_ERROR_FAILED_BINDING_POINTERS = 'Could not find uniform locations';
+export const MESSAGE_ERROR_FAILED_BINDING_POINTERS =
+    'Could not find uniform locations';
 
-export const MESSAGE_ERROR_FAILED_WEBGL_CONTEXT = 'Could not initialize WebGL context';
+export const MESSAGE_ERROR_FAILED_WEBGL_CONTEXT =
+    'Could not initialize WebGL context';

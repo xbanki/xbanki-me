@@ -17,7 +17,7 @@ type Story = StoryObj<typeof ComponentButton>;
 
 const Meta: Meta<typeof ComponentButton> = {
     title: 'Components/Button',
-    component: ComponentButton
+    component: ComponentButton,
 };
 
 /**
@@ -26,10 +26,12 @@ const Meta: Meta<typeof ComponentButton> = {
 export const Default: Story = {
     render: args => ({
         components: {
-            ComponentButton
+            ComponentButton,
         },
         data() {
-            return { args };
+            return {
+                args,
+            };
         },
         template: `
             <div class="gap-4 mb-8 flex">
@@ -60,8 +62,8 @@ export const Default: Story = {
                     Button
                 </ComponentButton>
             </div>
-        `
-    })
+        `,
+    }),
 };
 
 export default Meta;

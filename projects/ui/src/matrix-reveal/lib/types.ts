@@ -52,7 +52,7 @@ export enum EMatrixRevealAnimationState {
     INITIAL = 0,
     IDLE = 1,
     OUT = 2,
-    IN = 3
+    IN = 3,
 }
 
 /**
@@ -63,7 +63,11 @@ export type DoneFn = () => void;
 /**
  * VNode prop type.
  */
-export type Props<T = { [K: string]: any }> = {
+export type Props<
+    T = {
+        [K: string]: any;
+    },
+> = {
     [K in keyof T]: T[K];
 } & VNodeProps;
 
@@ -203,9 +207,15 @@ export type ClonedNodes = [
     /**
      * Original un-touched clone of the original VNodes.
      */
-    clones_out: [VNode[], INodeMeta[]],
+    clones_out: [
+        VNode[],
+        INodeMeta[],
+    ],
     /**
      * Mutated VNodes, mutation depending on `initial` value.
      */
-    clones_in: [VNode[], INodeMeta[]]
+    clones_in: [
+        VNode[],
+        INodeMeta[],
+    ],
 ];

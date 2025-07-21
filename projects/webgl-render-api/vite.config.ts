@@ -19,18 +19,22 @@ export default defineConfig({
         lib: {
             entry: resolve(join(process.cwd(), 'src', 'library.ts')),
             fileName: 'webgl-render-api',
-            name: 'webgl-render-api'
+            name: 'webgl-render-api',
         },
         minify: 'terser',
         sourcemap: true,
         terserOptions: {
-            mangle: true
-        }
+            mangle: true,
+        },
     },
-    plugins: [pluginTypeScriptDefinitions({ rollupTypes: true })],
+    plugins: [
+        pluginTypeScriptDefinitions({
+            rollupTypes: true,
+        }),
+    ],
     resolve: {
         alias: {
-            '@': resolve(join(process.cwd(), 'src'))
-        }
-    }
+            '@': resolve(join(process.cwd(), 'src')),
+        },
+    },
 });

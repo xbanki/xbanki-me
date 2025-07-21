@@ -20,7 +20,10 @@ import { GLError } from '@/errors.ts';
  * @param  styles Object of styles which to apply to this canvas element.
  * @return        New canvas element with the given styles.
  */
-function createCanvasElement(parent: Element, styles: Record<string, string>): HTMLCanvasElement {
+function createCanvasElement(
+    parent: Element,
+    styles: Record<string, string>,
+): HTMLCanvasElement {
     const canvas: HTMLCanvasElement = document.createElement('canvas');
     return setElementStyles(parent.appendChild(canvas), styles);
 }
@@ -31,10 +34,14 @@ function createCanvasElement(parent: Element, styles: Record<string, string>): H
  * @param  styles  Object of styles which to apply.
  * @return         Styled element.
  */
-function setElementStyles<T extends HTMLElement>(element: T, styles: Record<string, string>): T {
+function setElementStyles<T extends HTMLElement>(
+    element: T,
+    styles: Record<string, string>,
+): T {
     for (const [key, value] of Object.entries(styles)) {
         // @ts-expect-error Legacy style setter
-        if (!element.style[key] || element.style[key] != value) element.style[key] = value;
+        if (!element.style[key] || element.style[key] != value)
+            element.style[key] = value;
     }
     return element;
 }
@@ -44,10 +51,19 @@ function setElementStyles<T extends HTMLElement>(element: T, styles: Record<stri
  * @param key   The CSS key.
  * @param value The CSS value.
  */
-export function generateVendoredStyles(key: string, value: string): Record<string, string> {
+export function generateVendoredStyles(
+    key: string,
+    value: string,
+): Record<string, string> {
     const result: Record<string, string> = {};
 
-    for (const prefix of ['webkit', 'moz', 'ms', 'o']) result[`-${prefix}-${key}`] = value;
+    for (const prefix of [
+        'webkit',
+        'moz',
+        'ms',
+        'o',
+    ])
+        result[`-${prefix}-${key}`] = value;
 
     return result;
 }
@@ -57,7 +73,9 @@ export function generateVendoredStyles(key: string, value: string): Record<strin
  * @param  element Element which to discriminate.
  * @return Is element instance of `HTMLCanvasElement`.
  */
-export function isCanvasElement(element: Element): element is HTMLCanvasElement {
+export function isCanvasElement(
+    element: Element,
+): element is HTMLCanvasElement {
     return element instanceof HTMLCanvasElement;
 }
 
@@ -68,7 +86,10 @@ export function isCanvasElement(element: Element): element is HTMLCanvasElement 
  * @param  styles  Object of stlyes which to apply.
  * @return Created canvas element with applied styles.
  */
-export function validateOrCreateCanvas(element: Element, styles: Record<string, string>): HTMLCanvasElement {
+export function validateOrCreateCanvas(
+    element: Element,
+    styles: Record<string, string>,
+): HTMLCanvasElement {
     if (!isCanvasElement(element)) return createCanvasElement(element, styles);
 
     return setElementStyles(element, styles);
@@ -80,7 +101,11 @@ export function validateOrCreateCanvas(element: Element, styles: Record<string, 
  * @param  source The GLSL definition of the shader which to compile.
  * @return        Compiled shader.
  */
-export function compileShader(type: EShaderType, source: string, context: WebGL2RenderingContext): WebGLShader {
+export function compileShader(
+    type: EShaderType,
+    source: string,
+    context: WebGL2RenderingContext,
+): WebGLShader {
     const shader = context.createShader(type);
 
     if (!shader || shader === null || !(shader instanceof WebGLShader))
@@ -109,7 +134,7 @@ export function compileShader(type: EShaderType, source: string, context: WebGL2
 export function createWebGLProgram(
     vertex: WebGLShader,
     fragment: WebGLShader,
-    context: WebGL2RenderingContext
+    context: WebGL2RenderingContext,
 ): WebGLProgram {
     const program = context.createProgram();
 
@@ -117,7 +142,8 @@ export function createWebGLProgram(
     context.attachShader(program, fragment);
     context.linkProgram(program);
 
-    if (!context.getProgramParameter(program, context.LINK_STATUS)) throw new GLError();
+    if (!context.getProgramParameter(program, context.LINK_STATUS))
+        throw new GLError();
 
     return program;
 }

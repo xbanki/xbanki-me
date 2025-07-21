@@ -24,18 +24,18 @@ export default [
       '.storybook/*',
       '.next/*',
       'build/*',
-      'dist/*'
+      'dist/*',
     ],
     languageOptions: {
-      globals
-    }
+      globals,
+    },
   },
   {
     languageOptions: {
-      ecmaVersion: 'latest'
+      ecmaVersion: 'latest',
     },
     linterOptions: {
-      noInlineConfig: true
+      noInlineConfig: true,
     },
     name: 'xbanki-me-config-base',
     rules: {
@@ -86,14 +86,17 @@ export default [
       'no-caller': 'error',
       'no-case-declarations': 'error',
       'no-class-assign': 'error',
-      'no-cond-assign': ['error', 'always'],
+      'no-cond-assign': [
+        'error',
+        'always',
+      ],
       'no-const-assign': 'error',
       'no-constant-binary-expression': 'error',
       'no-constant-condition': [
         'error',
         {
-          checkLoops: 'allExceptWhileTrue'
-        }
+          checkLoops: 'allExceptWhileTrue',
+        },
       ],
       'no-dupe-args': 'error',
       'no-dupe-class-members': 'error',
@@ -119,8 +122,8 @@ export default [
       'no-unsafe-optional-chaining': [
         'error',
         {
-          disallowArithmeticOperators: true
-        }
+          disallowArithmeticOperators: true,
+        },
       ],
       'no-unused-labels': 'error',
       'no-useless-backreference': 'error',
@@ -128,29 +131,31 @@ export default [
       'prefer-const': [
         'error',
         {
-          destructuring: 'all'
-        }
+          destructuring: 'all',
+        },
       ],
       'valid-typeof': [
         'error',
         {
-          requireStringLiterals: true
-        }
-      ]
-    }
+          requireStringLiterals: true,
+        },
+      ],
+    },
   },
   {
-    files: ['**/*.ts'],
+    files: [
+      '**/*.ts',
+    ],
     languageOptions: {
       parserOptions: {
         project: true,
-        sourceType: 'module'
+        sourceType: 'module',
       },
-      parser: ts_parser
+      parser: ts_parser,
     },
     name: 'xbanki-me-config-typescript',
     plugins: {
-      '@typescript-eslint': ts_plugin
+      '@typescript-eslint': ts_plugin,
     },
     rules: {
       // Disabled rules
@@ -197,8 +202,8 @@ export default [
         'warn',
         {
           fixStyle: 'separate-type-imports',
-          prefer: 'type-imports'
-        }
+          prefer: 'type-imports',
+        },
       ],
       '@typescript-eslint/no-loss-of-precision': 'warn',
       '@typescript-eslint/no-unnecessary-type-constraint': 'warn',
@@ -212,8 +217,8 @@ export default [
           'ts-expect-error': 'allow-with-description',
           'ts-ignore': 'allow-with-description',
           'ts-nocheck': false,
-          'ts-check': false
-        }
+          'ts-check': false,
+        },
       ],
       '@typescript-eslint/no-array-constructor': 'error',
       '@typescript-eslint/no-base-to-string': 'error',
@@ -227,8 +232,8 @@ export default [
         'error',
         {
           allowDeclarations: true,
-          allowDefinitionFiles: true
-        }
+          allowDefinitionFiles: true,
+        },
       ],
       '@typescript-eslint/no-non-null-asserted-optional-chain': 'error',
       '@typescript-eslint/no-unnecessary-type-assertion': 'error',
@@ -242,28 +247,32 @@ export default [
       'prefer-const': [
         'error',
         {
-          destructuring: 'all'
-        }
+          destructuring: 'all',
+        },
       ],
-      'prefer-rest-params': 'error'
-    }
+      'prefer-rest-params': 'error',
+    },
   },
   {
-    files: ['**/*.vue'],
+    files: [
+      '**/*.vue',
+    ],
     languageOptions: {
       parserOptions: {
         sourceType: 'module',
-        parser: ts_parser
+        parser: ts_parser,
       },
-      parser: vue_parser
+      parser: vue_parser,
     },
     name: 'skinstash-config-vue',
     plugins: {
-      vue: vue_plugin
+      vue: vue_plugin,
     },
     rules: {
       'vue/comment-directive': 'off',
-      'vue/jsx-uses-vars': ['warn'],
+      'vue/jsx-uses-vars': [
+        'warn',
+      ],
       'vue/multi-word-component-names': 'off',
       'vue/no-arrow-functions-in-watch': 'error',
       'vue/no-async-in-computed-properties': 'error',
@@ -344,7 +353,7 @@ export default [
       'vue/valid-v-pre': 'error',
       'vue/valid-v-show': 'error',
       'vue/valid-v-slot': 'error',
-      'vue/valid-v-text': 'error'
-    }
-  }
+      'vue/valid-v-text': 'error',
+    },
+  },
 ];

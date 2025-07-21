@@ -13,4 +13,6 @@
 
 import { createWebGLContext } from '@xbanki-me/webgl-render-api';
 
-const context = createWebGLContext(document.querySelector('canvas#xbanki-webgl-renderer') as Element)?.shade();
+const context = createWebGLContext(
+    document.querySelector('canvas#xbanki-webgl-renderer') as Element,
+)?.shade();

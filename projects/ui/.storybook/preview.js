@@ -17,15 +17,15 @@ const preview = {
     withThemeByDataAttribute({
       themes: {
         dark: 'dark',
-        light: 'light'
+        light: 'light',
       },
-      defaultTheme: 'dark'
-    })
+      defaultTheme: 'dark',
+    }),
   ],
   globalTypes: {
     theme: {
-      defaultValue: 'dark'
-    }
+      defaultValue: 'dark',
+    },
   },
   parameters: {
     backgrounds: {
@@ -33,21 +33,23 @@ const preview = {
       options: {
         dark: {
           name: 'Dark',
-          value: '#333'
-        }
-      }
+          value: '#333',
+        },
+      },
     },
     docs: {
-      theme: theme
-    }
+      theme: theme,
+    },
   },
   initialGlobals: {
     theme: 'dark',
     backgrounds: {
-      value: 'dark'
-    }
+      value: 'dark',
+    },
   },
-  tags: ['autodocs']
+  tags: [
+    'autodocs',
+  ],
 };
 
 export default preview;
