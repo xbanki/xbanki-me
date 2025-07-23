@@ -1,21 +1,9 @@
 {
 	"dependencies": {
+		"@heroicons/vue": "^2.2.0",
 		"animejs": "^4.0.2",
 		"vue": "^3.5.17"
 	},
-	"name": "@xbanki-me/ui",
-	"packageManager": "yarn@4.6.0",
-	"scripts": {
-		"build": "yarn build:lib",
-		"build:all": "yarn build:lib && build:docs",
-		"build:docs": "storybook build",
-		"build:lib": "vue-tsc --noEmit && vite build",
-		"dev": "storybook dev -p 6006",
-		"lint": "eslint --fix --format table",
-		"tidy": "biome format --write"
-	},
-	"type": "module",
-	"version": "1.0.0",
 	"devDependencies": {
 		"@biomejs/biome": "^2.1.2",
 		"@eslint/js": "^9.31.0",
@@ -40,5 +28,35 @@
 		"vue-eslint-parser": "^10.2.0",
 		"vue-macros": "^3.0.0-beta.17",
 		"vue-tsc": "^3.0.3"
-	}
+	},
+	"exports": {
+		".": {
+			"import": "./dist/xbanki-me-ui.js",
+			"require": "./dist/xbanki-me-ui.cjs",
+			"types": "./dist/xbanki-me-ui.d.ts"
+		},
+		"./icons": {
+			"import": "./dist/xbanki-me-icons.js",
+			"require": "./dist/xbanki-me-icons.cjs",
+			"types": "./dist/xbanki-me-icons.d.ts"
+		}
+	},
+	"files": [
+		"dist"
+	],
+	"main": "./dist/xbanki-me-ui.cjs",
+	"module": "./dist/xbanki-me-ui.js",
+	"name": "@xbanki-me/ui",
+	"packageManager": "yarn@4.6.0",
+	"scripts": {
+		"build": "yarn build:lib",
+		"build:all": "yarn build:lib && build:docs",
+		"build:docs": "storybook build",
+		"build:lib": "vue-tsc --noEmit && vite build",
+		"dev": "storybook dev -p 6006",
+		"lint": "eslint --fix --format table",
+		"tidy": "biome format --write"
+	},
+	"type": "module",
+	"version": "1.0.0"
 }

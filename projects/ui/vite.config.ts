@@ -21,8 +21,14 @@ import pluginDTS from 'vite-plugin-dts';
 export default defineConfig({
     build: {
         lib: {
-            entry: resolve(join(process.cwd(), 'src', 'library.ts')),
-            fileName: 'xbanki-me-ui',
+            entry: {
+                'xbanki-me-ui': resolve(
+                    join(process.cwd(), 'src', 'library.ts'),
+                ),
+                'xbanki-me-icons': resolve(
+                    join(process.cwd(), 'src', 'icons.ts'),
+                ),
+            },
             name: 'ui',
         },
         rollupOptions: {
