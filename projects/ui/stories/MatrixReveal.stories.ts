@@ -45,15 +45,7 @@ const Meta: Meta<typeof ComponentMatrixReveal> = {
 /**
  * Orphan text nodes are supported directly.
  */
-export const Default: Story = {
-    parameters: {
-        slots: {
-            default: {
-                template: 'Matrix Reveal Component',
-            },
-        },
-    },
-};
+export const Default: Story = {};
 
 /**
  * Direct animation between orphaned text nodes is supported.
@@ -96,7 +88,7 @@ export const NestedDOMTree: Story = {
             default: {
                 template: `
                     <div>
-                        Neste
+                        Nested
                         <div>
                             DOM
                             <div>
