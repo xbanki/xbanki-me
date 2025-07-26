@@ -11,7 +11,8 @@
 
 <template>
   <!-- Button component surrounding wrapper. //-->
-  <button v-bind:class="[
+  <button
+    v-bind:class="[
     'transition-colors items-center font-mono flex',
     props.ghost
         ? [
@@ -42,25 +43,28 @@
                 },
               ],
         ],
-  ]">
+  ]"
+  >
     <!-- Default slot wrapper. //-->
     <section class="w-fit" v-if="!props.iconOnly && $slots.default">
       <!-- Default slot outlet. Supports any arbitrary content. //-->
       <slot name="default" />
     </section>
     <!-- Icon slot wrapper. //-->
-    <section v-bind:class="[
+    <section
+      v-bind:class="[
         { 'ml-2': $slots.icon && $slots.default },
         'w-6 h-6',
     ]"
-    v-if="$slots.icon">
+      v-if="$slots.icon"
+    >
       <!-- Icon slot outlet. Meant for rendering the icon component. //-->
       <slot name="icon" />
     </section>
   </button>
 </template>
 
- <script lang="ts" setup>
+<script lang="ts" setup>
 import { EButtonVariant, type ButtonProps } from '@/button/lib/types.ts';
 import { DEFAULT_BUTTON_PROPS_OPTIONAL } from '@/button/lib/constants.ts';
 
