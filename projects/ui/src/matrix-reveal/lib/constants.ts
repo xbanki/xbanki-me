@@ -13,15 +13,17 @@ import type { IRevealPropsOptional } from '@/matrix-reveal/lib/types.ts';
 
 export const DEFAULT_REVEAL_PROPS_OPTIONAL: IRevealPropsOptional = {
     cloneProps: (animable, _) => ({
-        class: animable ? 'matrix-reveal-animable' : 'matrix-reveal-target'
+        class: animable ? 'matrix-reveal-animable' : 'matrix-reveal-target',
     }),
 
-    wrapperProps: { class: 'dark:text-white font-mono block' },
+    wrapperProps: {
+        class: 'dark:text-white font-mono block',
+    },
     chars: '!@#$%^&[]*():{};|,.<>/?',
     element: 'span',
     initial: false,
     duration: 300,
-    cycles: 6
+    cycles: 6,
 };
 
 export const STRING_WHITESPACE = '\u00A0';

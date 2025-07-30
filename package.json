@@ -1,20 +1,23 @@
 {
-  "devDependencies": {
-    "@commitlint/cli": "^19.8.1",
-    "@commitlint/config-conventional": "^19.8.1",
-    "husky": "^9.1.7"
-  },
-  "license": "MIT",
-  "name": "xbanki-me",
-  "packageManager": "yarn@4.6.0",
-  "private": true,
-  "scripts": {
-    "postinstall": "husky init",
-    "prepare": "husky",
-    "test": "echo \"No tests specified\""
-  },
-  "type": "module",
-  "workspaces": [
-    "projects/*"
-  ]
+	"devDependencies": {
+		"@biomejs/biome": "^2.1.3",
+		"@commitlint/cli": "^19.8.1",
+		"@commitlint/config-conventional": "^19.8.1",
+		"husky": "^9.1.7",
+		"turbo": "^2.5.5"
+	},
+	"license": "MIT",
+	"name": "xbanki-me",
+	"packageManager": "yarn@4.6.0",
+	"private": true,
+	"scripts": {
+		"postinstall": "husky init",
+		"prepare": "husky",
+		"test": "echo \"No tests specified\"",
+		"tidy": "biome format --write"
+	},
+	"type": "module",
+	"workspaces": [
+		"projects/*"
+	]
 }

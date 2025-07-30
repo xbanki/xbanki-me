@@ -1,0 +1,24 @@
+{
+	"devDependencies": {
+		"@biomejs/biome": "^2.1.3"
+	},
+	"exports": {
+		"./biome-css": "./biome.css.json",
+		"./biome-javascript": "./biome.javascript.json",
+		"./biome-json": "./biome.json.json",
+		"./biome-typescript": "./biome.typescript.json"
+	},
+	"files": [
+		"biome.typescript.json",
+		"biome.javascript.json",
+		"biome.json.json",
+		"biome.css.json"
+	],
+	"name": "@xbanki-me/config",
+	"packageManager": "yarn@4.6.0",
+	"scripts": {
+		"tidy": "biome format --write"
+	},
+	"type": "module",
+	"version": "1.0.0"
+}

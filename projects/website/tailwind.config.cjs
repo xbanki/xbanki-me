@@ -13,11 +13,19 @@
  * @type {import('tailwindcss').Config}
  */
 module.exports = {
-  content: ['./index.html', './src/**/*.{html,scss,sass,css,vue,ts}'],
-  darkMode: ['class', '[data-mode="dark"]'],
+  content: [
+    './index.html',
+    './src/**/*.{html,scss,sass,css,vue,ts}',
+  ],
+  darkMode: [
+    'class',
+    '[data-mode="dark"]',
+  ],
   // @todo(xbanki): Extend this
   theme: {
-    extend: {}
+    extend: {},
   },
-  plugins: [require('@tailwindcss/typography')]
+  plugins: [
+    require('@tailwindcss/typography'),
+  ],
 };

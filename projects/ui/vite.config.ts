@@ -21,29 +21,45 @@ import pluginDTS from 'vite-plugin-dts';
 export default defineConfig({
     build: {
         lib: {
-            entry: resolve(join(process.cwd(), 'src', 'library.ts')),
-            fileName: 'xbanki-me-ui',
-            name: 'ui'
+            entry: {
+                'xbanki-me-ui': resolve(
+                    join(process.cwd(), 'src', 'library.ts'),
+                ),
+                'xbanki-me-icons': resolve(
+                    join(process.cwd(), 'src', 'icons.ts'),
+                ),
+            },
+            name: 'ui',
         },
+        outDir: 'dist/lib',
         rollupOptions: {
-            external: ['vue'],
+            external: [
+                'vue',
+            ],
             output: {
                 assetFileNames: 'assets/[name][extname]',
                 globals: {
-                    vue: 'Vue'
-                }
-            }
-        }
+                    vue: 'Vue',
+                },
+            },
+        },
     },
     plugins: [
-        pluginVueMacros({ plugins: { vue: pluginVue() } }),
-        pluginDTS({ rollupTypes: true }),
+        pluginVueMacros({
+            plugins: {
+                vue: pluginVue(),
+            },
+        }),
+        pluginDTS({
+            copyDtsFiles: true,
+            rollupTypes: true,
+        }),
         pluginInjectCSS(),
-        pluginTailwind()
+        pluginTailwind(),
     ],
     resolve: {
         alias: {
-            '@': resolve(join(process.cwd(), 'src'))
-        }
-    }
+            '@': resolve(join(process.cwd(), 'src')),
+        },
+    },
 });

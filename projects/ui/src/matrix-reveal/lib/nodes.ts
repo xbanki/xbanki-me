@@ -4,7 +4,6 @@ import { mergeProps, isVNode, cloneVNode, Comment, Text, ref } from 'vue';
 import type {
     ClonedNodes,
     CloneProps,
-    INodeMeta
 } from '@/matrix-reveal/lib/types.ts';
 import { STRING_WHITESPACE } from '@/matrix-reveal/lib/constants.ts';
 
@@ -38,7 +37,7 @@ function generateRandomString(characters: string, length: number): string {
     let result = '';
     for (let i = 0; i < length; i++)
         result += characters.charAt(
-            Math.floor(Math.random() * characters.length)
+            Math.floor(Math.random() * characters.length),
         );
     return result;
 }
@@ -56,7 +55,7 @@ export function buildVNodeClones(
     target: VNode | VNodeArrayChildren,
     initial: boolean,
     props: CloneProps,
-    chars: string = STRING_WHITESPACE
+    chars: string = STRING_WHITESPACE,
 ): ClonedNodes {
     const out_meta: INodeMeta[] = [];
     const out_nodes: VNode[] = [];
@@ -64,7 +63,11 @@ export function buildVNodeClones(
     const in_meta: INodeMeta[] = [];
     const in_nodes: VNode[] = [];
 
-    for (const node of !Array.isArray(target) ? [target] : target)
+    for (const node of !Array.isArray(target)
+        ? [
+              target,
+          ]
+        : target)
         if (isVNode(node) && node.type !== Comment) {
             let children_out: VNodeArrayChildren | string | null = null;
             let children_in: VNodeArrayChildren | string | null = null;
@@ -83,7 +86,7 @@ export function buildVNodeClones(
                 children_in = [];
                 const [
                     [clone_out_nodes, clone_out_meta],
-                    [clone_in_nodes, clone_in_meta]
+                    [clone_in_nodes, clone_in_meta],
                 ] = buildVNodeClones(node.children, initial, props, chars);
                 children_out.push(...clone_out_nodes);
                 children_in.push(...clone_in_nodes);
@@ -95,17 +98,33 @@ export function buildVNodeClones(
             const ref_in = ref<VNodeRef | null>(null);
             const node_out = cloneVNode(
                 node,
-                mergeProps({ ref: ref_out }, props(original !== null, node))
+                mergeProps(
+                    {
+                        ref: ref_out,
+                    },
+                    props(original !== null, node),
+                ),
             );
             const node_in = cloneVNode(
                 node,
-                mergeProps({ ref: ref_in }, props(original !== null, node))
+                mergeProps(
+                    {
+                        ref: ref_in,
+                    },
+                    props(original !== null, node),
+                ),
             );
             node_out.children = children_out;
             node_in.children = children_in;
             if (original !== null) {
-                out_meta.push({ ref: ref_out, original });
-                in_meta.push({ ref: ref_in, original });
+                out_meta.push({
+                    ref: ref_out,
+                    original,
+                });
+                in_meta.push({
+                    ref: ref_in,
+                    original,
+                });
             }
 
             out_nodes.push(node_out);
@@ -113,7 +132,13 @@ export function buildVNodeClones(
         }
 
     return [
-        [out_nodes, out_meta],
-        [in_nodes, in_meta]
+        [
+            out_nodes,
+            out_meta,
+        ],
+        [
+            in_nodes,
+            in_meta,
+        ],
     ];
 }

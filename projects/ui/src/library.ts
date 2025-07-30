@@ -15,9 +15,14 @@
 import { EMatrixRevealAnimationState } from '@/matrix-reveal/lib/types.ts';
 import ComponentMatrixReveal from '@/matrix-reveal/component.vue';
 
+import { EButtonVariant } from '@/button/lib/types.ts';
+import ComponentButton from '@/button/component.vue';
+
 import '@/tailwind.css';
 
 export {
     EMatrixRevealAnimationState as MatrixRevealState,
-    ComponentMatrixReveal
+    EButtonVariant as ButtonVariant,
+    ComponentMatrixReveal,
+    ComponentButton,
 };

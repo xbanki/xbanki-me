@@ -1,35 +1,35 @@
 {
-  "devDependencies": {
-    "@biomejs/biome": "^2.1.2",
-    "@eslint/js": "^9.31.0",
-    "@types/node": "^24.0.15",
-    "eslint": "^9.31.0",
-    "eslint-formatter-table": "^7.32.1",
-    "terser": "^5.43.1",
-    "typescript": "^5.8.3",
-    "typescript-eslint": "^8.37.0",
-    "vite": "^7.0.5",
-    "vite-plugin-dts": "^4.5.4"
-  },
-  "exports": {
-    ".": {
-      "import": "./dist/webgl-render-api.js",
-      "require": "./dist/webgl-render-api.umd.cjs",
-      "types": "./dist/webgl-render-api.d.ts"
-    }
-  },
-  "files": [
-    "dist"
-  ],
-  "main": "./dist/webgl-render-api.umd.cjs",
-  "module": "./dist/webgl-render-api.js",
-  "name": "@xbanki-me/webgl-render-api",
-  "packageManager": "yarn@4.6.0",
-  "scripts": {
-    "lint": "eslint --fix --format table",
-    "build": "vite build",
-    "tidy": "biome format --write"
-  },
-  "type": "module",
-  "version": "1.2.0"
+	"devDependencies": {
+		"@biomejs/biome": "^2.1.3",
+		"@eslint/js": "^9.32.0",
+		"@types/node": "^24.1.0",
+		"eslint": "^9.32.0",
+		"eslint-formatter-table": "^7.32.1",
+		"terser": "^5.43.1",
+		"typescript": "^5.8.3",
+		"typescript-eslint": "^8.38.0",
+		"vite": "^7.0.6",
+		"vite-plugin-dts": "^4.5.4"
+	},
+	"exports": {
+		".": {
+			"import": "./dist/webgl-render-api.js",
+			"require": "./dist/webgl-render-api.umd.cjs",
+			"types": "./dist/webgl-render-api.d.ts"
+		}
+	},
+	"files": [
+		"dist"
+	],
+	"main": "./dist/webgl-render-api.umd.cjs",
+	"module": "./dist/webgl-render-api.js",
+	"name": "@xbanki-me/webgl-render-api",
+	"packageManager": "yarn@4.6.0",
+	"scripts": {
+		"lint": "eslint --fix --format table",
+		"build": "vite build",
+		"tidy": "biome format --write"
+	},
+	"type": "module",
+	"version": "1.2.0"
 }

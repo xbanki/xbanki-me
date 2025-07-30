@@ -11,7 +11,11 @@
 
 import type { StoryObj, Meta } from '@storybook/vue3-vite';
 
-import { MatrixRevealState, ComponentMatrixReveal } from '@/library.ts';
+import {
+    ComponentMatrixReveal,
+    MatrixRevealState,
+    ComponentButton,
+} from '@/library.ts';
 
 type Story = StoryObj<typeof ComponentMatrixReveal>;
 
@@ -19,7 +23,7 @@ type Story = StoryObj<typeof ComponentMatrixReveal>;
  * [Source Code](https://github.com/xbanki/xbanki-me/blob/main/projects/ui/src/matrix-reveal/component.vue)
  *
  * # Overview
-
+ *
  * The `MatrixReveal` component is an animated text effect designed to add
  * visual flair to text elements such as logos, articles, or other UI
  * components. It accepts any DOM structure in the `default` slot, as long as
@@ -32,46 +36,46 @@ const Meta: Meta<typeof ComponentMatrixReveal> = {
     parameters: {
         slots: {
             default: {
-                template: 'Matrix Text Reveal'
-            }
-        }
-    }
+                template: 'Matrix Text Reveal',
+            },
+        },
+    },
 };
 
 /**
  * Orphan text nodes are supported directly.
  */
-export const Default: Story = {
-    parameters: {
-        slots: {
-            default: {
-                template: 'Matrix Reveal Component'
-            }
-        }
-    }
-};
+export const Default: Story = {};
 
 /**
- * Direct animation between orphaned text nodes is supported.
+ * Direct animation between two separate orphaned text nodes is supported.
  */
 export const ContentReactive: Story = {
     render: args => ({
-        components: { ComponentMatrixReveal },
+        components: {
+            ComponentMatrixReveal,
+            ComponentButton,
+        },
         data() {
             const beta = 'Hey! We changed the label.';
             const alpha = 'Click the button.';
             const toggle = false;
-            return { toggle, alpha, beta, args };
+            return {
+                toggle,
+                alpha,
+                beta,
+                args,
+            };
         },
         template: `
             <ComponentMatrixReveal v-bind="args">
                 {{ !toggle ? alpha : beta }}
             </ComponentMatrixReveal>
-            <button class="mt-4" v-on:click="toggle = !toggle">
+            <ComponentButton class="mt-4" v-on:click="toggle = !toggle">
                 Toggle Label
-            </button>
-        `
-    })
+            </ComponentButton>
+        `,
+    }),
 };
 
 /**
@@ -84,7 +88,7 @@ export const NestedDOMTree: Story = {
             default: {
                 template: `
                     <div>
-                        Neste
+                        Nested
                         <div>
                             DOM
                             <div>
@@ -92,10 +96,10 @@ export const NestedDOMTree: Story = {
                             </div>
                         </div>
                     </div>
-                `
-            }
-        }
-    }
+                `,
+            },
+        },
+    },
 };
 
 /**
@@ -103,10 +107,16 @@ export const NestedDOMTree: Story = {
  */
 export const ReactiveDOMTree: Story = {
     render: args => ({
-        components: { ComponentMatrixReveal },
+        components: {
+            ComponentMatrixReveal,
+            ComponentButton,
+        },
         data() {
             const toggle = true;
-            return { toggle, args };
+            return {
+                toggle,
+                args,
+            };
         },
         template: `
             <ComponentMatrixReveal v-bind="args">
@@ -123,11 +133,11 @@ export const ReactiveDOMTree: Story = {
                     </p>
                 </span>
             </ComponentMatrixReveal>
-            <button class="mt-4" v-on:click="toggle = !toggle">
+            <ComponentButton class="mt-4" v-on:click="toggle = !toggle">
                 Toggle DOM Tree
-            </button>
-        `
-    })
+            </ComponentButton>
+        `,
+    }),
 };
 
 /**
@@ -135,12 +145,20 @@ export const ReactiveDOMTree: Story = {
  */
 export const AnimationStateEvents: Story = {
     render: args => ({
-        components: { ComponentMatrixReveal },
+        components: {
+            ComponentMatrixReveal,
+            ComponentButton,
+        },
         data() {
             const state = MatrixRevealState.INITIAL;
             const toggle = true;
             const index = 0;
-            return { toggle, state, index, args };
+            return {
+                toggle,
+                state,
+                index,
+                args,
+            };
         },
         computed: {
             convertEventToString() {
@@ -156,7 +174,7 @@ export const AnimationStateEvents: Story = {
                     default:
                         return 'NONE';
                 }
-            }
+            },
         },
         template: `
             <ComponentMatrixReveal v-bind="args" v-on:stateChange="state = $event">
@@ -168,10 +186,10 @@ export const AnimationStateEvents: Story = {
                     {{ convertEventToString }}
                 </samp>
             </p>
-            <button class="mt-4" v-on:click="index += 1">
+            <ComponentButton class="mt-4" v-on:click="index += 1">
                 Force Re-Render
-            </button>
-        `
-    })
+            </ComponentButton>
+        `,
+    }),
 };
 export default Meta;

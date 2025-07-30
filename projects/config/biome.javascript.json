@@ -1,0 +1,45 @@
+{
+	"$schema": "https://biomejs.dev/schemas/2.1.2/schema.json",
+	"overrides": [
+		{
+			"includes": [
+				"**/*.cjs",
+				"**/*.es",
+				"**/*.js",
+				"**/*.jsx",
+				"**/*.mjs",
+				"**/*.vue"
+			],
+			"javascript": {
+				"assist": {
+					"enabled": false
+				},
+				"formatter": {
+					"arrowParentheses": "asNeeded",
+					"attributePosition": "multiline",
+					"bracketSameLine": false,
+					"bracketSpacing": true,
+					"enabled": true,
+					"expand": "always",
+					"indentStyle": "space",
+					"indentWidth": 2,
+					"jsxQuoteStyle": "single",
+					"lineWidth": 80,
+					"quoteProperties": "asNeeded",
+					"quoteStyle": "single",
+					"semicolons": "always",
+					"trailingCommas": "all"
+				},
+				"linter": {
+					"enabled": false
+				},
+				"parser": {
+					"gritMetavariables": false,
+					"jsxEverywhere": false,
+					"unsafeParameterDecoratorsEnabled": false
+				}
+			}
+		}
+	],
+	"root": false
+}
