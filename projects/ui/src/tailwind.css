@@ -23,11 +23,12 @@
     var(--tw-shadow-color, rgb(0 0 0 / 0.5));
 }
 
-/* Button click ping animation */
+/* Button ping color utility */
 @utility button-ping-* {
   --button-ping-color: --value(--color-*);
 }
 
+/* Button click ping animation */
 @theme {
   --animate-button-ping: button-ping var(--tw-duration, var(--default-transition-duration)) cubic-bezier(0, 0, 0.2, 1) 1;
   --button-ping-color: rgb(0 0 0 / 0.5);
