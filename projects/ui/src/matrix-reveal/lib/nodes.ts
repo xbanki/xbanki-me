@@ -4,6 +4,7 @@ import { mergeProps, isVNode, cloneVNode, Comment, Text, ref } from 'vue';
 import type {
     ClonedNodes,
     CloneProps,
+    INodeMeta,
 } from '@/matrix-reveal/lib/types.ts';
 import { STRING_WHITESPACE } from '@/matrix-reveal/lib/constants.ts';
 
