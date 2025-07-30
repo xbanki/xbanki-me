@@ -18,6 +18,8 @@ import ComponentMatrixReveal from '@/matrix-reveal/component.vue';
 import { EButtonVariant } from '@/button/lib/types.ts';
 import ComponentButton from '@/button/component.vue';
 
+import ComponentLogo from '@/logo/component.vue';
+
 import '@/tailwind.css';
 
 export {
@@ -25,4 +27,5 @@ export {
     EButtonVariant as ButtonVariant,
     ComponentMatrixReveal,
     ComponentButton,
+    ComponentLogo,
 };
