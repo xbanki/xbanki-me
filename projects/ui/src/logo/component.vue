@@ -14,4 +14,13 @@
 </template>
 
 <script lang="ts" setup>
+import type { LogoProps } from '@/logo/lib/types.ts';
+import {
+    DEFAULT_LOGO_PROPS_OPTIONAL,
+} from '@/logo/lib/constants.ts';
+
+const props = withDefaults(
+    defineProps<LogoProps>(),
+    DEFAULT_LOGO_PROPS_OPTIONAL,
+);
 </script>
