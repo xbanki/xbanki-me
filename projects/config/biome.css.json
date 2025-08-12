@@ -17,6 +17,9 @@
 					"cssModules": true
 				}
 			},
+			"formatter": {
+				"formatWithErrors": true
+			},
 			"includes": [
 				"**/*.css"
 			]
