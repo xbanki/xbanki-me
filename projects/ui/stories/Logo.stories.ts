@@ -28,4 +28,17 @@ const Meta: Meta<typeof ComponentLogo> = {
  */
 export const Default: Story = {};
 
+/**
+ * `@TODO(xbanki): Document.`
+ */
+export const ExtraSegments: Story = {
+    args: {
+        segments: [
+            'with',
+            'extra',
+            'segments',
+        ],
+    },
+};
+
 export default Meta;

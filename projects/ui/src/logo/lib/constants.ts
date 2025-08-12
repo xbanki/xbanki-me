@@ -11,4 +11,6 @@
 
 import type { ILogoPropsOptional } from '@/logo/lib/types.ts';
 
-export const DEFAULT_LOGO_PROPS_OPTIONAL: ILogoPropsOptional = {};
+export const DEFAULT_LOGO_PROPS_OPTIONAL: ILogoPropsOptional = {
+    segments: [],
+};

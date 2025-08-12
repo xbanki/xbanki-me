@@ -12,7 +12,13 @@
 /**
  * Optional logo props.
  */
-export interface ILogoPropsOptional {}
+export interface ILogoPropsOptional {
+    /**
+     * Logomark segments which to render. Used for rendering the current routing
+     * breadcrumb.
+     */
+    segments: string[];
+}
 
 /**
  * Logo component props.
