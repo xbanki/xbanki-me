@@ -49,7 +49,7 @@
   ]"
   >
     <!-- Default slot wrapper. //-->
-    <section class="w-fit" v-if="!props.iconOnly && $slots.default">
+    <section class="box-border w-fit pb-1" v-if="!props.iconOnly && $slots.default">
       <!-- Default slot outlet. Supports any arbitrary content. //-->
       <slot name="default" />
     </section>
