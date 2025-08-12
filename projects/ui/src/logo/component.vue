@@ -82,8 +82,8 @@ const segments = computed(() =>
         ...props.segments,
     ]
         .map(label => ({
+            label: label.toLowerCase(),
             dimmed: false,
-            label,
         }))
         .flatMap((segment, index, array) =>
             array.length - 1 != index
