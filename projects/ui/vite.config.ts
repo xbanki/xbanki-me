@@ -13,6 +13,7 @@ import { libInjectCss as pluginInjectCSS } from 'vite-plugin-lib-inject-css';
 import { resolve, join } from 'node:path';
 import { defineConfig } from 'vite';
 
+import pluginSeparateAssets from '@laynezh/vite-plugin-lib-assets';
 import pluginVueMacros from 'vue-macros/vite';
 import pluginTailwind from '@tailwindcss/vite';
 import pluginVue from '@vitejs/plugin-vue';
@@ -54,6 +55,7 @@ export default defineConfig({
             copyDtsFiles: true,
             rollupTypes: true,
         }),
+        pluginSeparateAssets(),
         pluginInjectCSS(),
         pluginTailwind(),
     ],

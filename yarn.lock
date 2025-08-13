@@ -899,6 +899,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@laynezh/vite-plugin-lib-assets@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "@laynezh/vite-plugin-lib-assets@npm:2.1.0"
+  dependencies:
+    escape-string-regexp: "npm:^4.0.0"
+    loader-utils: "npm:^3.2.1"
+    mrmime: "npm:^1.0.1"
+    semver: "npm:^7.6.0"
+  peerDependencies:
+    vite: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0
+  checksum: 10c0/9979196fe330421ad6bf15625cefc6f7cf7ba3350f215cdc56aa9ea3e63f9eca6ada46d11cfe2bf5c30d1d54589da29024d9a9bac84b1ab48ea7b3b566e017cb
+  languageName: node
+  linkType: hard
+
 "@mdx-js/react@npm:^3.0.0":
   version: 3.1.0
   resolution: "@mdx-js/react@npm:3.1.0"
@@ -2925,6 +2939,7 @@ __metadata:
     "@biomejs/biome": "npm:^2.1.3"
     "@eslint/js": "npm:^9.32.0"
     "@heroicons/vue": "npm:^2.2.0"
+    "@laynezh/vite-plugin-lib-assets": "npm:^2.1.0"
     "@storybook/addon-docs": "npm:^9.0.18"
     "@storybook/addon-themes": "npm:^9.0.18"
     "@storybook/types": "npm:^8.6.14"
@@ -5370,6 +5385,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"loader-utils@npm:^3.2.1":
+  version: 3.3.1
+  resolution: "loader-utils@npm:3.3.1"
+  checksum: 10c0/f2af4eb185ac5bf7e56e1337b666f90744e9f443861ac521b48f093fb9e8347f191c8960b4388a3365147d218913bc23421234e7788db69f385bacfefa0b4758
+  languageName: node
+  linkType: hard
+
 "local-pkg@npm:^1.0.0, local-pkg@npm:^1.1.1":
   version: 1.1.1
   resolution: "local-pkg@npm:1.1.1"
@@ -5742,6 +5764,13 @@ __metadata:
     pkg-types: "npm:^1.3.0"
     ufo: "npm:^1.5.4"
   checksum: 10c0/69e738218a13d6365caf930e0ab4e2b848b84eec261597df9788cefb9930f3e40667be9cb58a4718834ba5f97a6efeef31d3b5a95f4388143fd4e0d0deff72ff
+  languageName: node
+  linkType: hard
+
+"mrmime@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "mrmime@npm:1.0.1"
+  checksum: 10c0/ab071441da76fd23b3b0d1823d77aacf8679d379a4a94cacd83e487d3d906763b277f3203a594c613602e31ab5209c26a8119b0477c4541ef8555b293a9db6d3
   languageName: node
   linkType: hard
 
