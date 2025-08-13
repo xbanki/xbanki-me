@@ -12,6 +12,7 @@
 			2,
 			"always",
 			[
+				"fetch-secure-blob",
 				"webgl-render-api",
 				"website",
 				"config",
