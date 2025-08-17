@@ -25,7 +25,11 @@ export default defineConfig({
         rollupOptions: {
             external: [
                 'node:fs/promises',
+                'fs/promises',
                 'node:path',
+                'node:fs',
+                'path',
+                'fs',
             ],
         },
         sourcemap: true,
@@ -41,7 +45,11 @@ export default defineConfig({
     optimizeDeps: {
         exclude: [
             'node:fs/promises',
+            'fs/promises',
             'node:path',
+            'node:fs',
+            'path',
+            'fs',
         ],
     },
     resolve: {
