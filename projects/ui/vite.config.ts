@@ -20,9 +20,14 @@ import pluginTailwind from '@tailwindcss/vite';
 import pluginVue from '@vitejs/plugin-vue';
 import pluginDTS from 'vite-plugin-dts';
 
+import dotenv from 'dotenv';
+
 export default defineConfig(({ mode }) => {
     process.env = {
         ...process.env,
+        ...dotenv.config({
+            path: process.cwd(),
+        }),
         ...loadEnv(mode, process.cwd(), ''),
     };
     return {
