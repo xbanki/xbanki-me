@@ -1,0 +1,69 @@
+{
+	"errors": {
+		"service_not_available": {
+			"message": "Vercel services are unavailable or down",
+			"code": ""
+		},
+		"client_token_expired": {
+			"message": "The client token has expired. Please renew it.",
+			"code": ""
+		},
+		"blob_data_missing": {
+			"message": "Blob cache data missing or mangled: ",
+			"code": ""
+		},
+		"store_not_found": {
+			"message": "Requested store not be found",
+			"code": ""
+		},
+		"blob_not_found": {
+			"message": "Requested blob not found",
+			"code": ""
+		},
+		"store_suspended": {
+			"message": "Requested store is in suspension",
+			"code": ""
+		},
+		"rate_limited": {
+			"message": "Vercel services are rate limited",
+			"code": ""
+		},
+		"access": {
+			"message": "Invalid blob access request",
+			"code": ""
+		}
+	},
+	"info": {
+		"fetching_remote_list": {
+			"message": "Fetching remote blob list..",
+			"code": ""
+		},
+		"writing_cache_file": {
+			"message": "Writing blob state to cache..",
+			"code": ""
+		},
+		"reading_cache_file": {
+			"message": "Reading blob state from cache..",
+			"code": ""
+		},
+		"fetching_blob": {
+			"message": "Downloading blob fragment",
+			"code": ""
+		}
+	},
+	"prefix": "[fetch-secure-glob]",
+	"warnings": {
+		"failed_writing_to_disk": {
+			"message": "Could not write fragment to disk",
+			"code": ""
+		},
+		"no_matches_found": {
+			"message": "No blobs matched given input criteria",
+			"code": ""
+		},
+		"criteria_missed": {
+			"message": "No matches for input criteria: ",
+			"code": ""
+		}
+	}
+}
