@@ -15,7 +15,7 @@
 		"biome.css.json"
 	],
 	"name": "@xbanki-me/config",
-	"packageManager": "yarn@4.6.0",
+	"packageManager": "yarn@4.9.2",
 	"scripts": {
 		"tidy": "biome format --write"
 	},

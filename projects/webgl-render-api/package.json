@@ -24,7 +24,7 @@
 	"main": "./dist/webgl-render-api.umd.cjs",
 	"module": "./dist/webgl-render-api.js",
 	"name": "@xbanki-me/webgl-render-api",
-	"packageManager": "yarn@4.6.0",
+	"packageManager": "yarn@4.9.2",
 	"scripts": {
 		"lint": "eslint --fix --format table",
 		"build": "vite build",

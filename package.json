@@ -8,9 +8,10 @@
 	},
 	"license": "MIT",
 	"name": "xbanki-me",
-	"packageManager": "yarn@4.6.0",
+	"packageManager": "yarn@4.9.2",
 	"private": true,
 	"scripts": {
+		"build": "turbo run build",
 		"postinstall": "husky init",
 		"prepare": "husky",
 		"test": "echo \"No tests specified\"",
