@@ -9,6 +9,7 @@
 		"@types/node": "^24.1.0",
 		"eslint": "^9.32.0",
 		"eslint-formatter-table": "^7.32.1",
+		"rollup-plugin-node-externals": "^8.0.1",
 		"terser": "^5.43.1",
 		"typescript": "^5.8.3",
 		"typescript-eslint": "^8.38.0",

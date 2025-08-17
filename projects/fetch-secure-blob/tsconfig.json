@@ -6,7 +6,6 @@
 		"emitDeclarationOnly": true,
 		"esModuleInterop": true,
 		"lib": [
-			"DOM",
 			"ESNext"
 		],
 		"module": "ESNext",
@@ -25,9 +24,7 @@
 		"dist/*"
 	],
 	"include": [
-		"src/**/*.cjs",
-		"src/**/*.mjs",
-		"src/**/*.js",
+		"src/**/*.json",
 		"src/**/*.ts"
 	]
 }

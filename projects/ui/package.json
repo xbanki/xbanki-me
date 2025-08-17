@@ -35,7 +35,7 @@
 		".": {
 			"import": "./dist/lib/xbanki-me-ui.js",
 			"require": "./dist/lib/xbanki-me-ui.cjs",
-			"types": "./dist/xbanki-me-ui.d.ts"
+			"types": "./dist/lib/xbanki-me-ui.d.ts"
 		},
 		"./icons": {
 			"import": "./dist/lib/xbanki-me-icons.js",

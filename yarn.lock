@@ -2925,6 +2925,7 @@ __metadata:
     ci-info: "npm:^4.3.0"
     eslint: "npm:^9.32.0"
     eslint-formatter-table: "npm:^7.32.1"
+    rollup-plugin-node-externals: "npm:^8.0.1"
     terser: "npm:^5.43.1"
     typescript: "npm:^5.8.3"
     typescript-eslint: "npm:^8.38.0"
@@ -6643,6 +6644,15 @@ __metadata:
   bin:
     rimraf: dist/esm/bin.mjs
   checksum: 10c0/7da4fd0e15118ee05b918359462cfa1e7fe4b1228c7765195a45b55576e8c15b95db513b8466ec89129666f4af45ad978a3057a02139afba1a63512a2d9644cc
+  languageName: node
+  linkType: hard
+
+"rollup-plugin-node-externals@npm:^8.0.1":
+  version: 8.0.1
+  resolution: "rollup-plugin-node-externals@npm:8.0.1"
+  peerDependencies:
+    rollup: ^4.0.0
+  checksum: 10c0/ef8f9540e64264f3aa3c0e7fc984d8df554c7189c7c305aeb552a640209924813d70e1cda08f723a0395d33e66db5d1a5f40c2b55b8737d44ce92891483a630a
   languageName: node
   linkType: hard
 
