@@ -13,6 +13,7 @@
 		"build:docs": {
 			"cache": true,
 			"dependsOn": [
+				"@xbanki-me/fetch-secure-blob#build",
 				"build:lib"
 			],
 			"outputs": [
@@ -21,6 +22,9 @@
 		},
 		"build:lib": {
 			"cache": true,
+			"dependsOn": [
+				"@xbanki-me/fetch-secure-blob#build"
+			],
 			"env": [
 				"BLOB_READ_WRITE_TOKEN"
 			],
