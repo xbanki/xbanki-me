@@ -8,6 +8,15 @@
 			"dependsOn": [
 				"build:docs",
 				"build:lib"
+			],
+			"env": [
+				"BLOB_READ_WRITE_TOKEN"
+			],
+			"outputs": [
+				"dist/lib/**"
+			],
+			"passThroughEnv": [
+				"BLOB_READ_WRITE_TOKEN"
 			]
 		},
 		"build:docs": {
