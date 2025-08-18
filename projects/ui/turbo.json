@@ -16,8 +16,14 @@
 				"@xbanki-me/fetch-secure-blob#build",
 				"build:lib"
 			],
+			"env": [
+				"BLOB_READ_WRITE_TOKEN"
+			],
 			"outputs": [
-				"dist/docs/**"
+				"dist/lib/**"
+			],
+			"passThroughEnv": [
+				"BLOB_READ_WRITE_TOKEN"
 			]
 		},
 		"build:lib": {
