@@ -15,6 +15,8 @@
 import { EMatrixRevealAnimationState } from '@/matrix-reveal/lib/types.ts';
 import ComponentMatrixReveal from '@/matrix-reveal/component.vue';
 
+import ComponentArticle from '@/article/component.vue';
+
 import { EButtonVariant } from '@/button/lib/types.ts';
 import ComponentButton from '@/button/component.vue';
 
@@ -26,6 +28,7 @@ export {
     EMatrixRevealAnimationState as MatrixRevealState,
     EButtonVariant as ButtonVariant,
     ComponentMatrixReveal,
+    ComponentArticle,
     ComponentButton,
     ComponentLogo,
 };
