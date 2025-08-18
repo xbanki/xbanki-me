@@ -12,6 +12,9 @@
 		},
 		"build:docs": {
 			"cache": true,
+			"dependsOn": [
+				"build:lib"
+			],
 			"outputs": [
 				"dist/docs/**"
 			]
