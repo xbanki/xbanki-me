@@ -27,7 +27,7 @@ export default defineConfig(({ mode }) => {
         ...process.env,
         ...dotenv.config({
             path: process.cwd(),
-        }),
+        })?.parsed,
         ...loadEnv(mode, process.cwd(), ''),
     };
     return {
