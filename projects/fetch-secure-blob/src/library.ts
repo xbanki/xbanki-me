@@ -220,7 +220,7 @@ async function ensureDirectory(path: string): Promise<boolean> {
         return (await fs.stat(path)).isDirectory();
     } catch (err) {
         if (err instanceof Error && 'code' in err && err.code === 'ENOENT') {
-            await fs.mkdir(path);
+            await fs.mkdir(path, { recursive: true });
             return true;
         }
 
