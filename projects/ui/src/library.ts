@@ -20,7 +20,7 @@ import ComponentButton from '@/button/component.vue';
 
 import ComponentLogo from '@/logo/component.vue';
 
-import '@/tailwind.css';
+import '@/css/module.css';
 
 export {
     EMatrixRevealAnimationState as MatrixRevealState,

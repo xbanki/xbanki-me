@@ -1,6 +1,8 @@
 /*
- * CSS file to facilitate the functionality of Tailwind, and any custom
- * Tailwind directives that are needed.
+ * Font declarations. Includes the following fonts:
+ *
+ *  1. Fraktion Mono by Pangram Pangram Foundry
+ *  2. Neue Montreal by Pangram Pangram Foundry
  *
  *    Copyright: Copyright (c) 2025, xbanki <contact@xbanki.me>
  *               Licensed under MIT License.
@@ -10,66 +12,6 @@
  *    Version:   1.0.0
  */
 
-/* Tailwind dependencies */
-@import "tailwindcss";
-@plugin "@tailwindcss/typography";
-
-/* Enable theme via data attribute */
-@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
-
-/* Custom inset highlight shadow */
-@theme {
-  --inset-shadow-highlight: inset 0 -2px 4px 0
-    var(--tw-shadow-color, rgb(0 0 0 / 0.5));
-}
-
-/* Button ping color utility */
-@utility button-ping-* {
-  --button-ping-color: --value(--color-*);
-}
-
-/* Button click ping animation */
-@theme {
-  --animate-button-ping: button-ping
-    var(--tw-duration, var(--default-transition-duration))
-    cubic-bezier(0, 0, 0.2, 1) 1;
-  --button-ping-color: rgb(0 0 0 / 0.5);
-  @keyframes button-ping {
-    from {
-      box-shadow:
-        0 0 0 0 var(--button-ping-color),
-        var(--tw-inset-shadow),
-        var(--tw-inset-ring-shadow),
-        var(--tw-ring-offset-shadow),
-        var(--tw-ring-shadow),
-        var(--tw-shadow);
-    }
-    to {
-      box-shadow:
-        0 0 0 0.4rem transparent,
-        var(--tw-inset-shadow),
-        var(--tw-inset-ring-shadow),
-        var(--tw-ring-offset-shadow),
-        var(--tw-ring-shadow),
-        var(--tw-shadow);
-    }
-  }
-}
-
-/* Theme colors */
-@theme {
-  --color-brand-blue-100: #a6bcff;
-  --color-brand-blue-200: #99aeff;
-  --color-brand-blue-300: #8c9fff;
-  --color-brand-blue-400: #808fff;
-  --color-brand-blue-500: #737eff;
-  --color-brand-blue-600: #666cff;
-  --color-brand-blue-700: #5959ff;
-  --color-brand-blue-800: #554dff;
-  --color-brand-blue-900: #5040ff;
-}
-
-/* Fonts */
 @font-face {
   font-family: "PP Neue Montreal";
   src: url("fonts/PPNeueMontreal-Italic.eot");
@@ -219,13 +161,4 @@
   font-weight: normal;
   font-style: normal;
   font-display: block;
-}
-
-@theme {
-  --font-sans:
-    "PP Neue Montreal", ui-sans-serif, system-ui, sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --font-mono:
-    "PP Fraktion Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-    "Liberation Mono", "Courier New", monospace;
 }

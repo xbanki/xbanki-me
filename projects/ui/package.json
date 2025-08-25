@@ -41,7 +41,8 @@
 			"import": "./dist/lib/xbanki-me-icons.js",
 			"require": "./dist/lib/xbanki-me-icons.cjs",
 			"types": "./dist/lib/xbanki-me-icons.d.ts"
-		}
+		},
+		"./tailwind": "./dist/lib/assets/theme.css"
 	},
 	"files": [
 		"dist/lib"
