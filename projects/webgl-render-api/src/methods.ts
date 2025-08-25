@@ -98,6 +98,7 @@ export function render(this: Context): void {
             this.context.canvas.height,
             1.0,
         );
+        this.context.uniform1f(this.pointers.iSeed, this.uniforms.seed);
         this.context.uniform1f(this.pointers.iTime, iTime);
 
         this.context.vertexAttribPointer(

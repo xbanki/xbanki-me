@@ -9,7 +9,7 @@
  *    @version   1.0.0
  */
 
-import { MESSAGE_ERROR_FAILED_COMPILING_SHADER } from '@/constants.ts';
+import { MESSAGE_ERROR_FAILED_COMPILING_SHADER, SEED_BOUND_MIN, SEED_BOUND_MAX } from '@/constants.ts';
 import { EShaderType } from '@/types.ts';
 import { GLError } from '@/errors.ts';
 
@@ -146,4 +146,16 @@ export function createWebGLProgram(
         throw new GLError();
 
     return program;
+}
+
+/**
+ * Clamps the seed value in reasonable bounds.
+ * @param  value The value which to clamp.
+ * @return       Value which has been clamped between `0.0` -> `1000.0`
+ */
+export function clampSeedBounded(value: number): number {
+  if (value <= SEED_BOUND_MIN) return SEED_BOUND_MIN;
+  if (value >= SEED_BOUND_MAX) return SEED_BOUND_MAX;
+
+  return value;
 }

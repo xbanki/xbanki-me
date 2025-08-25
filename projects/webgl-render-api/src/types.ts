@@ -68,9 +68,15 @@ export interface IContextPropertiesPointers {
     iTime: WebGLUniformLocation;
 
     /**
+     * Pattern seed.
+     */
+    iSeed: WebGLUniformLocation;
+
+    /**
      * Render quad vertex positions.
      */
     vertexInPosition: GLint;
+
 }
 
 /**
@@ -86,6 +92,11 @@ export interface IContextPropertiesUniforms {
      * Frame draw time since last draw.
      */
     drawTime: number;
+
+    /**
+     * Pattern seed.
+     */
+    seed: number;
 }
 
 /**
@@ -306,6 +317,11 @@ export interface IOptionsPropertiesShaders {
      * Main vertex shader, used to render the root fragment shader.
      */
     vertex: string;
+
+    /**
+     * Pattern seed value.
+     */
+    seed: number;
 }
 
 /**

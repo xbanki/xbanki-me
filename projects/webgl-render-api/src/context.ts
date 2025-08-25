@@ -35,6 +35,7 @@ import {
     validateOrCreateCanvas,
     createWebGLProgram,
     compileShader,
+    clampSeedBounded,
 } from '@/utils.ts';
 import { GLError } from '@/errors.ts';
 
@@ -103,6 +104,7 @@ function initializeContext(element: Element, options?: Options): Context {
     };
 
     const uniforms: IContextPropertiesUniforms = {
+        seed: clampSeedBounded(opts.shader.seed),
         initialDrawTime: 0,
         drawTime: 0,
     };
@@ -112,9 +114,10 @@ function initializeContext(element: Element, options?: Options): Context {
         'vertexInPosition',
     );
     const iResolution = context.getUniformLocation(program, 'iResolution');
+    const iSeed = context.getUniformLocation(program, 'iSeed')
     const iTime = context.getUniformLocation(program, 'iTime');
 
-    if (!iResolution || !iTime)
+    if (!iResolution || !iSeed || !iTime)
         throw new GLError(MESSAGE_ERROR_FAILED_BINDING_POINTERS);
 
     const onBeforeRender: OnBeforeRenderFn = _ => {};
@@ -132,6 +135,7 @@ function initializeContext(element: Element, options?: Options): Context {
     const pointers: IContextPropertiesPointers = {
         vertexInPosition,
         iResolution,
+        iSeed,
         iTime,
     };
 
