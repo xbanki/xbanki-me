@@ -12,7 +12,13 @@
  */
 
 import { createWebGLContext } from '@xbanki-me/webgl-render-api';
+import { createApp } from 'vue';
 
-const context = createWebGLContext(
-    document.querySelector('canvas#xbanki-webgl-renderer') as Element,
-)?.shade();
+import ComponentRoot from '@/components/root/component.vue';
+
+const canvas_target: HTMLCanvasElement | null = document.querySelector(
+    'canvas#xbanki-webgl-renderer',
+);
+if (canvas_target !== null) createWebGLContext(canvas_target).shade();
+
+createApp(ComponentRoot).mount('main#xbanki-application');
