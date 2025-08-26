@@ -1,0 +1,8 @@
+{
+	"$schema": "https://biomejs.dev/schemas/2.1.3/schema.json",
+	"extends": [
+		"@xbanki-me/config/biome-typescript",
+		"@xbanki-me/config/biome-json"
+	],
+	"root": false
+}
