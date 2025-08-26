@@ -13,13 +13,16 @@ import { createHtmlPlugin } from 'vite-plugin-html';
 import { resolve, join } from 'node:path';
 import { defineConfig } from 'vite';
 
+import createTailwindPlugin from '@tailwindcss/vite';
 import createVuePlugin from '@vitejs/plugin-vue';
+import createMDXPlugin from '@mdx-js/rollup';
 
 export default defineConfig({
-    build: {},
     plugins: [
-        createVuePlugin(),
+        createTailwindPlugin(),
         createHtmlPlugin(),
+        createMDXPlugin(),
+        createVuePlugin(),
     ],
     resolve: {
         alias: {

@@ -17,6 +17,10 @@ import SHADER_FRAGMENT from '@/glsl/fragment.glsl?raw';
 import SHADER_UNIFORM from '@/glsl/uniform.glsl?raw';
 import SHADER_VERTEX from '@/glsl/vertex.glsl?raw';
 
+export const SEED_BOUND_MAX = 1000.0;
+
+export const SEED_BOUND_MIN = 0.0;
+
 export const DEFAULT_OPTIONS_PROPERTIES: IOptionsProperties = {
     canvas: {
         styles: {
@@ -33,6 +37,7 @@ export const DEFAULT_OPTIONS_PROPERTIES: IOptionsProperties = {
         resize: true,
     },
     shader: {
+        seed: Math.random() * (SEED_BOUND_MAX - SEED_BOUND_MIN) + SEED_BOUND_MIN,
         fragment: SHADER_FRAGMENT,
         uniform: SHADER_UNIFORM,
         vertex: SHADER_VERTEX,
