@@ -14,6 +14,8 @@
 import { createWebGLContext } from '@xbanki-me/webgl-render-api';
 import { createApp } from 'vue';
 
+import { router } from '@/router.ts';
+
 import ComponentRoot from '@/components/root/component.vue';
 
 const canvas_target: HTMLCanvasElement | null = document.querySelector(
@@ -21,4 +23,4 @@ const canvas_target: HTMLCanvasElement | null = document.querySelector(
 );
 if (canvas_target !== null) createWebGLContext(canvas_target).shade();
 
-createApp(ComponentRoot).mount('main#xbanki-application');
+createApp(ComponentRoot).use(router).mount('main#xbanki-application');
