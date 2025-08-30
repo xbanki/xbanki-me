@@ -10,15 +10,30 @@
  //-->
 
 <template>
-    <!-- Root component. //-->
-    <main>
-      <!-- Router content wrapping element. //-->
-      <section>
-        <!-- Router slot renderer. //-->
-        <RouterView/>
-      </section>
-    </main>
+  <!-- Navbar component, which gets automatically bound to the UI layer. //-->
+  <ComponentNavbar />
+  <!-- Root component. //-->
+  <main class="container mx-auto flex">
+    <!-- Sidebar content. //-->
+    <aside class="lg:block hidden" v-if="display_sidebar" />
+    <!-- Router content wrapping element. //-->
+    <section>
+      <!-- Router slot renderer. //-->
+      <RouterView/>
+    </section>
+  </main>
 </template>
+
+<script lang="ts" setup>
+import { useRoute } from 'vue-router';
+import { ref } from 'vue';
+
+import ComponentNavbar from '@/components/navbar/component.vue';
+
+const route = useRoute();
+
+const display_sidebar = ref(route.meta.display_sidebar ?? true);
+</script>
 
 <style lang="css">
 @import "@xbanki-me/ui/tailwind";
