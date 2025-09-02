@@ -68,8 +68,8 @@ export default defineConfig(({ mode }) => {
                 rollupTypes: true,
             }),
             pluginCopy({
-              dest: 'assets/',
-              src: 'src/css/theme.css'
+                dest: 'assets/',
+                src: 'src/css/theme.css',
             }),
             pluginFetchBlobFonts({
                 output: resolve(join(process.cwd(), 'src', 'css', 'fonts')),
