@@ -13,7 +13,7 @@
   <!-- Navbar component, which gets automatically bound to the UI layer. //-->
   <ComponentNavbar />
   <!-- Root component. //-->
-  <main class="container mx-auto flex">
+  <main class="flex">
     <!-- Sidebar content. //-->
     <aside class="lg:block hidden" v-if="display_sidebar" />
     <!-- Router content wrapping element. //-->

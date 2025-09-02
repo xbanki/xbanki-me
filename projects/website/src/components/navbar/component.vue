@@ -13,13 +13,58 @@
   <!-- Teleport to bind the navbar on the UI layer. //-->
   <Teleport to="main#xbanki-ui">
     <!-- Navbar component root element. //-->
-    <nav class="container mx-auto py-4">
+    <nav class="p-12">
       <!-- Logo component. //-->
-      <ComponentLogo/>
+      <ComponentLogo v-bind:segments="segments" v-on:stateChange="handleStateChange" />
     </nav>
   </Teleport>
 </template>
 
 <script lang="ts" setup>
-import { ComponentLogo } from '@xbanki-me/ui';
+import { MatrixRevealState, ComponentLogo } from '@xbanki-me/ui';
+import { useRoute } from 'vue-router';
+import { watch, ref } from 'vue';
+
+const state = ref(MatrixRevealState.INITIAL);
+const segments = ref<string[]>([]);
+const route = useRoute();
+
+const queue: string[] = [];
+
+function handleStateChange(value: MatrixRevealState) {
+    switch (value) {
+        case MatrixRevealState.IDLE:
+            if (queue.length >= 1) updateSegments(queue.shift() as string);
+    }
+
+    state.value = value;
+}
+
+function updateSegments(value: string) {
+    if (segments.value.length >= 1) {
+        if (segments.value.includes(value)) return;
+
+        segments.value.splice(0, segments.value.length);
+    }
+
+    segments.value.push(value);
+}
+
+watch(
+    () => route.meta.label,
+    (value: any) => {
+        if (value != undefined && value != null && typeof value == 'string')
+            if (
+                ![
+                    MatrixRevealState.INITIAL,
+                    MatrixRevealState.IDLE,
+                ].includes(state.value)
+            )
+                queue.push(value);
+            else updateSegments(value);
+    },
+    {
+        immediate: true,
+    },
+);
 </script>
