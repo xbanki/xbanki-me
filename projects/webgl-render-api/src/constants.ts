@@ -37,7 +37,8 @@ export const DEFAULT_OPTIONS_PROPERTIES: IOptionsProperties = {
         resize: true,
     },
     shader: {
-        seed: Math.random() * (SEED_BOUND_MAX - SEED_BOUND_MIN) + SEED_BOUND_MIN,
+        seed:
+            Math.random() * (SEED_BOUND_MAX - SEED_BOUND_MIN) + SEED_BOUND_MIN,
         fragment: SHADER_FRAGMENT,
         uniform: SHADER_UNIFORM,
         vertex: SHADER_VERTEX,

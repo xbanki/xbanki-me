@@ -76,7 +76,6 @@ export interface IContextPropertiesPointers {
      * Render quad vertex positions.
      */
     vertexInPosition: GLint;
-
 }
 
 /**

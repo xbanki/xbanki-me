@@ -1,10 +1,10 @@
 {
 	"devDependencies": {
-		"@biomejs/biome": "^2.1.3",
+		"@biomejs/biome": "^2.2.2",
 		"@commitlint/cli": "^19.8.1",
 		"@commitlint/config-conventional": "^19.8.1",
 		"husky": "^9.1.7",
-		"turbo": "^2.5.5"
+		"turbo": "^2.5.6"
 	},
 	"license": "MIT",
 	"name": "xbanki-me",
@@ -12,6 +12,7 @@
 	"private": true,
 	"scripts": {
 		"build": "turbo run build",
+		"dev": "turbo run dev",
 		"postinstall": "husky init",
 		"prepare": "husky",
 		"test": "echo \"No tests specified\"",

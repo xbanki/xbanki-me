@@ -114,7 +114,7 @@ function initializeContext(element: Element, options?: Options): Context {
         'vertexInPosition',
     );
     const iResolution = context.getUniformLocation(program, 'iResolution');
-    const iSeed = context.getUniformLocation(program, 'iSeed')
+    const iSeed = context.getUniformLocation(program, 'iSeed');
     const iTime = context.getUniformLocation(program, 'iTime');
 
     if (!iResolution || !iSeed || !iTime)
