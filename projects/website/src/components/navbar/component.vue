@@ -13,23 +13,33 @@
   <!-- Teleport to bind the navbar on the UI layer. //-->
   <Teleport to="main#xbanki-ui">
     <!-- Navbar component root element. //-->
-    <nav class="p-12">
+    <nav class="pt-12 px-12">
       <!-- Logo component. //-->
-      <ComponentLogo v-bind:segments="segments" v-on:stateChange="handleStateChange" />
+      <ComponentLogo
+        v-on:click="handleClick"
+        v-bind:segments="segments"
+        v-on:stateChange="handleStateChange"
+      />
     </nav>
   </Teleport>
 </template>
 
 <script lang="ts" setup>
 import { MatrixRevealState, ComponentLogo } from '@xbanki-me/ui';
-import { useRoute } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 import { watch, ref } from 'vue';
 
 const state = ref(MatrixRevealState.INITIAL);
 const segments = ref<string[]>([]);
+const router = useRouter();
 const route = useRoute();
 
 const queue: string[] = [];
+
+function handleClick() {
+    const home = '/';
+    if (route.path != home) router.push(home);
+}
 
 function handleStateChange(value: MatrixRevealState) {
     switch (value) {
