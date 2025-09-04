@@ -13,7 +13,7 @@
   <!-- Logo component root wrapper. //-->
   <section class="transition-colors cursor-pointer items-center w-fit group flex">
     <!-- Logo wordmark. //-->
-    <ComponentMatrixReveal v-bind="reveal_props" v-on:state-change="events('stateChange', $event)">
+    <ComponentMatrixReveal v-bind="reveal_props" v-on:state-change="handleStateChange">
       <!-- Automatically generated segment rendering elements. //-->
       <div class="w-fit mb-1">
       <span
@@ -21,7 +21,7 @@
           segment.dimmed
             ? ['motion-safe:group-hover:text-neutral-500 text-neutral-400']
             : ['motion-safe:group-hover:text-neutral-300 text-neutral-200'],
-          'transition-colors text-3xl select-none font-bold',
+          'transition-colors text-2xl select-none font-bold',
         ]"
         v-bind:key="segments.indexOf(segment)"
         v-for="segment in segments"
@@ -34,14 +34,28 @@
 </template>
 
 <script lang="ts" setup>
-import { defineEmits, computed, ref } from 'vue';
+import { computed, ref } from 'vue';
 
 import ComponentMatrixReveal from '@/matrix-reveal/component.vue';
-
-import type { IRevealEvents, RevealProps } from '@/matrix-reveal/lib/types.ts';
+import {
+    EMatrixRevealAnimationState,
+    type RevealProps,
+} from '@/matrix-reveal/lib/types.ts';
 
 import type { LogoProps } from '@/logo/lib/types.ts';
 import { DEFAULT_LOGO_PROPS_OPTIONAL } from '@/logo/lib/constants.ts';
+
+function handleStateChange(state: EMatrixRevealAnimationState) {
+    if (
+        flag_show_logomark.value == true ||
+        state !== EMatrixRevealAnimationState.IDLE
+    )
+        return;
+
+    flag_show_logomark.value = true;
+}
+
+const flag_show_logomark = ref(false);
 
 const reveal_props: RevealProps = {
     cloneProps: animable =>
@@ -55,7 +69,6 @@ const reveal_props: RevealProps = {
     cycles: 15,
 };
 
-const events = defineEmits<IRevealEvents>();
 const props = withDefaults(
     defineProps<LogoProps>(),
     // @ts-ignore Compiler type nonsense.

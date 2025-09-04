@@ -2161,12 +2161,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^24.3.0":
-  version: 24.3.0
-  resolution: "@types/node@npm:24.3.0"
+"@types/node@npm:^24.3.1":
+  version: 24.3.1
+  resolution: "@types/node@npm:24.3.1"
   dependencies:
     undici-types: "npm:~7.10.0"
-  checksum: 10c0/96bdeca01f690338957c2dcc92cb9f76c262c10398f8d91860865464412b0f9d309c24d9b03d0bdd26dd47fa7ee3f8227893d5c89bc2009d919a525a22512030
+  checksum: 10c0/99b86fc32294fcd61136ca1f771026443a1e370e9f284f75e243b29299dd878e18c193deba1ce29a374932db4e30eb80826e1049b9aad02d36f5c30b94b6f928
   languageName: node
   linkType: hard
 
@@ -3120,7 +3120,7 @@ __metadata:
   dependencies:
     "@biomejs/biome": "npm:^2.2.2"
     "@eslint/js": "npm:^9.34.0"
-    "@types/node": "npm:^24.3.0"
+    "@types/node": "npm:^24.3.1"
     "@vercel/blob": "npm:^1.1.1"
     ci-info: "npm:^4.3.0"
     dotenv: "npm:^17.2.2"
@@ -3177,7 +3177,7 @@ __metadata:
   dependencies:
     "@biomejs/biome": "npm:^2.2.2"
     "@eslint/js": "npm:^9.34.0"
-    "@types/node": "npm:^24.3.0"
+    "@types/node": "npm:^24.3.1"
     eslint: "npm:^9.34.0"
     eslint-formatter-table: "npm:^7.32.1"
     terser: "npm:^5.44.0"
@@ -3215,7 +3215,6 @@ __metadata:
     vue-eslint-parser: "npm:^10.2.0"
     vue-router: "npm:^4.5.1"
     vue-tsc: "npm:^3.0.6"
-    vue3-simple-icons: "npm:^15.6.0"
   languageName: unknown
   linkType: soft
 
@@ -9129,16 +9128,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vue3-simple-icons@npm:^15.6.0":
-  version: 15.6.0
-  resolution: "vue3-simple-icons@npm:15.6.0"
-  dependencies:
-    vue: "npm:^3"
-  checksum: 10c0/d3802e215f39a080d745b5fb5a91b4edaa450b0ea56185abccd048c930e2bad68fa9f6cbe8cec42d0cf3da50c8a88a1626497d7ba166061f89d2be44b8d65d8a
-  languageName: node
-  linkType: hard
-
-"vue@npm:^3, vue@npm:^3.5.20, vue@npm:^3.5.21":
+"vue@npm:^3.5.20, vue@npm:^3.5.21":
   version: 3.5.21
   resolution: "vue@npm:3.5.21"
   dependencies:

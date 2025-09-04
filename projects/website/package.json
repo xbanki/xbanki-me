@@ -17,8 +17,7 @@
 		"vite": "^7.1.4",
 		"vite-plugin-html": "^3.2.2",
 		"vue-eslint-parser": "^10.2.0",
-		"vue-tsc": "^3.0.6",
-		"vue3-simple-icons": "^15.6.0"
+		"vue-tsc": "^3.0.6"
 	},
 	"dependencies": {
 		"@xbanki-me/ui": "workspace:^",
