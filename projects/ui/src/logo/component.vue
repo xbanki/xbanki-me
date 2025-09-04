@@ -21,7 +21,7 @@
           segment.dimmed
             ? ['motion-safe:group-hover:text-neutral-500 text-neutral-400']
             : ['motion-safe:group-hover:text-neutral-300 text-neutral-200'],
-          'transition-colors text-2xl select-none font-bold',
+          'transition-colors text-3xl select-none font-bold',
         ]"
         v-bind:key="segments.indexOf(segment)"
         v-for="segment in segments"
