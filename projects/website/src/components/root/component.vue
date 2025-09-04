@@ -13,30 +13,31 @@
   <!-- Navbar component, which gets automatically bound to the UI layer. //-->
   <ComponentNavbar />
   <!-- Root component. //-->
-  <main class="flex">
+  <main class="lg:overflow-hidden lg:h-full lg:flex-row flex-col h-fit flex">
     <!-- Sidebar content. //-->
     <aside
       v-if="display_sidebar"
-      class="h-screen lg:flex flex-col hidden fixed pt-24 pb-12 px-12 w-96"
+      class="lg:h-full flex-col lg:mr-12 lg:w-[32%] lg:mb-0 mb-6 pt-12 flex"
     >
       <!-- Personal description. //-->
-      <div class="text-neutral-400 font-bold">
-        <p
-          v-bind:key="idx"
-          v-for="(line, idx) of description"
-          class="text-lg h-5"
-        >
-          {{ `${line}${idx != description.length - 1 ? ',' : '.' }` }}
-        </p>
-      </div>
+      <p
+        class="lg:whitespace-pre-line whitespace-normal text-neutral-400 lg:flex-col font-bold text-xl/6 flex"
+      >
+        {{ description.map((item, idx, array) => `${item}${array.length - 1 != idx ? ',' : '.'} \n`).join('') }}
+      </p>
       <!-- Social media links. //-->
-      <ComponentLinks class="mt-auto" v-bind="links" />
+      <ComponentLinks class="lg:mt-auto lg:flex hidden" v-bind="links" />
     </aside>
     <!-- Router content wrapping element. //-->
-    <section class="ml-96">
+    <section class="lg:overflow-y-scroll lg:flex-1 lg:h-fit min-h-full">
       <!-- Router slot renderer. //-->
-      <RouterView/>
+      <RouterView />
     </section>
+    <!-- Footer wrapping element. Only rendered on small devices. //-->
+    <footer class="lg:hidden w-full block pb-6">
+      <!-- Social media links. //-->
+      <ComponentLinks v-bind="links" />
+    </footer>
   </main>
 </template>
 
@@ -52,8 +53,8 @@ const route = useRoute();
 const display_sidebar = ref(route.meta.display_sidebar ?? true);
 
 const description = [
-    'Software architect',
-    'end-to-end expert',
+    'Software engineer',
+    'end-to-end architect',
     'UI designer',
 ];
 
