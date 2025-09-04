@@ -13,7 +13,7 @@
   <!-- Teleport to bind the navbar on the UI layer. //-->
   <Teleport to="main#xbanki-ui">
     <!-- Navbar component root element. //-->
-    <nav class="pt-12 px-12">
+    <nav>
       <!-- Logo component. //-->
       <ComponentLogo
         v-on:click="handleClick"
