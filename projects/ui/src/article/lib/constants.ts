@@ -1,9 +1,6 @@
 /**
-<<<<<<<< HEAD:projects/ui/src/logo/lib/constants.ts
  * Logo Component constants. Default properties.
-========
  * Article Component constants. Default properties.
->>>>>>>> ui:projects/ui/src/article/lib/constants.ts
  *
  *    @copyright Copyright (c) 2025, xbanki <contact@xbanki.me>
  *               Licensed under MIT License.
