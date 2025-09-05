@@ -10,35 +10,57 @@
  //-->
 
 <template>
-  <!-- Navbar component, which gets automatically bound to the UI layer. //-->
+  <!-- Navbar component. Automatically attached to the UI layer.           //-->
   <ComponentNavbar />
-  <!-- Root component. //-->
-  <main class="lg:overflow-hidden lg:h-full lg:flex-row flex-col h-fit flex">
-    <!-- Sidebar content. //-->
+
+  <!-- Main content wrapper. Responsible for positioning the sections      //-->
+  <!-- based on current viewport width.                                    //-->
+  <section class="md:flex-row flex-col flex-1 w-full flex pt-12 h-full">
+    <!-- Left-side drawer wrapper. Rendered as a full-width element on     //-->
+    <!-- smaller devices.                                                  //-->
     <aside
+      v-bind:class="[
+        'md:self-stretch md:w-[32%] md:mr-6 md:mb-0',
+        'flex-col flex mb-6'
+      ]"
       v-if="display_sidebar"
-      class="lg:h-full flex-col lg:mr-12 lg:w-[32%] lg:mb-0 mb-6 pt-12 flex"
     >
-      <!-- Personal description. //-->
-      <p
-        class="lg:whitespace-pre-line whitespace-normal text-neutral-400 lg:flex-col font-bold text-xl/6 flex"
-      >
-        {{ description.map((item, idx, array) => `${item}${array.length - 1 != idx ? ',' : '.'} \n`).join('') }}
+      <!-- Description wrapping element, whose content is automatically    //-->
+      <!-- generated based on the description array.                       //-->
+      <p v-bind:class="[
+          'lg:whitespace-pre-line whitespace-nomral md:text-xl/6',
+          'text-neutral-400 font-bold text-lg/6'
+      ]">
+        {{
+            description.flatMap(
+                (line, index, array) => [
+                    line,
+                    array.length - 1 != index
+                        ? ','
+                        : '.',
+                    '\n'
+                ]
+            ).join('')
+        }}
       </p>
-      <!-- Social media links. //-->
-      <ComponentLinks class="lg:mt-auto lg:flex hidden" v-bind="links" />
+
+      <!-- Social media links, which are automatically shifted down.       //-->
+      <ComponentLinks class="md:flex mt-auto hidden" v-bind="links" />
     </aside>
-    <!-- Router content wrapping element. //-->
-    <section class="lg:overflow-y-scroll lg:flex-1 lg:h-fit min-h-full">
-      <!-- Router slot renderer. //-->
+
+    <!-- Content wrapper. Renders right up against the drawer, stretched   //-->
+    <!-- to full width on smaller viewports.                               //-->
+    <section class="overflow-y-scroll flex-1">
+      <!-- Vue router render outlet. This is where all page-defined        //-->
+      <!-- content is rendered.                                            //-->
       <RouterView />
     </section>
-    <!-- Footer wrapping element. Only rendered on small devices. //-->
-    <footer class="lg:hidden w-full block pb-6">
-      <!-- Social media links. //-->
+    <!-- Footer component, which is only renedered for smaller devices.    //-->
+    <footer class="md:hidden w-full flex pt-6">
+      <!-- Social media links.                                             //-->
       <ComponentLinks v-bind="links" />
     </footer>
-  </main>
+  </section>
 </template>
 
 <script lang="ts" setup>
