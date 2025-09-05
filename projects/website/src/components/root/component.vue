@@ -50,7 +50,7 @@
 
     <!-- Content wrapper. Renders right up against the drawer, stretched   //-->
     <!-- to full width on smaller viewports.                               //-->
-    <section class="overflow-y-scroll flex-1">
+    <section class="overflow-y-auto flex-1">
       <!-- Vue router render outlet. This is where all page-defined        //-->
       <!-- content is rendered.                                            //-->
       <RouterView />
