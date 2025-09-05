@@ -28,7 +28,7 @@
       <!-- Description wrapping element, whose content is automatically    //-->
       <!-- generated based on the description array.                       //-->
       <p v-bind:class="[
-          'lg:whitespace-pre-line whitespace-nomral md:text-xl/6',
+          'md:whitespace-pre-line whitespace-nomral md:text-xl/6',
           'text-neutral-400 font-bold text-lg/6'
       ]">
         {{
