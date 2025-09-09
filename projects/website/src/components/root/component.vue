@@ -12,6 +12,7 @@
 <template>
   <!-- Navbar component, which gets automatically bound to the UI layer. //-->
   <ComponentNavbar />
+  <ComponentTopo />
   <!-- Root component. //-->
   <main class="lg:overflow-hidden lg:h-full lg:flex-row flex-col h-fit flex">
     <!-- Sidebar content. //-->
@@ -47,6 +48,7 @@ import { ref } from 'vue';
 
 import ComponentNavbar from '@/components/navbar/component.vue';
 import ComponentLinks from '@/components/links/component.vue';
+import ComponentTopo from '@/components/topo/component.vue';
 
 const route = useRoute();
 
