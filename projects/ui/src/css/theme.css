@@ -22,7 +22,7 @@
 
 /* Button ping color utility */
 @utility button-ping-* {
-  --button-ping-color: --value(--color-*);
+  --button-ping-color: --value(--color-\*);
 }
 
 /* Button click ping animation */
