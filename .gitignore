@@ -152,3 +152,6 @@ null*
 
 # Turborepo cache
 .turbo/
+
+# Direnv cache
+.direnv/
