@@ -25,6 +25,7 @@
 	  name = "xbanki-me-devshell";
 	  buildInputs = [
             pkgs.nodejs_22
+	    pkgs.corepack
 	  ];
 	};
       }
