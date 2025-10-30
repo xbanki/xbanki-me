@@ -18,6 +18,13 @@
 
 void mainImage(out vec4 fragColor, vec2 fragCoord)
 {
+    // TODO(xbanki): Turn color, brightness and active state into knobs.
+    vec3 color_bg = vec3(002.0, 005.0, 010.0) / 255.0;
+    vec3 color_fg = vec3(230.0, 230.0, 230.0) / 255.0;
+
+    float brightness_bg = 1.00;
+    float brightness_fg = 0.32;
+
     vec3 resolution = iResolution;
     vec3 position = vec3((fragCoord * 2.5 - resolution.xy) * 2.0 /
                         (resolution.y + resolution.x), 0.0)      +
@@ -51,5 +58,9 @@ void mainImage(out vec4 fragColor, vec2 fragCoord)
                                                distances * 8.0) * 1.732 +
                                                0.5, 0.0, 1.0));
 
-    fragColor += 0.16 * max(1.0 - 0.8 * abs(result) / fwidth(result), 0.0);
- }
+    fragColor = vec4(mix(
+                color_bg * brightness_bg,
+		color_fg * brightness_fg,
+		max(1.0 - 0.8 * abs(result) / fwidth(result), 0.0)),
+		1.0);
+}
