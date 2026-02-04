@@ -26,7 +26,6 @@
         </aside>
         <!-- Router content wrapping element. //-->
         <section class="lg:overflow-y-scroll lg:flex-1 lg:h-fit min-h-full">
-            <div class="w-16 h-16 border border-neutral-700 bg-black" />
             <!-- Router slot renderer. //-->
             <RouterView />
         </section>
@@ -64,6 +63,5 @@ const links = {
 </script>
 
 <style lang="css">
-@import "tailwindcss";
 @import "@xbanki-me/ui/tailwind";
 </style>
