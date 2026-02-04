@@ -127,6 +127,9 @@ export default defineConfig(({ mode }) => {
         ],
         resolve: {
             alias: {
+                '@xbanki-me/ui/icons': resolve(
+                    join(process.cwd(), 'src', 'icons.ts'),
+                ),
                 '@': resolve(join(process.cwd(), 'src')),
             },
         },

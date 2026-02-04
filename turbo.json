@@ -23,5 +23,8 @@
 			"persistent": true,
 			"cache": false
 		}
-	}
+	},
+	"globalPassThroughEnv": [
+		"BLOB_READ_WRITE_TOKEN"
+	]
 }
