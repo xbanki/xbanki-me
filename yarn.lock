@@ -3621,7 +3621,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@xbanki-me/icons@workspace:projects/icons":
+"@xbanki-me/icons@workspace:^, @xbanki-me/icons@workspace:projects/icons":
   version: 0.0.0-use.local
   resolution: "@xbanki-me/icons@workspace:projects/icons"
   dependencies:
@@ -3657,6 +3657,7 @@ __metadata:
     "@tailwindcss/vite": "npm:^4.1.12"
     "@vitejs/plugin-vue": "npm:^6.0.1"
     "@xbanki-me/fetch-secure-blob": "workspace:^"
+    "@xbanki-me/icons": "workspace:^"
     animejs: "npm:^4.1.3"
     eslint: "npm:^9.34.0"
     eslint-formatter-table: "npm:^7.32.1"
@@ -3703,6 +3704,7 @@ __metadata:
     "@tailwindcss/typography": "npm:^0.5.16"
     "@tailwindcss/vite": "npm:^4.1.12"
     "@vitejs/plugin-vue": "npm:^6.0.1"
+    "@xbanki-me/icons": "workspace:^"
     "@xbanki-me/ui": "workspace:^"
     "@xbanki-me/webgl-render-api": "workspace:^"
     autoprefixer: "npm:^10.4.21"
