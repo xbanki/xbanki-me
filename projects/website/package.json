@@ -22,6 +22,7 @@
 		"vue3-simple-icons": "^15.6.0"
 	},
 	"dependencies": {
+		"@xbanki-me/icons": "workspace:^",
 		"@xbanki-me/ui": "workspace:^",
 		"@xbanki-me/webgl-render-api": "workspace:^",
 		"pinia": "^3.0.3",
