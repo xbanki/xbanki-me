@@ -2,6 +2,14 @@
 	"$schema": "https://turbo.build/schema.json",
 	"ui": "tui",
 	"tasks": {
+		"build:docs": {
+			"dependsOn": [
+				"^build:docs"
+			],
+			"outputs": [
+				"dist/docs/*"
+			]
+		},
 		"build": {
 			"dependsOn": [
 				"^build"
