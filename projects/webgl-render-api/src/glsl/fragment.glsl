@@ -22,6 +22,8 @@ void mainImage(out vec4 fragColor, vec2 fragCoord)
     vec3 color_bg = vec3(002.0, 005.0, 010.0) / 255.0;
     vec3 color_fg = vec3(230.0, 230.0, 230.0) / 255.0;
 
+    float contour_thickness = 0.98;
+
     float brightness_bg = 1.00;
     float brightness_fg = 0.32;
 
@@ -59,8 +61,8 @@ void mainImage(out vec4 fragColor, vec2 fragCoord)
                                                0.5, 0.0, 1.0));
 
     fragColor = vec4(mix(
-                color_bg * brightness_bg,
-		color_fg * brightness_fg,
-		max(1.0 - 0.8 * abs(result) / fwidth(result), 0.0)),
-		1.0);
+                 color_bg * brightness_bg,
+                 color_fg * brightness_fg,
+                 max(1.0 - contour_thickness * abs(result) / fwidth(result), 0.0)),
+                 1.0);
 }
