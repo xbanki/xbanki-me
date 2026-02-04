@@ -5,6 +5,7 @@
 		"build:docs": {
 			"dependsOn": [
 				"@xbanki-me/fetch-secure-blob#build",
+				"@xbanki-me/icons#build",
 				"^build:docs"
 			],
 			"outputs": [
