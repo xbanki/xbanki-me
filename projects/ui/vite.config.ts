@@ -1,7 +1,7 @@
 /**
  * Vite.JS UI library configuration.
  *
- *    @copyright Copyright (c) 2025, xbanki <contact@xbanki.me>
+ *    @copyright Copyright (c) 2025 - 2026, xbanki <contact@xbanki.me>
  *               Licensed under MIT License.
  *               See LICENSE for more details.
  *    @author    xbanki <contact@xbanki.me>
