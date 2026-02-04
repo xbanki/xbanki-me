@@ -60,7 +60,7 @@
 <script lang="ts" setup>
 import type { LinksProps } from '@/components/links/lib/types.ts';
 import { GitHubIcon, XIcon } from 'vue3-simple-icons';
-import { EnvelopeIcon } from '@xbanki-me/ui/icons';
+import { EnvelopeIcon } from '@xbanki-me/icons';
 
 const props = withDefaults(defineProps<LinksProps>(), {});
 </script>

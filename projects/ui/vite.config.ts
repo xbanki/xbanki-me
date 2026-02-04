@@ -17,7 +17,6 @@ import pluginSeparateAssets from '@laynezh/vite-plugin-lib-assets';
 import pluginFetchBlobFonts from '@xbanki-me/fetch-secure-blob';
 import pluginVueMacros from 'vue-macros/vite';
 import pluginTailwind from '@tailwindcss/vite';
-import pluginCopy from '@rollup-extras/plugin-copy';
 import pluginVue from '@vitejs/plugin-vue';
 import pluginDTS from 'vite-plugin-dts';
 
@@ -34,15 +33,9 @@ export default defineConfig(({ mode }) => {
     return {
         build: {
             lib: {
-                entry: {
-                    'xbanki-me-ui': resolve(
-                        join(process.cwd(), 'src', 'library.ts'),
-                    ),
-                    'xbanki-me-icons': resolve(
-                        join(process.cwd(), 'src', 'icons.ts'),
-                    ),
-                },
-                name: 'ui',
+                entry: resolve(join(process.cwd(), 'src', 'library.ts')),
+                fileName: 'xbanki-me-ui',
+                name: 'xbanki-me-ui',
             },
             outDir: 'dist/lib',
             rollupOptions: {
@@ -66,10 +59,6 @@ export default defineConfig(({ mode }) => {
             pluginDTS({
                 copyDtsFiles: true,
                 rollupTypes: true,
-            }),
-            pluginCopy({
-                dest: 'assets/',
-                src: 'src/css/theme.css',
             }),
             pluginFetchBlobFonts({
                 output: resolve(join(process.cwd(), 'src', 'css', 'fonts')),
@@ -127,9 +116,6 @@ export default defineConfig(({ mode }) => {
         ],
         resolve: {
             alias: {
-                '@xbanki-me/ui/icons': resolve(
-                    join(process.cwd(), 'src', 'icons.ts'),
-                ),
                 '@': resolve(join(process.cwd(), 'src')),
             },
         },

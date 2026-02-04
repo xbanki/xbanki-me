@@ -10,7 +10,7 @@
  */
 
 import type { StoryObj, Meta } from '@storybook/vue3-vite';
-import { CodeBracketIcon } from '@xbanki-me/ui/icons';
+import { CodeBracketIcon } from '@xbanki-me/icons';
 import { fn } from 'storybook/test';
 
 import { ComponentButton, ButtonVariant } from '@/library.ts';
@@ -139,7 +139,7 @@ export const Danger: Story = {
 }; /**
  * In addition to a text label, buttons can also include any chosen icon.
  *
- * Icons are available through the `@xbanki-me/ui/icon` sub-package. After
+ * Icons are available through the `@xbanki-me/icon` package. After
  * importing an icon, it can be passed into the button component via the `icon`
  * slot.
  *
@@ -154,7 +154,7 @@ export const Danger: Story = {
  *   </ComponentButton>
  * </template>
  * <script lang="ts" setup>
- * import { CodeBracketIcon } from '@xbanki-me/ui/icons';
+ * import { CodeBracketIcon } from '@xbanki-me/icons';
  * import { ComponentButton } from '@xbanki-me/ui';
  * </script>
  * ```

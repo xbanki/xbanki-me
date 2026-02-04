@@ -1,0 +1,16 @@
+{
+	"$schema": "https://biomejs.dev/schemas/2.2.2/schema.json",
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noUnknownAtRules": "off"
+			}
+		}
+	},
+	"extends": [
+		"@xbanki-me/config/biome-javascript",
+		"@xbanki-me/config/biome-typescript",
+		"@xbanki-me/config/biome-json"
+	],
+	"root": false
+}
