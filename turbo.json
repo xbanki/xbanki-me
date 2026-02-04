@@ -4,6 +4,7 @@
 	"tasks": {
 		"build:docs": {
 			"dependsOn": [
+				"@xbanki-me/fetch-secure-blob#build",
 				"^build:docs"
 			],
 			"outputs": [
