@@ -63,5 +63,6 @@ const links = {
 </script>
 
 <style lang="css">
+@import "tailwindcss";
 @import "@xbanki-me/ui/tailwind";
 </style>

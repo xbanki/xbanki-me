@@ -9,5 +9,6 @@
  *    Version:   1.0.0
  */
 
+@import "tailwindcss";
 @import "./fonts.css";
 @import "./theme.css";
