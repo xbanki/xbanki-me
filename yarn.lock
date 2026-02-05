@@ -1435,6 +1435,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@niceties/logger@npm:^1.1.4, @niceties/logger@npm:^1.1.5":
+  version: 1.1.13
+  resolution: "@niceties/logger@npm:1.1.13"
+  dependencies:
+    kleur: "npm:^4.1.4"
+  checksum: 10c0/8a1b4f08492944a69149ce21f24511be2812ac95754f1fd37d9a577dbece17f6945406055c29cea228f1b2a1f59462221f4af5c111418343080892dca18540cb
+  languageName: node
+  linkType: hard
+
 "@nodelib/fs.scandir@npm:2.1.5":
   version: 2.1.5
   resolution: "@nodelib/fs.scandir@npm:2.1.5"
@@ -1797,6 +1806,37 @@ __metadata:
   version: 1.0.0-rc.2
   resolution: "@rolldown/pluginutils@npm:1.0.0-rc.2"
   checksum: 10c0/35d3dec35e00ab090d5ff8287e27af98a15da897dc8b034fe0e00d03e0931b9e993603c054be9e8925e2bde040c44c18b48cb8aeea6a261fd1c8f46837038927
+  languageName: node
+  linkType: hard
+
+"@rollup-extras/plugin-copy@npm:^1.11.1":
+  version: 1.11.1
+  resolution: "@rollup-extras/plugin-copy@npm:1.11.1"
+  dependencies:
+    "@niceties/logger": "npm:^1.1.4"
+    "@rollup-extras/utils": "npm:^1.4.6"
+    glob: "npm:^10.0.0"
+    glob-parent: "npm:^6.0.2"
+  peerDependencies:
+    rollup: ^2.60.1 || ^3.0.0 || ^4.0.0
+  peerDependenciesMeta:
+    rollup:
+      optional: true
+  checksum: 10c0/68b0d14d16dd46269476126547b4b90244e0931383111022c3d59ea78d5429e32e79b62f31833cc55677b661baec289e1a68837341b4dbdf1427cfc7afe9e61e
+  languageName: node
+  linkType: hard
+
+"@rollup-extras/utils@npm:^1.4.6":
+  version: 1.4.6
+  resolution: "@rollup-extras/utils@npm:1.4.6"
+  dependencies:
+    "@niceties/logger": "npm:^1.1.5"
+  peerDependencies:
+    rollup: ^2.60.1 || ^3.0.0 || ^4.0.0
+  peerDependenciesMeta:
+    rollup:
+      optional: true
+  checksum: 10c0/d8388b9fe79152d0b625fc7af2b03293c3475890739e543bbe50dd3ef624dbb6a1be13c3dd1a7b532759f439981bf12994a71256dadac3c3ccba87acd0bcf9fd
   languageName: node
   linkType: hard
 
@@ -3649,6 +3689,7 @@ __metadata:
     "@biomejs/biome": "npm:^2.2.2"
     "@eslint/js": "npm:^9.34.0"
     "@laynezh/vite-plugin-lib-assets": "npm:2.1.0"
+    "@rollup-extras/plugin-copy": "npm:^1.11.1"
     "@storybook/addon-docs": "npm:^9.1.4"
     "@storybook/addon-themes": "npm:^9.1.4"
     "@storybook/types": "npm:^8.6.14"
@@ -5780,6 +5821,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"glob@npm:^10.0.0":
+  version: 10.5.0
+  resolution: "glob@npm:10.5.0"
+  dependencies:
+    foreground-child: "npm:^3.1.0"
+    jackspeak: "npm:^3.1.2"
+    minimatch: "npm:^9.0.4"
+    minipass: "npm:^7.1.2"
+    package-json-from-dist: "npm:^1.0.0"
+    path-scurry: "npm:^1.11.1"
+  bin:
+    glob: dist/esm/bin.mjs
+  checksum: 10c0/100705eddbde6323e7b35e1d1ac28bcb58322095bd8e63a7d0bef1a2cdafe0d0f7922a981b2b48369a4f8c1b077be5c171804534c3509dfe950dde15fbe6d828
+  languageName: node
+  linkType: hard
+
 "glob@npm:^10.2.2, glob@npm:^10.3.10, glob@npm:^10.3.7":
   version: 10.4.5
   resolution: "glob@npm:10.4.5"
@@ -6440,6 +6497,13 @@ __metadata:
   dependencies:
     json-buffer: "npm:3.0.1"
   checksum: 10c0/aa52f3c5e18e16bb6324876bb8b59dd02acf782a4b789c7b2ae21107fab95fab3890ed448d4f8dba80ce05391eeac4bfabb4f02a20221342982f806fa2cf271e
+  languageName: node
+  linkType: hard
+
+"kleur@npm:^4.1.4":
+  version: 4.1.5
+  resolution: "kleur@npm:4.1.5"
+  checksum: 10c0/e9de6cb49657b6fa70ba2d1448fd3d691a5c4370d8f7bbf1c2f64c24d461270f2117e1b0afe8cb3114f13bbd8e51de158c2a224953960331904e636a5e4c0f2a
   languageName: node
   linkType: hard
 

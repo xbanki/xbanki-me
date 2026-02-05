@@ -17,6 +17,7 @@ import pluginSeparateAssets from '@laynezh/vite-plugin-lib-assets';
 import pluginFetchBlobFonts from '@xbanki-me/fetch-secure-blob';
 import pluginVueMacros from 'vue-macros/vite';
 import pluginTailwind from '@tailwindcss/vite';
+import pluginCopy from '@rollup-extras/plugin-copy';
 import pluginVue from '@vitejs/plugin-vue';
 import pluginDTS from 'vite-plugin-dts';
 
@@ -59,6 +60,10 @@ export default defineConfig(({ mode }) => {
             pluginDTS({
                 copyDtsFiles: true,
                 rollupTypes: true,
+            }),
+            pluginCopy({
+                dest: 'assets/',
+                src: 'src/css/theme.css',
             }),
             pluginFetchBlobFonts({
                 output: resolve(join(process.cwd(), 'src', 'css', 'fonts')),

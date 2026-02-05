@@ -7,6 +7,7 @@
 		"@biomejs/biome": "^2.2.2",
 		"@eslint/js": "^9.34.0",
 		"@laynezh/vite-plugin-lib-assets": "2.1.0",
+		"@rollup-extras/plugin-copy": "^1.11.1",
 		"@storybook/addon-docs": "^9.1.4",
 		"@storybook/addon-themes": "^9.1.4",
 		"@storybook/types": "^8.6.14",
@@ -37,7 +38,7 @@
 			"import": "./dist/lib/xbanki-me-ui.js",
 			"require": "./dist/lib/xbanki-me-ui.umd.cjs"
 		},
-		"./tailwind": "./dist/lib/assets/library.css"
+		"./tailwind": "./dist/lib/assets/theme.css"
 	},
 	"files": [
 		"dist/lib"
