@@ -1,10 +1,10 @@
 {
 	"devDependencies": {
-		"@biomejs/biome": "^2.2.2",
-		"@commitlint/cli": "^19.8.1",
-		"@commitlint/config-conventional": "^19.8.1",
+		"@biomejs/biome": "^2.3.14",
+		"@commitlint/cli": "^20.4.1",
+		"@commitlint/config-conventional": "^20.4.1",
 		"husky": "^9.1.7",
-		"turbo": "^2.5.6"
+		"turbo": "^2.8.3"
 	},
 	"license": "MIT",
 	"name": "xbanki-me",

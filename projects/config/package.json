@@ -1,6 +1,6 @@
 {
 	"devDependencies": {
-		"@biomejs/biome": "^2.2.2"
+		"@biomejs/biome": "^2.3.14"
 	},
 	"exports": {
 		"./biome-css": "./biome.css.json",
