@@ -2688,6 +2688,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@vue-macros/eslint-config@npm:^3.1.2":
+  version: 3.1.2
+  resolution: "@vue-macros/eslint-config@npm:3.1.2"
+  peerDependencies:
+    eslint: ">=9.0.0"
+  checksum: 10c0/8aac225f5d62181807cb53f2ac818d8d1e15fa2d9827f679ff6dfc9dcee6a88570a5329a985601cb33e41a8333a78c8c21c9ca20e9efdb31908e781cba9d7494
+  languageName: node
+  linkType: hard
+
 "@vue-macros/export-expose@npm:3.1.2":
   version: 3.1.2
   resolution: "@vue-macros/export-expose@npm:3.1.2"
@@ -3344,6 +3353,7 @@ __metadata:
     "@tailwindcss/typography": "npm:^0.5.19"
     "@tailwindcss/vite": "npm:^4.1.18"
     "@vitejs/plugin-vue": "npm:^6.0.4"
+    "@vue-macros/eslint-config": "npm:^3.1.2"
     "@xbanki-me/fetch-secure-blob": "workspace:^"
     "@xbanki-me/icons": "workspace:^"
     animejs: "npm:^4.3.5"

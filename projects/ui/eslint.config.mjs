@@ -12,11 +12,13 @@
 
 import { parser as ts_parser, plugin as ts_plugin } from 'typescript-eslint';
 
+import vue_macros from '@vue-macros/eslint-config';
 import vue_parser from 'vue-eslint-parser';
 import vue_plugin from 'eslint-plugin-vue';
 import globals from 'globals';
 
 export default [
+  vue_macros,
   {
     ignores: [
       'storybook-static/*',
@@ -27,7 +29,10 @@ export default [
       'dist/*',
     ],
     languageOptions: {
-      globals,
+      globals: {
+        ...globals.browser,
+        ...globals.es2021,
+      },
     },
   },
   {
