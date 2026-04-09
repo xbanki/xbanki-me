@@ -102,7 +102,7 @@ interface IOptions {
     /**
      * Observer API parameters. These are not used if `options.hook` is *not* set to `intersect`.
      */
-    observer: Required<IntersectionObserverInit>,
+    observer: Required<IntersectionObserverInit & { scrollMargin: string }>,
 
     /**
      * Whether the effect is applied only once after set-up.
@@ -136,6 +136,7 @@ const DEFAULT_OPTIONS: IOptions = {
     },
     observer: {
         rootMargin: '0px 0px 0px 0px',
+        scrollMargin: '16px',
         root: document,
         threshold: 0,
     },
