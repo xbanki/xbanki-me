@@ -1,13 +1,7 @@
-/**
- * Reveal composable implementation.
- *
- *    @copyright Copyright (c) 2025 - 2026, xbanki <contact@xbanki.me>
- *               Licensed under MIT License.
- *               See LICENSE for more details.
- *    @author    xbanki <contact@xbanki.me>
- *    @since     1.0.0
- *    @version   1.0.0
- *
+/*
+ * Copyright (c) 2025-2026, xbanki <contact@xbanki.me>
+ * Licensed under MIT License.
+ * See LICENSE for more details.
  */
 
 import type { ShallowRef, Ref } from 'vue';
@@ -215,7 +209,7 @@ function createOrGetObserver(options: IntersectionObserverInit, fn: Intersection
  * @param el     - The target element which to attach the effect to.
  * @param state  - The state reference, which will be watched as the effect trigger.
  * @param effect - Effect descriptor.
- * @param once   - Wether the effect that is generated will be triggered just one time.
+ * @param once   - Whether the effect that is generated will be triggered just one time.
  */
 function createEffect(el: ShallowRef<HTMLElement>, state: Ref<boolean>, effect: Effect, once: boolean) {
     switch (typeof effect) {
