@@ -1107,15 +1107,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@heroicons/vue@npm:^2.2.0":
-  version: 2.2.0
-  resolution: "@heroicons/vue@npm:2.2.0"
-  peerDependencies:
-    vue: ">= 3"
-  checksum: 10c0/8872f89cd033ce21363b5457adb7ea6cb9631cfbe85006b4131f9078c75c1c9701fd6d9d727d49c739b8716f4a46ccdd2ffae8c6635fc2528efaf0982759edb3
-  languageName: node
-  linkType: hard
-
 "@humanfs/core@npm:^0.19.1":
   version: 0.19.1
   resolution: "@humanfs/core@npm:0.19.1"
@@ -2900,7 +2891,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vitejs/plugin-vue@npm:^6.0.4, @vitejs/plugin-vue@npm:^6.0.5":
+"@vitejs/plugin-vue@npm:^6.0.5":
   version: 6.0.5
   resolution: "@vitejs/plugin-vue@npm:6.0.5"
   dependencies:
@@ -3940,27 +3931,6 @@ __metadata:
     typescript-eslint: "npm:^8.54.0"
     vite: "npm:^7.3.1"
     vite-plugin-dts: "npm:^4.5.4"
-  languageName: unknown
-  linkType: soft
-
-"@xbanki-me/icons@workspace:projects/icons":
-  version: 0.0.0-use.local
-  resolution: "@xbanki-me/icons@workspace:projects/icons"
-  dependencies:
-    "@biomejs/biome": "npm:^2.3.14"
-    "@eslint/js": "npm:^9.39.2"
-    "@heroicons/vue": "npm:^2.2.0"
-    "@vitejs/plugin-vue": "npm:^6.0.4"
-    eslint: "npm:^9.39.2"
-    eslint-formatter-table: "npm:^7.32.1"
-    eslint-plugin-vue: "npm:^10.7.0"
-    globals: "npm:^17.3.0"
-    typescript: "npm:^5.9.3"
-    vite: "npm:^7.3.1"
-    vite-plugin-dts: "npm:^4.5.4"
-    vue: "npm:^3.5.27"
-    vue-eslint-parser: "npm:^10.2.0"
-    vue-tsc: "npm:^3.2.4"
   languageName: unknown
   linkType: soft
 
@@ -5538,7 +5508,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-vue@npm:^10.7.0, eslint-plugin-vue@npm:^10.8.0":
+"eslint-plugin-vue@npm:^10.8.0":
   version: 10.8.0
   resolution: "eslint-plugin-vue@npm:10.8.0"
   dependencies:
@@ -6169,7 +6139,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"globals@npm:^17.3.0, globals@npm:^17.4.0":
+"globals@npm:^17.4.0":
   version: 17.4.0
   resolution: "globals@npm:17.4.0"
   checksum: 10c0/2be9e8c2b9035836f13d420b22f0247a328db82967d3bebfc01126d888ed609305f06c05895914e969653af5c6ba35fd7a0920f3e6c869afa60666c810630feb
@@ -10209,7 +10179,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vue-eslint-parser@npm:^10.2.0, vue-eslint-parser@npm:^10.4.0":
+"vue-eslint-parser@npm:^10.4.0":
   version: 10.4.0
   resolution: "vue-eslint-parser@npm:10.4.0"
   dependencies:
@@ -10313,7 +10283,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vue-tsc@npm:^3.2.4, vue-tsc@npm:^3.2.6":
+"vue-tsc@npm:^3.2.6":
   version: 3.2.6
   resolution: "vue-tsc@npm:3.2.6"
   dependencies:
@@ -10372,7 +10342,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vue@npm:^3.5.27, vue@npm:^3.5.32":
+"vue@npm:^3.5.32":
   version: 3.5.32
   resolution: "vue@npm:3.5.32"
   dependencies:
