@@ -1,12 +1,7 @@
-/**
- * Reveal composable development & display stories.
- *
- *    @copyright Copyright (c) 2025 - 2026, xbanki <contact@xbanki.me>
- *               Licensed under MIT License.
- *               See LICENSE for more details.
- *    @author    xbanki <contact@xbanki.me>
- *    @since     1.0.0
- *    @version   1.0.0
+/*
+ * Copyright (c) 2026, xbanki <contact@xbanki.me>
+ * Licensed under MIT License.
+ * See LICENSE for more details.
  */
 
 import type { StoryObj, Meta } from '@storybook/vue3-vite';
