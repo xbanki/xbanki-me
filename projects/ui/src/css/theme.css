@@ -52,6 +52,16 @@
 
 /* Theme colors */
 @theme {
+    --color-gunmetal-900: #02050A;
+    --color-gunmetal-800: #1F2226;
+    --color-gunmetal-700: #3B3E41;
+    --color-gunmetal-600: #585A5D;
+    --color-gunmetal-500: #747678;
+    --color-gunmetal-400: #919294;
+    --color-gunmetal-300: #ADAEAF;
+    --color-gunmetal-200: #CACACB;
+    --color-gunmetal-100: #E6E6E6;
+
     --color-brand-blue-100: #a6bcff;
     --color-brand-blue-200: #99aeff;
     --color-brand-blue-300: #8c9fff;
