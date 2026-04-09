@@ -18,11 +18,15 @@ import ComponentMatrixReveal from '@/matrix-reveal/component.vue';
 import { EButtonVariant } from '@/button/lib/types.ts';
 import ComponentButton from '@/button/component.vue';
 
+import { EHook, useReveal } from '@/composables/reveal.ts';
+
 import '@/css/module.css';
 
 export {
     EMatrixRevealAnimationState as MatrixRevealState,
     EButtonVariant as ButtonVariant,
+    EHook as RevealHook,
     ComponentMatrixReveal,
     ComponentButton,
+    useReveal,
 };
