@@ -4,6 +4,7 @@
  * See LICENSE for more details.
  */
 
-import { create } from 'storybook/theming';
+import { addons } from 'storybook/manager-api';
+import theme from '~/theme.js';
 
-export default create({ base: 'dark' });
+addons.setConfig({ theme });

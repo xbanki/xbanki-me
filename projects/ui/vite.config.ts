@@ -1,12 +1,7 @@
-/**
- * Vite.JS UI library configuration.
- *
- *    @copyright Copyright (c) 2025 - 2026, xbanki <contact@xbanki.me>
- *               Licensed under MIT License.
- *               See LICENSE for more details.
- *    @author    xbanki <contact@xbanki.me>
- *    @since     1.0.0
- *    @version   1.0.0
+/*
+ * Copyright (c) 2025-2026, xbanki <contact@xbanki.me>
+ * Licensed under MIT License.
+ * See LICENSE for more details.
  */
 
 import { libInjectCss as pluginInjectCSS } from 'vite-plugin-lib-inject-css';
@@ -39,7 +34,7 @@ export default defineConfig(({ mode }) => {
                 name: 'xbanki-me-ui',
             },
             outDir: 'dist/lib',
-            rollupOptions: {
+            rolldownOptions: {
                 external: [
                     'vue',
                 ],
@@ -121,6 +116,7 @@ export default defineConfig(({ mode }) => {
         ],
         resolve: {
             alias: {
+                '~': resolve(join(process.cwd(), '.storybook')),
                 '@': resolve(join(process.cwd(), 'src')),
             },
         },
