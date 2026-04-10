@@ -1,24 +1,24 @@
 {
-	"devDependencies": {
-		"@biomejs/biome": "^2.4.11"
-	},
-	"exports": {
-		"./biome-css": "./biome.css.json",
-		"./biome-javascript": "./biome.javascript.json",
-		"./biome-json": "./biome.json.json",
-		"./biome-typescript": "./biome.typescript.json"
-	},
-	"files": [
-		"biome.typescript.json",
-		"biome.javascript.json",
-		"biome.json.json",
-		"biome.css.json"
-	],
 	"name": "@xbanki-me/config",
-	"packageManager": "yarn@4.9.2",
-	"scripts": {
-		"tidy": "biome format --write"
-	},
+	"version": "1.0.0",
+	"files": [
+		"oxfmt.ts"
+	],
 	"type": "module",
-	"version": "1.0.0"
+	"exports": {
+		"./oxfmt": "./oxfmt.ts"
+	},
+	"scripts": {
+		"format": "oxfmt",
+		"format:check": "oxfmt --check",
+		"lint": "oxlint",
+		"lint:fix": "oxlint --fix"
+	},
+	"devDependencies": {
+		"oxfmt": "^0.44.0",
+		"oxlint": "^1.59.0",
+		"ts-deepmerge": "^7.0.3",
+		"typescript": "^6.0.2"
+	},
+	"packageManager": "yarn@4.9.2"
 }
