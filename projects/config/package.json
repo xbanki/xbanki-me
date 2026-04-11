@@ -12,7 +12,8 @@
 		"format": "oxfmt",
 		"format:check": "oxfmt --check",
 		"lint": "oxlint",
-		"lint:fix": "oxlint --fix"
+		"lint:fix": "oxlint --fix",
+		"tidy": "corepack yarn run format && corepack yarn run lint:fix"
 	},
 	"devDependencies": {
 		"oxfmt": "^0.44.0",

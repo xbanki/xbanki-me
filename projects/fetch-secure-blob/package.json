@@ -1,22 +1,12 @@
 {
-	"dependencies": {
-		"@vercel/blob": "^2.1.0",
-		"ci-info": "^4.4.0"
-	},
-	"devDependencies": {
-		"@biomejs/biome": "^2.3.14",
-		"@eslint/js": "^9.39.2",
-		"@types/node": "^25.2.0",
-		"dotenv": "^17.2.3",
-		"eslint": "^9.39.2",
-		"eslint-formatter-table": "^7.32.1",
-		"rollup-plugin-node-externals": "^8.1.2",
-		"terser": "^5.46.0",
-		"typescript": "^5.9.3",
-		"typescript-eslint": "^8.54.0",
-		"vite": "^7.3.1",
-		"vite-plugin-dts": "^4.5.4"
-	},
+	"name": "@xbanki-me/fetch-secure-blob",
+	"version": "1.0.0",
+	"files": [
+		"dist"
+	],
+	"type": "module",
+	"main": "./dist/fetch-secure-blob.umd.cjs",
+	"module": "./dist/fetch-secure-blob.js",
 	"exports": {
 		".": {
 			"import": "./dist/fetch-secure-blob.js",
@@ -24,18 +14,29 @@
 			"types": "./dist/fetch-secure-blob.d.ts"
 		}
 	},
-	"files": [
-		"dist"
-	],
-	"main": "./dist/fetch-secure-blob.umd.cjs",
-	"module": "./dist/fetch-secure-blob.js",
-	"name": "@xbanki-me/fetch-secure-blob",
-	"packageManager": "yarn@4.9.2",
 	"scripts": {
-		"lint": "eslint --fix --format table",
 		"build": "vite build",
-		"tidy": "biome format --write"
+		"format": "oxfmt",
+		"format:check": "oxfmt --check",
+		"lint": "oxlint",
+		"lint:fix": "oxlint --fix",
+		"tidy": "corepack yarn run format && corepack yarn run lint:fix"
 	},
-	"type": "module",
-	"version": "1.0.0"
+	"dependencies": {
+		"@vercel/blob": "^2.1.0",
+		"ci-info": "^4.4.0"
+	},
+	"devDependencies": {
+		"@types/node": "^25.2.0",
+		"dotenv": "^17.2.3",
+		"oxfmt": "^0.44.0",
+		"oxlint": "^1.59.0",
+		"rollup-plugin-node-externals": "^8.1.2",
+		"terser": "^5.46.0",
+		"ts-deepmerge": "^7.0.3",
+		"typescript": "^5.9.3",
+		"vite": "^7.3.1",
+		"vite-plugin-dts": "^4.5.4"
+	},
+	"packageManager": "yarn@4.9.2"
 }

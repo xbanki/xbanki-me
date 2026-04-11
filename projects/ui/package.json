@@ -1,36 +1,19 @@
 {
-	"dependencies": {
-		"animejs": "^4.3.6",
-		"vue": "^3.5.32"
-	},
-	"devDependencies": {
-		"@biomejs/biome": "^2.4.11",
-		"@eslint/js": "^10.0.1",
-		"@laynezh/vite-plugin-lib-assets": "2.1.3",
-		"@rollup-extras/plugin-copy": "^2.0.0",
-		"@storybook/addon-docs": "^10.3.5",
-		"@storybook/addon-themes": "^10.3.5",
-		"@storybook/types": "8.6.14",
-		"@storybook/vue3-vite": "^10.3.5",
-		"@tailwindcss/typography": "^0.5.19",
-		"@tailwindcss/vite": "^4.2.2",
-		"@vitejs/plugin-vue": "^6.0.5",
-		"@vue-macros/eslint-config": "^3.1.2",
-		"@xbanki-me/fetch-secure-blob": "workspace:^",
-		"eslint": "^10.2.0",
-		"eslint-formatter-table": "^7.32.1",
-		"eslint-plugin-vue": "^10.8.0",
-		"globals": "^17.4.0",
-		"storybook": "^10.3.5",
-		"tailwindcss": "^4.2.2",
-		"ts-deepmerge": "^7.0.3",
-		"typescript": "^6.0.2",
-		"vite": "^8.0.8",
-		"vite-plugin-dts": "^4.5.4",
-		"vite-plugin-lib-inject-css": "^2.2.2",
-		"vue-eslint-parser": "^10.4.0",
-		"vue-macros": "^3.1.2",
-		"vue-tsc": "^3.2.6"
+	"name": "@xbanki-me/ui",
+	"version": "1.0.0",
+	"files": [
+		"dist/lib"
+	],
+	"type": "module",
+	"main": "./dist/lib/xbanki-me-ui.umd.cjs",
+	"module": "./dist/lib/xbanki-me-ui.js",
+	"imports": {
+		"~/": [
+			"./.storybook/*"
+		],
+		"@/": [
+			"./src/*"
+		]
 	},
 	"exports": {
 		".": {
@@ -40,30 +23,43 @@
 		},
 		"./tailwind": "./dist/lib/assets/theme.css"
 	},
-	"files": [
-		"dist/lib"
-	],
-	"imports": {
-		"~/": [
-			"./.storybook/*"
-		],
-		"@/": [
-			"./src/*"
-		]
-	},
-	"main": "./dist/lib/xbanki-me-ui.umd.cjs",
-	"module": "./dist/lib/xbanki-me-ui.js",
-	"name": "@xbanki-me/ui",
-	"packageManager": "yarn@4.9.2",
 	"scripts": {
 		"build": "yarn build:lib",
 		"build:all": "yarn build:lib && yarn build:docs",
 		"build:docs": "storybook build -o dist/docs",
 		"build:lib": "vue-tsc --noEmit && vite build",
 		"dev": "storybook dev -p 6006 --no-open",
-		"lint": "eslint --fix --format table",
-		"tidy": "biome format --write"
+		"format": "oxfmt",
+		"format:check": "oxfmt --check",
+		"lint": "oxlint",
+		"lint:fix": "oxlint --fix",
+		"tidy": "corepack yarn run format && corepack yarn run lint:fix"
 	},
-	"type": "module",
-	"version": "1.0.0"
+	"dependencies": {
+		"animejs": "^4.3.6",
+		"vue": "^3.5.32"
+	},
+	"devDependencies": {
+		"@laynezh/vite-plugin-lib-assets": "2.1.3",
+		"@rollup-extras/plugin-copy": "^2.0.0",
+		"@storybook/addon-docs": "^10.3.5",
+		"@storybook/addon-themes": "^10.3.5",
+		"@storybook/vue3-vite": "^10.3.5",
+		"@tailwindcss/vite": "^4.2.2",
+		"@vitejs/plugin-vue": "^6.0.5",
+		"@xbanki-me/config": "workspace:^",
+		"@xbanki-me/fetch-secure-blob": "workspace:^",
+		"oxfmt": "^0.44.0",
+		"oxlint": "^1.59.0",
+		"storybook": "^10.3.5",
+		"tailwindcss": "^4.2.2",
+		"ts-deepmerge": "^7.0.3",
+		"typescript": "^6.0.2",
+		"vite": "^8.0.8",
+		"vite-plugin-dts": "^4.5.4",
+		"vite-plugin-lib-inject-css": "^2.2.2",
+		"vue-macros": "^3.1.2",
+		"vue-tsc": "^3.2.6"
+	},
+	"packageManager": "yarn@4.9.2"
 }

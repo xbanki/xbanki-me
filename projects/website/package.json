@@ -1,25 +1,16 @@
 {
-	"devDependencies": {
-		"@biomejs/biome": "^2.4.11",
-		"@eslint/js": "^10.0.1",
-		"@mdx-js/rollup": "^3.1.1",
-		"@tailwindcss/typography": "^0.5.19",
-		"@tailwindcss/vite": "^4.2.2",
-		"@vitejs/plugin-vue": "^6.0.5",
-		"autoprefixer": "^10.4.27",
-		"eslint": "^10.2.0",
-		"eslint-formatter-table": "^7.32.1",
-		"eslint-plugin-vue": "^10.8.0",
-		"globals": "^17.4.0",
-		"postcss": "^8.5.9",
-		"sass": "^1.99.0",
-		"tailwindcss": "^4.2.2",
-		"typescript-eslint": "^8.58.1",
-		"vite": "^8.0.8",
-		"vite-plugin-html": "^3.2.2",
-		"vue-eslint-parser": "^10.4.0",
-		"vue-tsc": "^3.2.6",
-		"vue3-simple-icons": "^16.10.0"
+	"name": "@xbanki-me/website",
+	"version": "1.0.0",
+	"type": "module",
+	"main": "./src/main.ts",
+	"scripts": {
+		"build": "vue-tsc --noEmit && vite build",
+		"dev": "vite",
+		"format": "oxfmt",
+		"format:check": "oxfmt --check",
+		"lint": "oxlint",
+		"lint:fix": "oxlint --fix",
+		"tidy": "corepack yarn run format && corepack yarn run lint:fix"
 	},
 	"dependencies": {
 		"@xbanki-me/ui": "workspace:^",
@@ -28,15 +19,18 @@
 		"vue": "^3.5.32",
 		"vue-router": "^5.0.4"
 	},
-	"main": "./src/main.ts",
-	"name": "@xbanki-me/website",
-	"packageManager": "yarn@4.9.2",
-	"scripts": {
-		"build": "vue-tsc --noEmit && vite build",
-		"dev": "vite",
-		"lint": "eslint --fix --format table",
-		"tidy": "biome format --write"
+	"devDependencies": {
+		"@mdx-js/rollup": "^3.1.1",
+		"@tailwindcss/vite": "^4.2.2",
+		"@vitejs/plugin-vue": "^6.0.5",
+		"oxfmt": "^0.44.0",
+		"oxlint": "^1.59.0",
+		"tailwindcss": "^4.2.2",
+		"ts-deepmerge": "^7.0.3",
+		"vite": "^8.0.8",
+		"vite-plugin-html": "^3.2.2",
+		"vue-tsc": "^3.2.6",
+		"vue3-simple-icons": "^16.10.0"
 	},
-	"type": "module",
-	"version": "1.0.0"
+	"packageManager": "yarn@4.9.2"
 }

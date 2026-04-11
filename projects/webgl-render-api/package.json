@@ -1,16 +1,12 @@
 {
-	"devDependencies": {
-		"@biomejs/biome": "^2.4.11",
-		"@eslint/js": "^10.0.1",
-		"@types/node": "^25.5.2",
-		"eslint": "^10.2.0",
-		"eslint-formatter-table": "^7.32.1",
-		"terser": "^5.46.1",
-		"typescript": "^5.9.3",
-		"typescript-eslint": "^8.58.1",
-		"vite": "^8.0.8",
-		"vite-plugin-dts": "^4.5.4"
-	},
+	"name": "@xbanki-me/webgl-render-api",
+	"version": "1.2.0",
+	"files": [
+		"dist"
+	],
+	"type": "module",
+	"main": "./dist/webgl-render-api.umd.cjs",
+	"module": "./dist/webgl-render-api.js",
 	"exports": {
 		".": {
 			"import": "./dist/webgl-render-api.js",
@@ -18,18 +14,23 @@
 			"types": "./dist/webgl-render-api.d.ts"
 		}
 	},
-	"files": [
-		"dist"
-	],
-	"main": "./dist/webgl-render-api.umd.cjs",
-	"module": "./dist/webgl-render-api.js",
-	"name": "@xbanki-me/webgl-render-api",
-	"packageManager": "yarn@4.9.2",
 	"scripts": {
-		"lint": "eslint --fix --format table",
 		"build": "vite build",
-		"tidy": "biome format --write"
+		"format": "oxfmt",
+		"format:check": "oxfmt --check",
+		"lint": "oxlint",
+		"lint:fix": "oxlint --fix",
+		"tidy": "corepack yarn run format && corepack yarn run lint:fix"
 	},
-	"type": "module",
-	"version": "1.2.0"
+	"devDependencies": {
+		"@types/node": "^25.5.2",
+		"oxfmt": "^0.44.0",
+		"oxlint": "^1.59.0",
+		"terser": "^5.46.1",
+		"ts-deepmerge": "^7.0.3",
+		"typescript": "^5.9.3",
+		"vite": "^8.0.8",
+		"vite-plugin-dts": "^4.5.4"
+	},
+	"packageManager": "yarn@4.9.2"
 }

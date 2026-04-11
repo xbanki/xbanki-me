@@ -1,6 +1,5 @@
 {
 	"devDependencies": {
-		"@biomejs/biome": "^2.4.11",
 		"@commitlint/cli": "^20.5.0",
 		"@commitlint/config-conventional": "^20.5.0",
 		"husky": "^9.1.7",
@@ -16,7 +15,7 @@
 		"postinstall": "husky init",
 		"prepare": "husky",
 		"test": "echo \"No tests specified\"",
-		"tidy": "biome format --write"
+		"tidy": "turbo run tidy"
 	},
 	"type": "module",
 	"workspaces": [
