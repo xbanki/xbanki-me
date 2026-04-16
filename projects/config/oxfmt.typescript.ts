@@ -9,7 +9,7 @@ import { defineConfig } from 'oxfmt';
 export default defineConfig({
     overrides: [
         {
-            files: ['**/*.{,m,c}ts{,x}'],
+            files: ['**/*.{,m,c}ts{,x}', '**/*.vue'],
             options: {
                 tabWidth: 4,
             },
