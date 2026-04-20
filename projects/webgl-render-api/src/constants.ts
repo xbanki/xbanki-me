@@ -1,12 +1,7 @@
-/**
- * Global constant definitions.
- *
- *    @copyright Copyright (c) 2025, xbanki <contact@xbanki.me>
- *               Licensed under MIT License.
- *               See LICENSE for more details.
- *    @author    xbanki <contact@xbanki.me>
- *    @since     1.2.0
- *    @version   1.0.0
+/*
+ * Copyright (c) 2025-2026, xbanki <contact@xbanki.me>
+ * Licensed under MIT License.
+ * See LICENSE for more details.
  */
 
 import type { IOptionsProperties } from '@/types.ts';
@@ -37,34 +32,17 @@ export const DEFAULT_OPTIONS_PROPERTIES: IOptionsProperties = {
         resize: true,
     },
     shader: {
-        seed:
-            Math.random() * (SEED_BOUND_MAX - SEED_BOUND_MIN) + SEED_BOUND_MIN,
+        seed: Math.random() * (SEED_BOUND_MAX - SEED_BOUND_MIN) + SEED_BOUND_MIN,
         fragment: SHADER_FRAGMENT,
         uniform: SHADER_UNIFORM,
         vertex: SHADER_VERTEX,
     },
 };
 
-export const QUAD_VERTICES = new Float32Array([
-    -1.0,
-    -1.0,
-    1.0,
-    -1.0,
-    -1.0,
-    1.0,
-    1.0,
-    1.0,
-    -1.0,
-    1.0,
-    1.0,
-    -1.0,
-]);
+export const QUAD_VERTICES = new Float32Array([-1.0, -1.0, 1.0, -1.0, -1.0, 1.0, 1.0, 1.0, -1.0, 1.0, 1.0, -1.0]);
 
-export const MESSAGE_ERROR_FAILED_COMPILING_SHADER =
-    'Could not compile WebGL shader';
+export const MESSAGE_ERROR_FAILED_COMPILING_SHADER = 'Could not compile WebGL shader';
 
-export const MESSAGE_ERROR_FAILED_BINDING_POINTERS =
-    'Could not find uniform locations';
+export const MESSAGE_ERROR_FAILED_BINDING_POINTERS = 'Could not find uniform locations';
 
-export const MESSAGE_ERROR_FAILED_WEBGL_CONTEXT =
-    'Could not initialize WebGL context';
+export const MESSAGE_ERROR_FAILED_WEBGL_CONTEXT = 'Could not initialize WebGL context';

@@ -3649,7 +3649,7 @@ __metadata:
     oxlint: "npm:^1.59.0"
     terser: "npm:^5.46.1"
     ts-deepmerge: "npm:^7.0.3"
-    typescript: "npm:^5.9.3"
+    typescript: "npm:^6.0.2"
     vite: "npm:^8.0.8"
     vite-plugin-dts: "npm:^4.5.4"
   languageName: unknown

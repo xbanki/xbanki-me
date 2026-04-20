@@ -1,34 +1,21 @@
 {
-  "compilerOptions": {
-    "allowImportingTsExtensions": true,
-    "baseUrl": ".",
-    "declaration": true,
-    "emitDeclarationOnly": true,
-    "esModuleInterop": true,
-    "lib": [
-      "DOM",
-      "ESNext"
-    ],
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
-    "paths": {
-      "@/*": [
-        "./src/*"
-      ]
-    },
-    "skipLibCheck": true,
-    "sourceMap": true,
-    "strict": true
-  },
-  "exclude": [
-    "node_modules/*",
-    "dist/*"
-  ],
-  "include": [
-    "src/**/*.glsl",
-    "src/**/*.cjs",
-    "src/**/*.mjs",
-    "src/**/*.js",
-    "src/**/*.ts"
-  ]
+	"compilerOptions": {
+		"allowImportingTsExtensions": true,
+		"baseUrl": ".",
+		"declaration": true,
+		"emitDeclarationOnly": true,
+		"esModuleInterop": true,
+		"lib": ["DOM.Iterable", "DOM", "ESNext"],
+		"module": "ESnext",
+		"moduleResolution": "Bundler",
+		"paths": {
+			"@/*": ["./src/*"]
+		},
+		"skipLibCheck": true,
+		"sourceMap": true,
+		"strict": true,
+		"target": "ES2022"
+	},
+	"exclude": ["node_modules/*", "dist/*", ".turbo/*"],
+	"include": ["**/*.glsl", "**/*.cjs", "**/*.mjs", "**/*.mts", "**/*.js", "**/*.ts"]
 }

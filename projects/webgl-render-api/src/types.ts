@@ -1,13 +1,7 @@
-/**
- * Global library type declarations.
- *
- *    @copyright Copyright (c) 2025, xbanki <contact@xbanki.me>
- *               Licensed under MIT License.
- *               See LICENSE for more details.
- *    @author    xbanki <contact@xbanki.me>
- *    @since     1.1.0
- *    @version   1.1.0
- *
+/*
+ * Copyright (c) 2025-2026, xbanki <contact@xbanki.me>
+ * Licensed under MIT License.
+ * See LICENSE for more details.
  */
 
 /**
@@ -196,6 +190,7 @@ export interface IContextMethods {
 /**
  * Function that is called before any uniforms are updated, and before a frame
  * is rendered.
+ *
  * @param context Render context.
  */
 export type OnBeforeRenderFn = (context: Context) => void;
@@ -203,6 +198,7 @@ export type OnBeforeRenderFn = (context: Context) => void;
 /**
  * Function that is called after all context uniforms have been updated, and
  * after the renderer has finished rendering the frame.
+ *
  * @param context Render context.
  */
 export type OnAfterRenderFn = (context: Context) => void;
@@ -215,6 +211,7 @@ export type OnErrorFn = (error?: Error) => void;
 
 /**
  * Function that gets called whenever context initialization has finished.
+ *
  * @param context Initialized renderer context.
  */
 export type OnInitFn = (context: Context) => void;
@@ -241,7 +238,7 @@ export interface IOptionsPropertiesRenderer {
     failMajorPerformanceCaveat: boolean;
 
     /**
-     * f the value is true the buffers will not be cleared and will preserve
+     * F the value is true the buffers will not be cleared and will preserve
      * their values until cleared or overwritten by the author.
      */
     preserveDrawingBuffer: boolean;
@@ -265,11 +262,11 @@ export interface IOptionsPropertiesRenderer {
     desynchronized: boolean;
 
     /**
-     *  boolean value that hints to the user agent to use a compatible graphics
-     *  adapter for an immersive XR device. Setting this synchronous flag at
-     *  context creation is discouraged; rather call the asynchronous
-     *  `WebGLRenderingContext.makeXRCompatible()` method the moment you intend
-     *  to start an XR session.
+     * Boolean value that hints to the user agent to use a compatible graphics
+     * adapter for an immersive XR device. Setting this synchronous flag at
+     * context creation is discouraged; rather call the asynchronous
+     * `WebGLRenderingContext.makeXRCompatible()` method the moment you intend
+     * to start an XR session.
      */
     xrCompatible: boolean;
 
