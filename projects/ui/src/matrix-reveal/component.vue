@@ -38,8 +38,8 @@
             const nodes: VNode[] = [];
 
             for (const leaf of target)
-                if (isVNode(leaf) && leaf.type != VComment) {
-                    if (leaf.type == VText || typeof leaf.children == 'string') {
+                if (isVNode(leaf) && leaf.type != typeof VComment) {
+                    if (leaf.type == typeof VText || typeof leaf.children == 'string') {
                         const node_ref = ref<VNodeRef | null>(null);
                         const node = cloneVNode(leaf, { ref: node_ref });
                         const original = ` ${node.children}`.slice(1);
