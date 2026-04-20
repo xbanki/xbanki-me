@@ -18,14 +18,14 @@ type Effect = IEffect | ((state: Ref<boolean>, element: ShallowRef<HTMLElement>)
 type DeepPartial<T> = T extends Function
     ? T
     : T extends Map<infer K, infer V>
-        ? Map<DeepPartial<K>, DeepPartial<V>>
-        : T extends Set<infer U>
-            ? Set<DeepPartial<U>>
-            : T extends Array<infer U>
-                ? Array<DeepPartial<U>>
-                : T extends object
-                    ? { [K in keyof T]?: DeepPartial<T[K]> }
-                    : T;
+      ? Map<DeepPartial<K>, DeepPartial<V>>
+      : T extends Set<infer U>
+        ? Set<DeepPartial<U>>
+        : T extends Array<infer U>
+          ? Array<DeepPartial<U>>
+          : T extends object
+            ? { [K in keyof T]?: DeepPartial<T[K]> }
+            : T;
 
 /**
  * Condition for how the reveal effects are dispatched.
@@ -76,11 +76,13 @@ interface IOptions {
     delay: number;
 
     /**
-     * The actual effect applied. 1. If the parameter is an `object` type, the caller can specify two classes which the
-     * hook switches between. `active` for the `true` state, and `inactive` for `false` state. 2. If the parameter is a
-     * function, the function is used as the effect instead, with no defaults being applied. The function itself will be
-     * called twice: Once to set up the "base state", and then depending on if `options.once` is set, the necessary
-     * times required by the hook.
+     * The actual effect applied.
+     *
+     * 1. If the parameter is an `object` type, the caller can specify two classes which the hook switches between.
+     *    `active` for the `true` state, and `inactive` for `false` state.
+     * 2. If the parameter is a function, the function is used as the effect instead, with no defaults being applied. The
+     *    function itself will be called twice: Once to set up the "base state", and then depending on if `options.once`
+     *    is set, the necessary times required by the hook.
      */
     effect: Effect;
 
@@ -148,8 +150,7 @@ const DEFAULT_OPTIONS: IOptions = {
         threshold: 0,
     },
     hook: EHook.INTERSECT,
-    onLoad: () => {
-    },
+    onLoad: () => {},
     state: false,
     once: false,
     delay: 225,
