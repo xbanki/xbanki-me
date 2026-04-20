@@ -139,19 +139,22 @@ export const Danger: Story = {
  * importing an icon, it can be passed into the button component via the `icon`
  * slot.
  *
- * *Example*:
+ * _Example_:
  *
  * ```html
  * <template>
- *   <ComponentButton>
- *     <template slot:icon>
- *       <CodeBracketIcon />
- *     </template>
- *   </ComponentButton>
+ *     <ComponentButton>
+ *         <template slot:icon>
+ *             <CodeBracketIcon />
+ *         </template>
+ *     </ComponentButton>
  * </template>
- * <script lang="ts" setup>
- * import { CodeBracketIcon } from '@xbanki-me/icons';
- * import { ComponentButton } from '@xbanki-me/ui';
+ * <script
+ *     lang="ts"
+ *     setup
+ * >
+ *     import { CodeBracketIcon } from '@xbanki-me/icons';
+ *     import { ComponentButton } from '@xbanki-me/ui';
  * </script>
  * ```
  *
@@ -176,16 +179,10 @@ export const WithIcon: Story = {
               <template v-slot:default>
                 Iconed Button
               </template>
-              <template v-slot:icon>
-                <CodeBracketIcon/>
-              </template>
             </ComponentButton>
             <ComponentButton ghost v-bind="args">
               <template v-slot:default>
                 Ghost Variant
-              </template>
-              <template v-slot:icon>
-                <CodeBracketIcon/>
               </template>
             </ComponentButton>
           </div>
@@ -214,14 +211,8 @@ export const IconOnly: Story = {
         template: `
           <div class="gap-2 flex">
             <ComponentButton v-bind="args">
-              <template v-slot:icon>
-                <CodeBracketIcon/>
-              </template>
             </ComponentButton>
             <ComponentButton ghost v-bind="args">
-              <template v-slot:icon>
-                <CodeBracketIcon/>
-              </template>
             </ComponentButton>
           </div>
         `,

@@ -35,9 +35,7 @@ export default defineConfig(({ mode }) => {
             },
             outDir: 'dist/lib',
             rolldownOptions: {
-                external: [
-                    'vue',
-                ],
+                external: ['vue'],
                 output: {
                     assetFileNames: 'assets/[name][extname]',
                     globals: {

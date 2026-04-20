@@ -4,23 +4,23 @@
  * See LICENSE for more details.
  */
 
-import {withoutVitePlugins} from '@storybook/builder-vite';
-import {defineMain} from '@storybook/vue3-vite/node';
+import { withoutVitePlugins } from '@storybook/builder-vite';
+import { defineMain } from '@storybook/vue3-vite/node';
 
 export default defineMain({
-    async viteFinal(config) {
-        return {
-            ...config,
-            plugins: await withoutVitePlugins(config.plugins, ['vite:dts']),
-        };
-    },
-    addons: ['@storybook/addon-themes', '@storybook/addon-docs'],
-    docs: {
-        defaultName: 'Overview',
-    },
-    framework: {
-        name: '@storybook/vue3-vite',
-        options: {docgen: 'vue-component-meta'},
-    },
-    stories: ['../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
+  async viteFinal(config) {
+    return {
+      ...config,
+      plugins: await withoutVitePlugins(config.plugins, ['vite:dts']),
+    };
+  },
+  addons: ['@storybook/addon-docs', '@storybook-community/storybook-dark-mode'],
+  docs: {
+    defaultName: 'Overview',
+  },
+  framework: {
+    name: '@storybook/vue3-vite',
+    options: { docgen: 'vue-component-meta' },
+  },
+  stories: ['../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
 });

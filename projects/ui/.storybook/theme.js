@@ -6,4 +6,5 @@
 
 import { create } from 'storybook/theming';
 
-export default create({ base: 'dark' });
+export const light = create({ base: 'light' });
+export const dark = create({ base: 'dark' });

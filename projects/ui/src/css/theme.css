@@ -1,12 +1,7 @@
 /*
- * Tailwind theme declaration.
- *
- *    Copyright: Copyright (c) 2025, xbanki <contact@xbanki.me>
- *               Licensed under MIT License.
- *               See LICENSE for more details.
- *    Author:    xbanki <contact@xbanki.me>
- *    Since:     1.0.0
- *    Version:   1.0.0
+ * Copyright (c) 2025-2026, xbanki <contact@xbanki.me>
+ * Licensed under MIT License.
+ * See LICENSE for more details.
  */
 
 /* Enable theme via data attribute */
@@ -14,71 +9,71 @@
 
 /* Custom inset highlight shadow */
 @theme {
-    --inset-shadow-highlight: inset 0 -2px 4px 0 var(--tw-shadow-color, rgb(0 0 0 / 0.5));
+  --inset-shadow-highlight: inset 0 -2px 4px 0 var(--tw-shadow-color, rgb(0 0 0 / 0.5));
 }
 
 /* Button ping color utility */
 @utility button-ping-* {
-    --button-ping-color: --value(--color-\*);
+  --button-ping-color: --value(--color-\*);
 }
 
 /* Button click ping animation */
 @theme {
-    --animate-button-ping: button-ping var(--tw-duration, var(--default-transition-duration)) cubic-bezier(0, 0, 0.2, 1) 1;
-    --button-ping-color: rgb(0 0 0 / 0.5);
+  --animate-button-ping: button-ping var(--tw-duration, var(--default-transition-duration)) cubic-bezier(0, 0, 0.2, 1) 1;
+  --button-ping-color: rgb(0 0 0 / 0.5);
 
-    @keyframes button-ping {
-        from {
-            box-shadow:
-                0 0 0 0 var(--button-ping-color),
-                var(--tw-inset-shadow),
-                var(--tw-inset-ring-shadow),
-                var(--tw-ring-offset-shadow),
-                var(--tw-ring-shadow),
-                var(--tw-shadow);
-        }
-
-        to {
-            box-shadow:
-                0 0 0 0.4rem transparent,
-                var(--tw-inset-shadow),
-                var(--tw-inset-ring-shadow),
-                var(--tw-ring-offset-shadow),
-                var(--tw-ring-shadow),
-                var(--tw-shadow);
-        }
+  @keyframes button-ping {
+    from {
+      box-shadow:
+        0 0 0 0 var(--button-ping-color),
+        var(--tw-inset-shadow),
+        var(--tw-inset-ring-shadow),
+        var(--tw-ring-offset-shadow),
+        var(--tw-ring-shadow),
+        var(--tw-shadow);
     }
+
+    to {
+      box-shadow:
+        0 0 0 0.4rem transparent,
+        var(--tw-inset-shadow),
+        var(--tw-inset-ring-shadow),
+        var(--tw-ring-offset-shadow),
+        var(--tw-ring-shadow),
+        var(--tw-shadow);
+    }
+  }
 }
 
 /* Theme colors */
 @theme {
-    --color-gunmetal-900: #02050A;
-    --color-gunmetal-800: #1F2226;
-    --color-gunmetal-700: #3B3E41;
-    --color-gunmetal-600: #585A5D;
-    --color-gunmetal-500: #747678;
-    --color-gunmetal-400: #919294;
-    --color-gunmetal-300: #ADAEAF;
-    --color-gunmetal-200: #CACACB;
-    --color-gunmetal-100: #E6E6E6;
+  --color-gunmetal-900: #02050a;
+  --color-gunmetal-800: #1f2226;
+  --color-gunmetal-700: #3b3e41;
+  --color-gunmetal-600: #585a5d;
+  --color-gunmetal-500: #747678;
+  --color-gunmetal-400: #919294;
+  --color-gunmetal-300: #adaeaf;
+  --color-gunmetal-200: #cacacb;
+  --color-gunmetal-100: #e6e6e6;
 
-    --color-brand-blue-100: #a6bcff;
-    --color-brand-blue-200: #99aeff;
-    --color-brand-blue-300: #8c9fff;
-    --color-brand-blue-400: #808fff;
-    --color-brand-blue-500: #737eff;
-    --color-brand-blue-600: #666cff;
-    --color-brand-blue-700: #5959ff;
-    --color-brand-blue-800: #554dff;
-    --color-brand-blue-900: #5040ff;
+  --color-brand-blue-100: #a6bcff;
+  --color-brand-blue-200: #99aeff;
+  --color-brand-blue-300: #8c9fff;
+  --color-brand-blue-400: #808fff;
+  --color-brand-blue-500: #737eff;
+  --color-brand-blue-600: #666cff;
+  --color-brand-blue-700: #5959ff;
+  --color-brand-blue-800: #554dff;
+  --color-brand-blue-900: #5040ff;
 }
 
 /* Fonts */
 @theme {
-    --font-sans:
-        "PP Neue Montreal", ui-sans-serif, system-ui, sans-serif,
-        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-    --font-mono:
-        "PP Fraktion Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-        "Liberation Mono", "Courier New", monospace;
+  --font-sans:
+    'PP Neue Montreal', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+    'Noto Color Emoji';
+  --font-mono:
+    'PP Fraktion Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
+    monospace;
 }

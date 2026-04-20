@@ -25,27 +25,27 @@ type Story = StoryObj<typeof Component>;
  * effect models—toggling between two binary CSS classes—and a fully extensible function interface that exposes complete
  * control to the user.
  *
- * *Reveal* returns two variables upon initialization:
+ * _Reveal_ returns two variables upon initialization:
  *
- *  1. `state`—A reactive reference representing the current *Reveal* state. This can be observed by the user if state
- *  management is automatically handled by the composable lifecycle, or in the case of custom user-defined triggers,
- *  directly mutated to manually control the function lifecycle.
- *
- *  2. `el`—A weak mutable reference to the target *DOM node*, to which the effect behavior will be applied. This
- *  reference must be explicitly bound by the user using the `ref` directive on the corresponding *element*.
+ * 1. `state`—A reactive reference representing the current _Reveal_ state. This can be observed by the user if state
+ *    management is automatically handled by the composable lifecycle, or in the case of custom user-defined triggers,
+ *    directly mutated to manually control the function lifecycle.
+ * 2. `el`—A weak mutable reference to the target _DOM node_, to which the effect behavior will be applied. This reference
+ *    must be explicitly bound by the user using the `ref` directive on the corresponding _element_.
  *
  * ## Example
  *
  * ```html
  * <template>
- *   <h1 ref="el">
- *     Hello World
- *   </h1>
+ *     <h1 ref="el">Hello World</h1>
  * </template>
- * <script lang="ts" setup>
- * import { useReveal } from '@xbanki-me/ui';
+ * <script
+ *     lang="ts"
+ *     setup
+ * >
+ *     import { useReveal } from '@xbanki-me/ui';
  *
- * const { el } = useReveal();
+ *     const { el } = useReveal();
  * </script>
  * ```
  */
@@ -192,8 +192,8 @@ export const Once: Story = {
  * Instead of relying on a binary CSS class toggle, the user may provide a function implementation with the following
  * arguments:
  *
- *  1. `state`—A reference to the current state Boolean.
- *  2. `el`—The target DOM node in question.
+ * 1. `state`—A reference to the current state Boolean.
+ * 2. `el`—The target DOM node in question.
  *
  * With these parameters, the user may implement customized, stateful *Reveal* logic, which gets invoked each time the
  * underlying `state` parameter transitions.
@@ -207,10 +207,9 @@ export const FunctionEffect: Story = {
             const value = ref(0);
             const { el } = useReveal({
                 effect: (state, el) => {
-                    if (state.value)
-                        value.value += 8;
+                    if (state.value) value.value += 8;
 
-                    el.value.style.translate = `${ value.value }px`;
+                    el.value.style.translate = `${value.value}px`;
                 },
                 state: false,
             });
