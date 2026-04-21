@@ -1,55 +1,53 @@
-/**
- * Storybook component preview default options.
- *
- *    @copyright Copyright (c) 2025, xbanki <contact@xbanki.me>
- *               Licensed under MIT License.
- *               See LICENSE for more details.
- *    @author    xbanki <contact@xbanki.me>
- *    @version   1.0.0
+/*
+ * Copyright (c) 2025-2026, xbanki <contact@xbanki.me>
+ * Licensed under MIT License.
+ * See LICENSE for more details.
  */
 
-import { withThemeByDataAttribute } from '@storybook/addon-themes';
+import { DarkModeDocsContainer } from '@storybook-community/storybook-dark-mode/docs';
+import { definePreview } from '@storybook/vue3-vite';
 
-import theme from './theme.js';
+import addonDarkMode from '@storybook-community/storybook-dark-mode';
+import addonDocs from '@storybook/addon-docs';
 
-const preview = {
+import '@/css/module.css';
+
+import { light, dark } from '~/theme.js';
+
+export default definePreview({
+  addons: [addonDocs(), addonDarkMode()],
   decorators: [
-    withThemeByDataAttribute({
-      themes: {
-        dark: 'dark',
-        light: 'light',
-      },
-      defaultTheme: 'dark',
-    }),
-  ],
-  globalTypes: {
-    theme: {
-      defaultValue: 'dark',
+    (storyFn, context) => {
+      const theme = context.globals.backgrounds.value || context.initialGlobals.backgrounds.value;
+      document.documentElement.setAttribute('data-theme', theme);
+      return storyFn();
     },
+  ],
+  initialGlobals: {
+    backgrounds: { value: 'dark' },
   },
   parameters: {
     backgrounds: {
-      value: 'dark',
       options: {
         dark: {
-          name: 'Dark',
           value: '#333',
+          name: 'Dark',
+        },
+        light: {
+          value: '#F7F9F2',
+          name: 'Light',
         },
       },
     },
+    darkMode: {
+      current: 'dark',
+      light,
+      dark,
+    },
     docs: {
-      theme: theme,
+      container: DarkModeDocsContainer,
+      codePanel: true,
     },
   },
-  initialGlobals: {
-    theme: 'dark',
-    backgrounds: {
-      value: 'dark',
-    },
-  },
-  tags: [
-    'autodocs',
-  ],
-};
-
-export default preview;
+  tags: ['autodocs'],
+});

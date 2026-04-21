@@ -1,1 +1,2 @@
-yarn test
+corepack yarn tidy
+corepack yarn test

@@ -1,43 +1,36 @@
 {
-	"devDependencies": {
-		"@biomejs/biome": "^2.2.2",
-		"@eslint/js": "^9.34.0",
-		"@mdx-js/rollup": "^3.1.1",
-		"@tailwindcss/typography": "^0.5.16",
-		"@tailwindcss/vite": "^4.1.12",
-		"@vitejs/plugin-vue": "^6.0.1",
-		"autoprefixer": "^10.4.21",
-		"eslint": "^9.34.0",
-		"eslint-formatter-table": "^7.32.1",
-		"eslint-plugin-vue": "^10.4.0",
-		"globals": "^16.3.0",
-		"postcss": "^8.5.6",
-		"sass": "^1.92.0",
-		"tailwindcss": "^4.1.12",
-		"typescript-eslint": "^8.42.0",
-		"vite": "^7.1.4",
-		"vite-plugin-html": "^3.2.2",
-		"vue-eslint-parser": "^10.2.0",
-		"vue-tsc": "^3.0.6",
-		"vue3-simple-icons": "^15.6.0"
-	},
-	"dependencies": {
-		"@xbanki-me/icons": "workspace:^",
-		"@xbanki-me/ui": "workspace:^",
-		"@xbanki-me/webgl-render-api": "workspace:^",
-		"pinia": "^3.0.3",
-		"vue": "^3.5.21",
-		"vue-router": "^4.5.1"
-	},
-	"main": "./src/main.ts",
 	"name": "@xbanki-me/website",
-	"packageManager": "yarn@4.9.2",
+	"version": "1.0.0",
+	"type": "module",
+	"main": "./src/main.ts",
 	"scripts": {
 		"build": "vue-tsc --noEmit && vite build",
 		"dev": "vite",
-		"lint": "eslint --fix --format table",
-		"tidy": "biome format --write"
+		"format": "oxfmt",
+		"format:check": "oxfmt --check",
+		"lint": "oxlint",
+		"lint:fix": "oxlint --fix",
+		"tidy": "corepack yarn run format && corepack yarn run lint:fix"
 	},
-	"type": "module",
-	"version": "1.0.0"
+	"dependencies": {
+		"@xbanki-me/ui": "workspace:^",
+		"@xbanki-me/webgl-render-api": "workspace:^",
+		"pinia": "^3.0.4",
+		"vue": "^3.5.32",
+		"vue-router": "^5.0.4"
+	},
+	"devDependencies": {
+		"@mdx-js/rollup": "^3.1.1",
+		"@tailwindcss/vite": "^4.2.3",
+		"@vitejs/plugin-vue": "^6.0.6",
+		"oxfmt": "^0.46.0",
+		"oxlint": "^1.61.0",
+		"tailwindcss": "^4.2.3",
+		"ts-deepmerge": "^7.0.3",
+		"vite": "^8.0.9",
+		"vite-plugin-html": "^3.2.2",
+		"vue-tsc": "^3.2.7",
+		"vue3-simple-icons": "^16.10.0"
+	},
+	"packageManager": "yarn@4.9.2"
 }

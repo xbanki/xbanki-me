@@ -1,16 +1,10 @@
-/**
- * Button Component development & display stories.
- *
- *    @copyright Copyright (c) 2025, xbanki <contact@xbanki.me>
- *               Licensed under MIT License.
- *               See LICENSE for more details.
- *    @author    xbanki <contact@xbanki.me>
- *    @since     1.0.0
- *    @version   1.0.0
+/*
+ * Copyright (c) 2025-2026, xbanki <contact@xbanki.me>
+ * Licensed under MIT License.
+ * See LICENSE for more details.
  */
 
 import type { StoryObj, Meta } from '@storybook/vue3-vite';
-import { CodeBracketIcon } from '@xbanki-me/icons';
 import { fn } from 'storybook/test';
 
 import { ComponentButton, ButtonVariant } from '@/library.ts';
@@ -32,6 +26,7 @@ const Meta: Meta<typeof ComponentButton> = {
     title: 'Components/Button',
     component: ComponentButton,
     args: {
+        // @ts-ignore For some reason this is reported as an error, even though it is intended behavior.
         onClick: fn(),
     },
 };
@@ -54,18 +49,18 @@ export const Primary: Story = {
             };
         },
         template: `
-            <div class="gap-2 flex">
-                <ComponentButton v-bind="args">
-                    <template v-slot:default>
-                        Primary Button
-                    </template>
-                </ComponentButton>
-                <ComponentButton ghost v-bind="args">
-                    <template v-slot:default>
-                        Ghost Variant
-                    </template>
-                </ComponentButton>
-            </div>
+          <div class="gap-2 flex">
+            <ComponentButton v-bind="args">
+              <template v-slot:default>
+                Primary Button
+              </template>
+            </ComponentButton>
+            <ComponentButton ghost v-bind="args">
+              <template v-slot:default>
+                Ghost Variant
+              </template>
+            </ComponentButton>
+          </div>
         `,
     }),
 };
@@ -88,18 +83,18 @@ export const Secondary: Story = {
             };
         },
         template: `
-            <div class="gap-2 flex">
-                <ComponentButton v-bind="args">
-                    <template v-slot:default>
-                        Secondary Button
-                    </template>
-                </ComponentButton>
-                <ComponentButton ghost v-bind="args">
-                    <template v-slot:default>
-                        Ghost Variant
-                    </template>
-                </ComponentButton>
-            </div>
+          <div class="gap-2 flex">
+            <ComponentButton v-bind="args">
+              <template v-slot:default>
+                Secondary Button
+              </template>
+            </ComponentButton>
+            <ComponentButton ghost v-bind="args">
+              <template v-slot:default>
+                Ghost Variant
+              </template>
+            </ComponentButton>
+          </div>
         `,
     }),
 };
@@ -122,40 +117,44 @@ export const Danger: Story = {
             };
         },
         template: `
-            <div class="gap-2 flex">
-                <ComponentButton v-bind="args">
-                    <template v-slot:default>
-                        Danger Button
-                    </template>
-                </ComponentButton>
-                <ComponentButton ghost v-bind="args">
-                    <template v-slot:default>
-                        Ghost Variant
-                    </template>
-                </ComponentButton>
-            </div>
+          <div class="gap-2 flex">
+            <ComponentButton v-bind="args">
+              <template v-slot:default>
+                Danger Button
+              </template>
+            </ComponentButton>
+            <ComponentButton ghost v-bind="args">
+              <template v-slot:default>
+                Ghost Variant
+              </template>
+            </ComponentButton>
+          </div>
         `,
     }),
-}; /**
+};
+/**
  * In addition to a text label, buttons can also include any chosen icon.
  *
  * Icons are available through the `@xbanki-me/icon` package. After
  * importing an icon, it can be passed into the button component via the `icon`
  * slot.
  *
- * *Example*:
+ * _Example_:
  *
  * ```html
  * <template>
- *   <ComponentButton>
- *     <template slot:icon>
- *       <CodeBracketIcon />
- *     </template>
- *   </ComponentButton>
+ *     <ComponentButton>
+ *         <template slot:icon>
+ *             <CodeBracketIcon />
+ *         </template>
+ *     </ComponentButton>
  * </template>
- * <script lang="ts" setup>
- * import { CodeBracketIcon } from '@xbanki-me/icons';
- * import { ComponentButton } from '@xbanki-me/ui';
+ * <script
+ *     lang="ts"
+ *     setup
+ * >
+ *     import { CodeBracketIcon } from '@xbanki-me/icons';
+ *     import { ComponentButton } from '@xbanki-me/ui';
  * </script>
  * ```
  *
@@ -167,7 +166,6 @@ export const WithIcon: Story = {
     },
     render: args => ({
         components: {
-            CodeBracketIcon,
             ComponentButton,
         },
         data() {
@@ -176,24 +174,18 @@ export const WithIcon: Story = {
             };
         },
         template: `
-            <div class="gap-2 flex">
-                <ComponentButton v-bind="args">
-                    <template v-slot:default>
-                        Iconed Button
-                    </template>
-                    <template v-slot:icon>
-                        <CodeBracketIcon />
-                    </template>
-                </ComponentButton>
-                <ComponentButton ghost v-bind="args">
-                    <template v-slot:default>
-                       Ghost Variant
-                    </template>
-                    <template v-slot:icon>
-                        <CodeBracketIcon />
-                    </template>
-                </ComponentButton>
-            </div>
+          <div class="gap-2 flex">
+            <ComponentButton v-bind="args">
+              <template v-slot:default>
+                Iconed Button
+              </template>
+            </ComponentButton>
+            <ComponentButton ghost v-bind="args">
+              <template v-slot:default>
+                Ghost Variant
+              </template>
+            </ComponentButton>
+          </div>
         `,
     }),
 };
@@ -209,7 +201,6 @@ export const IconOnly: Story = {
     },
     render: args => ({
         components: {
-            CodeBracketIcon,
             ComponentButton,
         },
         setup() {
@@ -218,18 +209,12 @@ export const IconOnly: Story = {
             };
         },
         template: `
-            <div class="gap-2 flex">
-                <ComponentButton v-bind="args">
-                    <template v-slot:icon>
-                        <CodeBracketIcon />
-                    </template>
-                </ComponentButton>
-                <ComponentButton ghost v-bind="args">
-                    <template v-slot:icon>
-                        <CodeBracketIcon />
-                    </template>
-                </ComponentButton>
-            </div>
+          <div class="gap-2 flex">
+            <ComponentButton v-bind="args">
+            </ComponentButton>
+            <ComponentButton ghost v-bind="args">
+            </ComponentButton>
+          </div>
         `,
     }),
 };
@@ -253,18 +238,18 @@ export const Disabled: Story = {
             };
         },
         template: `
-            <div class="gap-2 flex">
-                <ComponentButton v-bind="args">
-                    <template v-slot:default>
-                        Disabled Button
-                    </template>
-                </ComponentButton>
-                <ComponentButton ghost v-bind="args">
-                    <template v-slot:default>
-                        Ghost Variant
-                    </template>
-                </ComponentButton>
-            </div>
+          <div class="gap-2 flex">
+            <ComponentButton v-bind="args">
+              <template v-slot:default>
+                Disabled Button
+              </template>
+            </ComponentButton>
+            <ComponentButton ghost v-bind="args">
+              <template v-slot:default>
+                Ghost Variant
+              </template>
+            </ComponentButton>
+          </div>
         `,
     }),
 };

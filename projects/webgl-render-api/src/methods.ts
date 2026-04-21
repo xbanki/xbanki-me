@@ -1,12 +1,7 @@
-/**
- * Context interaction methods.
- *
- *    @copyright Copyright (c) 2025, xbanki <contact@xbanki.me>
- *               Licensed under MIT License.
- *               See LICENSE for more details.
- *    @author    xbanki <contact@xbanki.me>
- *    @since     1.2.0
- *    @version   1.0.0
+/*
+ * Copyright (c) 2025-2026, xbanki <contact@xbanki.me>
+ * Licensed under MIT License.
+ * See LICENSE for more details.
  */
 
 import type { Context } from '@/types.ts';
@@ -51,8 +46,7 @@ export function resize(this: Context): void {
     try {
         if (
             !this.state.resize.enabled ||
-            (this.state.resize.height == this.canvas.clientHeight &&
-                this.state.resize.width == this.canvas.clientWidth)
+            (this.state.resize.height == this.canvas.clientHeight && this.state.resize.width == this.canvas.clientWidth)
         )
             return;
 
@@ -64,12 +58,7 @@ export function resize(this: Context): void {
         this.canvas.height = Math.floor(this.state.resize.height * ratio);
         this.canvas.width = Math.floor(this.state.resize.width * ratio);
 
-        this.context.viewport(
-            0,
-            0,
-            this.context.canvas.width,
-            this.context.canvas.height,
-        );
+        this.context.viewport(0, 0, this.context.canvas.width, this.context.canvas.height);
     } catch (error: any) {
         this.callbacks.onError(error);
     }
@@ -87,28 +76,15 @@ export function render(this: Context): void {
 
         const now = Date.now();
 
-        if (this.uniforms.initialDrawTime <= 0)
-            this.uniforms.initialDrawTime = now;
+        if (this.uniforms.initialDrawTime <= 0) this.uniforms.initialDrawTime = now;
 
         const iTime = (now - this.uniforms.initialDrawTime) * 0.001;
 
-        this.context.uniform3f(
-            this.pointers.iResolution,
-            this.context.canvas.width,
-            this.context.canvas.height,
-            1.0,
-        );
+        this.context.uniform3f(this.pointers.iResolution, this.context.canvas.width, this.context.canvas.height, 1.0);
         this.context.uniform1f(this.pointers.iSeed, this.uniforms.seed);
         this.context.uniform1f(this.pointers.iTime, iTime);
 
-        this.context.vertexAttribPointer(
-            this.pointers.vertexInPosition,
-            2,
-            this.context.FLOAT,
-            false,
-            0,
-            0,
-        );
+        this.context.vertexAttribPointer(this.pointers.vertexInPosition, 2, this.context.FLOAT, false, 0, 0);
         this.context.enableVertexAttribArray(this.pointers.vertexInPosition);
         this.context.drawArrays(this.context.TRIANGLES, 0, 6);
 

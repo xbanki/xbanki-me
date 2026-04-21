@@ -1,15 +1,10 @@
-/**
- * Palmer UI theme for Storybook.
- *
- *    @copyright Copyright (c) 2025, xbanki <contact@xbanki.me>
- *               Licensed under MIT License.
- *               See LICENSE for more details.
- *    @author    xbanki <contact@xbanki.me>
- *    @version   1.0.0
+/*
+ * Copyright (c) 2025-2026, xbanki <contact@xbanki.me>
+ * Licensed under MIT License.
+ * See LICENSE for more details.
  */
 
-import { create } from 'storybook/theming/create';
+import { create } from 'storybook/theming';
 
-export default create({
-  base: 'dark',
-});
+export const light = create({ base: 'light' });
+export const dark = create({ base: 'dark' });

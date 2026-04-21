@@ -5,26 +5,17 @@
 		"declaration": true,
 		"emitDeclarationOnly": true,
 		"esModuleInterop": true,
-		"lib": [
-			"ESNext"
-		],
+		"lib": ["ESNext"],
 		"module": "ESNext",
 		"moduleResolution": "Bundler",
 		"paths": {
-			"@/*": [
-				"./src/*"
-			]
+			"@/*": ["./src/*"]
 		},
 		"skipLibCheck": true,
 		"sourceMap": true,
-		"strict": true
+		"strict": true,
+		"target": "ES2022"
 	},
-	"exclude": [
-		"node_modules/*",
-		"dist/*"
-	],
-	"include": [
-		"src/**/*.json",
-		"src/**/*.ts"
-	]
+	"exclude": ["node_modules/*", "dist/*", ".turbo/*"],
+	"include": ["**/*.json", "**/*.ts"]
 }
