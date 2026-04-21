@@ -1,80 +1,96 @@
 <!--
- // Root component declaration.
- //
- //    Copyright: Copyright (c) 2025, xbanki <contact@xbanki.me>
- //               Licensed under MIT License.
- //               See LICENSE for more details.
- //    Author:    xbanki <contact@xbanki.me>
- //    Since:     1.0.0
- //    Version:   1.0.0
- //-->
+  - Copyright (c) 2025-2026, xbanki <contact@xbanki.me>
+  - Licensed under MIT License.
+  - See LICENSE for more details.
+  -->
 
 <template>
-  <!-- Teleport to bind the navbar on the UI layer. //-->
-  <Teleport to="main#xbanki-ui">
-    <!-- Navbar component root element. //-->
-    <nav>
-      <!-- Logo component. //-->
-      <ComponentLogo
-        v-on:click="handleClick"
-        v-bind:segments="segments"
-        v-on:stateChange="handleStateChange"
-      />
-    </nav>
-  </Teleport>
+    <!-- Teleport to bind the navbar on the UI layer. //-->
+    <Teleport to="main#xbanki-ui">
+        <!-- Navbar component root element. //-->
+        <nav>
+            <section class="group flex w-fit cursor-pointer items-center transition-colors">
+                <!-- Logo component. //-->
+                <ComponentMatrixReveal
+                    v-bind="props"
+                    v-on:click="handleClick"
+                    v-on:state-change="handleStateChange"
+                >
+                    <span
+                        v-bind:class="[
+                            segment.dimmed
+                                ? ['motion-safe:group-hover:text-gunmetal-500 text-gunmetal-400']
+                                : ['motion-safe:group-hover:text-gunmetal-300 text-gunmetal-200'],
+                            'text-3xl font-bold transition-colors select-none',
+                        ]"
+                        v-bind:key="rendered_segments.indexOf(segment)"
+                        v-for="segment in rendered_segments"
+                    >
+                        {{ segment.label }}
+                    </span>
+                </ComponentMatrixReveal>
+            </section>
+        </nav>
+    </Teleport>
 </template>
 
 <script lang="ts" setup>
-import { MatrixRevealState, ComponentLogo } from '@xbanki-me/ui';
-import { useRouter, useRoute } from 'vue-router';
-import { watch, ref } from 'vue';
+    import { ComponentMatrixReveal, MatrixRevealState } from '@xbanki-me/ui';
+    import { useRouter, useRoute } from 'vue-router';
+    import { computed, watch, ref } from 'vue';
 
-const state = ref(MatrixRevealState.INITIAL);
-const segments = ref<string[]>([]);
-const router = useRouter();
-const route = useRoute();
+    const rendered_segments = computed(() =>
+        segments.value
+            .map(label => ({ label: label.toLowerCase(), dimmed: false }))
+            .flatMap((segment, index, array) =>
+                array.length - 1 != index ? [segment, { label: '_', dimmed: true }] : [segment],
+            ),
+    );
 
-const queue: string[] = [];
+    const segments = ref(['xbanki', 'me']);
+    const state = ref(MatrixRevealState.INITIAL);
+    const router = useRouter();
+    const route = useRoute();
 
-function handleClick() {
-    const home = '/';
-    if (route.path != home) router.push(home);
-}
+    const queue: string[] = [];
+    const props = {
+        duration: 300,
+        cycles: 16,
+    };
 
-function handleStateChange(value: MatrixRevealState) {
-    switch (value) {
-        case MatrixRevealState.IDLE:
-            if (queue.length >= 1) updateSegments(queue.shift() as string);
+    function handleClick() {
+        const home = '/';
+        if (route.path != home) router.push(home);
     }
 
-    state.value = value;
-}
+    function handleStateChange(value: `${MatrixRevealState}` | MatrixRevealState) {
+        switch (value) {
+            case MatrixRevealState.IDLE:
+                if (queue.length >= 1) updateSegments(queue.shift() as string);
+        }
 
-function updateSegments(value: string) {
-    if (segments.value.length >= 1) {
-        if (segments.value.includes(value)) return;
-
-        segments.value.splice(0, segments.value.length);
+        state.value = value as MatrixRevealState;
     }
 
-    segments.value.push(value);
-}
+    function updateSegments(value: string) {
+        if (segments.value.length >= 1) {
+            if (segments.value.includes(value)) return;
 
-watch(
-    () => route.meta.label,
-    (value: any) => {
-        if (value != undefined && value != null && typeof value == 'string')
-            if (
-                ![
-                    MatrixRevealState.INITIAL,
-                    MatrixRevealState.IDLE,
-                ].includes(state.value)
-            )
-                queue.push(value);
-            else updateSegments(value);
-    },
-    {
-        immediate: true,
-    },
-);
+            segments.value.splice(0, segments.value.length);
+        }
+
+        segments.value.push(value);
+    }
+
+    watch(
+        () => route.meta.label,
+        (value: any) => {
+            if (value != undefined && typeof value == 'string')
+                if (![MatrixRevealState.INITIAL, MatrixRevealState.IDLE].includes(state.value)) queue.push(value);
+                else updateSegments(value);
+        },
+        {
+            immediate: true,
+        },
+    );
 </script>
