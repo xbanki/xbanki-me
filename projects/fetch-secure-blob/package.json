@@ -5,17 +5,23 @@
 		"dist"
 	],
 	"type": "module",
-	"main": "./dist/fetch-secure-blob.umd.cjs",
-	"module": "./dist/fetch-secure-blob.js",
+	"main": "./dist/library.cjs",
+	"module": "./dist/library.mjs",
+	"types": "./dist/library.d.cts",
 	"exports": {
 		".": {
-			"import": "./dist/fetch-secure-blob.js",
-			"require": "./dist/fetch-secure-blob.umd.cjs",
-			"types": "./dist/fetch-secure-blob.d.ts"
+			"import": {
+				"default": "./dist/library.mjs",
+				"types": "./dist/library.d.mts"
+			},
+			"require": {
+				"default": "./dist/library.cjs",
+				"types": "./dist/library.d.cts"
+			}
 		}
 	},
 	"scripts": {
-		"build": "vite build",
+		"build": "tsdown --minify --format esm --format cjs",
 		"format": "oxfmt",
 		"format:check": "oxfmt --check",
 		"lint": "oxlint",
@@ -31,12 +37,9 @@
 		"dotenv": "^17.4.2",
 		"oxfmt": "^0.46.0",
 		"oxlint": "^1.61.0",
-		"rollup-plugin-node-externals": "^9.0.1",
-		"terser": "^5.46.1",
 		"ts-deepmerge": "^7.0.3",
-		"typescript": "^6.0.3",
-		"vite": "^8.0.9",
-		"vite-plugin-dts": "^4.5.4"
+		"tsdown": "^0.21.9",
+		"typescript": "^6.0.3"
 	},
 	"packageManager": "yarn@4.9.2"
 }
