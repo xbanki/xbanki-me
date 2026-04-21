@@ -16,10 +16,10 @@
 		"tidy": "corepack yarn run format && corepack yarn run lint:fix"
 	},
 	"devDependencies": {
-		"oxfmt": "^0.44.0",
-		"oxlint": "^1.59.0",
+		"oxfmt": "^0.46.0",
+		"oxlint": "^1.61.0",
 		"ts-deepmerge": "^7.0.3",
-		"typescript": "^6.0.2"
+		"typescript": "^6.0.3"
 	},
 	"packageManager": "yarn@4.9.2"
 }
