@@ -10,7 +10,7 @@ import preview from '~/preview.js';
 import { ref } from 'vue';
 
 /**
- * [Source Code](https://github.com/xbanki/xbanki-me/tree/main/projects/ui/src/matrix-reveal.vue)
+ * [Source Code](https://github.com/xbanki/xbanki-me/tree/main/projects/ui/src/matrix-reveal/component.vue)
  *
  * # Overview
  *
