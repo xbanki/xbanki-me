@@ -1,25 +1,10 @@
-/**
- *   @xbanki-me/fetch-secure-blob
- *
- * This plugin runs during Rollup’s `configResolved` step, where it retrieves
- * the list of blob fragments from the specified store using either a provided
- * list or a matching glob pattern.
- *
- * Effectively providing ghetto code generation capabilities.
- *
- *    @copyright Copyright (c) 2025, xbanki <contact@xbanki.me>
- *               Licensed under MIT License.
- *               See LICENSE for more details.
- *    @author    xbanki <contact@xbanki.me>
- *    @since     1.0.0
- *    @version   1.2.0
+/*
+ * Copyright (c) 2025-2026, xbanki <contact@xbanki.me>
+ * Licensed under MIT License.
+ * See LICENSE for more details.
  */
 
-import type {
-    MinimalPluginContextWithoutEnvironment,
-    ResolvedConfig,
-    Plugin,
-} from 'vite';
+import type { MinimalPluginContextWithoutEnvironment, ResolvedConfig, Plugin } from 'vite';
 
 import {
     BlobClientTokenExpiredError,
@@ -53,8 +38,9 @@ import messages from '@/messages.json';
 
 /**
  * Formats a message, intended for logging.
+ *
  * @param message Formattable message.
- * @return        Formatted message.
+ * @returns Formatted message.
  */
 function msg(message: string): string {
     return `${messages.prefix} ${message}.`;
@@ -62,9 +48,10 @@ function msg(message: string): string {
 
 /**
  * Resolves all necessary configuration properties.
- * @param  config  Resolved Vite config.
- * @param  options User-defined plugin options.
- * @return Resolved plugin options.
+ *
+ * @param config Resolved Vite config.
+ * @param options User-defined plugin options.
+ * @returns Resolved plugin options.
  */
 function resolveOptions(config: ResolvedConfig, options: Options): IOptions {
     return {
@@ -78,13 +65,11 @@ function resolveOptions(config: ResolvedConfig, options: Options): IOptions {
 
 /**
  * Logs remote (Vercel) related errors.
- * @param  context Plugin context.
- * @param  error   Error which to log.
+ *
+ * @param context Plugin context.
+ * @param error Error which to log.
  */
-function handleRemoteError(
-    context: MinimalPluginContextWithoutEnvironment,
-    error: BlobError,
-) {
+function handleRemoteError(context: MinimalPluginContextWithoutEnvironment, error: BlobError) {
     switch (true) {
         case error instanceof BlobClientTokenExpiredError:
             context.error({
@@ -143,8 +128,9 @@ function handleRemoteError(
  * Determines wether on-disk caching is available, based on if the supplied
  * cache directory is a valid writeable directory, and or if we're *not* in a
  * CI context.
- * @param  path Path which to check writeability for.
- * @return      If we can write cache to disk or not.
+ *
+ * @param path Path which to check writeability for.
+ * @returns If we can write cache to disk or not.
  */
 async function determineCacheAvailability(path: string): Promise<boolean> {
     if (isCI || !(await ensureDirectory(path))) return false;
@@ -155,15 +141,13 @@ async function determineCacheAvailability(path: string): Promise<boolean> {
 /**
  * Discriminates the available blobs based on input criteria, returning the
  * names of blobs that pass the test(s).
- * @param  names Names of available blobs.
- * @param  input Input criteria.
- * @return       List of blob names that match input criteria, and any criteria
- *               who found no matches.
+ *
+ * @param names Names of available blobs.
+ * @param input Input criteria.
+ * @returns List of blob names that match input criteria, and any criteria
+ * who found no matches.
  */
-function discriminateTargetBlobs(
-    names: string[],
-    input: BlobInput,
-): IDiscriminationResult {
+function discriminateTargetBlobs(names: string[], input: BlobInput): IDiscriminationResult {
     const matching_criteria: (RegExp | string)[] = [];
     const result: IDiscriminationResult = {
         matches: [],
@@ -174,32 +158,27 @@ function discriminateTargetBlobs(
             if (discriminator instanceof RegExp)
                 for (const target of names) {
                     if (discriminator.test(target)) result.matches.push(target);
-                    if (!matching_criteria.includes(discriminator))
-                        matching_criteria.push(discriminator);
+                    if (!matching_criteria.includes(discriminator)) matching_criteria.push(discriminator);
                 }
             else
                 for (const target of names) {
                     if (discriminator == target) result.matches.push(target);
-                    if (!matching_criteria.includes(discriminator))
-                        matching_criteria.push(discriminator);
+                    if (!matching_criteria.includes(discriminator)) matching_criteria.push(discriminator);
                 }
         }
 
         for (const discriminator of input)
-            if (!matching_criteria.includes(discriminator))
-                result.misses.push(discriminator);
+            if (!matching_criteria.includes(discriminator)) result.misses.push(discriminator);
     } else {
         if (input instanceof RegExp)
             for (const target of names) {
                 if (input.test(target)) result.matches.push(target);
-                if (!matching_criteria.includes(input))
-                    matching_criteria.push(input);
+                if (!matching_criteria.includes(input)) matching_criteria.push(input);
             }
         else
             for (const target of names) {
                 if (target == input) result.matches.push(target);
-                if (!matching_criteria.includes(input))
-                    matching_criteria.push(input);
+                if (!matching_criteria.includes(input)) matching_criteria.push(input);
             }
 
         if (!matching_criteria.includes(input)) result.misses.push(input);
@@ -211,9 +190,10 @@ function discriminateTargetBlobs(
  * Ensure's a directory exists by first checking that the given `path` variable
  * points to an actual directory. If the `path` variable points to a path that
  * does not exist, the directory is then created at that path.
- * @param  path Path which to ensure directory's existence.
- * @return           Returns `true` if the directory exists or was created,
- *                   `false` if it's a file or could not be created.
+ *
+ * @param path Path which to ensure directory's existence.
+ * @returns Returns `true` if the directory exists or was created,
+ * `false` if it's a file or could not be created.
  */
 async function ensureDirectory(path: string): Promise<boolean> {
     try {
@@ -232,8 +212,9 @@ async function ensureDirectory(path: string): Promise<boolean> {
 
 /**
  * Checks wether a file exists.
- * @param  path Path for file, including the name.
- * @return File's existence status.
+ *
+ * @param path Path for file, including the name.
+ * @returns File's existence status.
  */
 async function checkFile(path: string): Promise<boolean> {
     try {
@@ -250,8 +231,9 @@ async function checkFile(path: string): Promise<boolean> {
 /**
  * Reads cached state from disk, if caching is enabled. If it is disabled,
  * or does not exist on disk, new state is created.
- * @param  path      Path, including filename, where cache state is located.
- * @return           Cache state.
+ *
+ * @param path Path, including filename, where cache state is located.
+ * @returns Cache state.
  */
 async function readCacheState(path: string, ttl: number): Promise<ICacheState> {
     if (await checkFile(path)) {
@@ -265,16 +247,13 @@ async function readCacheState(path: string, ttl: number): Promise<ICacheState> {
 
 /**
  * Gets a list of downloadable blobs from given Vercel blob storage.
- * @param  context Plugin context, for logging purposes.
- * @param  token   Vercel blob storage access token.
- * @param  cursor  Request cursor for blob storage. Should not be manually set.
- * @return         Array of downloadable blobs (name & url)
+ *
+ * @param context Plugin context, for logging purposes.
+ * @param token Vercel blob storage access token.
+ * @param cursor Request cursor for blob storage. Should not be manually set.
+ * @returns Array of downloadable blobs (name & url)
  */
-async function fetchRemoteBlobList(
-    context: MinimalPluginContextWithoutEnvironment,
-    token: string,
-    cursor?: string,
-) {
+async function fetchRemoteBlobList(context: MinimalPluginContextWithoutEnvironment, token: string, cursor?: string) {
     const result: ICacheStateBlob[] = [];
     try {
         const response = await list({
@@ -288,10 +267,7 @@ async function fetchRemoteBlobList(
                 url: blob.url,
             });
 
-        if (response.hasMore)
-            result.push(
-                ...(await fetchRemoteBlobList(context, token, response.cursor)),
-            );
+        if (response.hasMore) result.push(...(await fetchRemoteBlobList(context, token, response.cursor)));
     } catch (err) {
         if (err instanceof BlobError) {
             handleRemoteError(context, err);
@@ -307,12 +283,13 @@ async function fetchRemoteBlobList(
 /**
  * Creates & fetches new remote blob state, which gets automatically populated
  * with state based on what's written in the cache (if aplicable).
- * @param  context    Plugin context, used for logging.
- * @param  writeable  Wether we can write cache to disk.
- * @param  cache_path Path where cache gets written to.
- * @param  token      Vercel blob store access token.
- * @param  ttl        Time-to-live for how long cache is valid for.
- * @return            Up-to-date blob state.
+ *
+ * @param context Plugin context, used for logging.
+ * @param writeable Wether we can write cache to disk.
+ * @param cache_path Path where cache gets written to.
+ * @param token Vercel blob store access token.
+ * @param ttl Time-to-live for how long cache is valid for.
+ * @returns Up-to-date blob state.
  */
 async function fetchNewState(
     context: MinimalPluginContextWithoutEnvironment,
@@ -371,8 +348,9 @@ async function fetchNewState(
 
 /**
  * Fetches a remote blob from target URL, writing the contents to given path.
- * @param  url  Blob URL.
- * @param  path Path where to write the final data.
+ *
+ * @param url Blob URL.
+ * @param path Path where to write the final data.
  */
 async function fetchRemoteBlob(url: string, path: string): Promise<void> {
     const response = await fetch(url);
@@ -386,55 +364,35 @@ async function fetchRemoteBlob(url: string, path: string): Promise<void> {
 
 /**
  * A plugin designed to securely fetch blobs (files) from Vercel-hosted Blob Storage.
- * @param  options Parameters for how and where the blobs are fetched.
- * @return         Vite plugin.
+ *
+ * @param options Parameters for how and where the blobs are fetched.
+ * @returns Vite plugin.
  */
 export default function fetchSecureBlobs(options?: Options): Plugin {
     return {
         async configResolved(config) {
             const opts = resolveOptions(config, options ?? {});
-            if (!(opts.input instanceof RegExp) && opts.input.length <= 0)
-                return;
+            if (!(opts.input instanceof RegExp) && opts.input.length <= 0) return;
 
-            const cache_writeable = await determineCacheAvailability(
-                opts.cache,
-            );
+            const cache_writeable = await determineCacheAvailability(opts.cache);
             let cache_state: ICacheState | null = null;
             if (cache_writeable) {
                 this.info({
                     message: msg(messages.info.reading_cache_file.message),
                     code: messages.info.reading_cache_file.code,
                 });
-                cache_state = await readCacheState(
-                    path.join(opts.cache, CACHE_FILE_NAME),
-                    opts.ttl,
-                )
+                cache_state = await readCacheState(path.join(opts.cache, CACHE_FILE_NAME), opts.ttl)
                     .then(state => state)
                     .catch(_ =>
-                        fetchNewState(
-                            this,
-                            cache_writeable,
-                            opts.cache,
-                            opts.token,
-                            opts.ttl,
-                        ).then(data => {
+                        fetchNewState(this, cache_writeable, opts.cache, opts.token, opts.ttl).then(data => {
                             this.info({
-                                message: msg(
-                                    messages.info.writing_cache_file.message,
-                                ),
+                                message: msg(messages.info.writing_cache_file.message),
                                 code: messages.info.writing_cache_file.code,
                             });
-                            fs.writeFile(
-                                path.join(opts.cache, CACHE_FILE_NAME),
-                                JSON.stringify(data),
-                            ).catch(_ =>
+                            fs.writeFile(path.join(opts.cache, CACHE_FILE_NAME), JSON.stringify(data)).catch(_ =>
                                 this.warn({
-                                    message: msg(
-                                        messages.warnings.failed_writing_to_disk
-                                            .message,
-                                    ),
-                                    code: messages.warnings
-                                        .failed_writing_to_disk.code,
+                                    message: msg(messages.warnings.failed_writing_to_disk.message),
+                                    code: messages.warnings.failed_writing_to_disk.code,
                                 }),
                             );
                             return data;
@@ -442,17 +400,8 @@ export default function fetchSecureBlobs(options?: Options): Plugin {
                     );
             }
             if (!cache_state)
-                cache_state = await fetchNewState(
-                    this,
-                    cache_writeable,
-                    opts.cache,
-                    opts.token,
-                    opts.ttl,
-                );
-            const targets = discriminateTargetBlobs(
-                cache_state.blobs_names,
-                opts.input,
-            );
+                cache_state = await fetchNewState(this, cache_writeable, opts.cache, opts.token, opts.ttl);
+            const targets = discriminateTargetBlobs(cache_state.blobs_names, opts.input);
             if (targets.matches.length == 0) {
                 this.warn({
                     message: msg(messages.warnings.no_matches_found.message),
@@ -473,42 +422,27 @@ export default function fetchSecureBlobs(options?: Options): Plugin {
             for (const fragment of targets.matches) {
                 if (!(fragment in cache_state.blobs_data))
                     this.error({
-                        message: msg(
-                            `${messages.errors.blob_data_missing.message}${fragment}`,
-                        ),
+                        message: msg(`${messages.errors.blob_data_missing.message}${fragment}`),
                         code: messages.errors.blob_data_missing.code,
                     });
 
                 const target = cache_state.blobs_data[fragment];
                 if (cache_writeable && !target.cached) {
                     this.info({
-                        message: msg(
-                            `${messages.info.fetching_blob.message}${target.name}..`,
-                        ),
+                        message: msg(`${messages.info.fetching_blob.message}${target.name}..`),
                         code: messages.info.fetching_blob.code,
                     });
                     const target_path = path.join(opts.cache, target.name);
                     await fetchRemoteBlob(target.url, target_path);
-                    await fs.copyFile(
-                        target_path,
-                        path.join(opts.output, target.name),
-                    );
+                    await fs.copyFile(target_path, path.join(opts.output, target.name));
                     if (!cache_needs_writing) cache_needs_writing = true;
                     target.path = target_path;
                     target.cached = true;
-                } else if (
-                    !(await checkFile(path.join(opts.output, target.name)))
-                )
-                    await fetchRemoteBlob(
-                        target.url,
-                        path.join(opts.output, target.name),
-                    );
+                } else if (!(await checkFile(path.join(opts.output, target.name))))
+                    await fetchRemoteBlob(target.url, path.join(opts.output, target.name));
 
                 if (cache_writeable && cache_needs_writing)
-                    await fs.writeFile(
-                        path.join(opts.cache, CACHE_FILE_NAME),
-                        JSON.stringify(cache_state),
-                    );
+                    await fs.writeFile(path.join(opts.cache, CACHE_FILE_NAME), JSON.stringify(cache_state));
             }
         },
         name: PLUGIN_NAME,

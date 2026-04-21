@@ -1,15 +1,8 @@
-/**
- * Miscellaneous type declarations required by the plugin.
- *
- *    @copyright Copyright (c) 2025, xbanki <contact@xbanki.me>
- *               Licensed under MIT License.
- *               See LICENSE for more details.
- *    @author    xbanki <contact@xbanki.me>
- *    @since     1.0.0
- *    @version   1.2.0
+/*
+ * Copyright (c) 2025-2026, xbanki <contact@xbanki.me>
+ * Licensed under MIT License.
+ * See LICENSE for more details.
  */
-
-import type { ResolvedConfig } from 'vite';
 
 /**
  * Partial un-cached blob type.
@@ -57,21 +50,24 @@ export interface IOptionsDirectories {}
 export interface IOptions {
     /**
      * Blob fragment output directory.
+     *
      * @default ResolvedConfig.root
-     * @see     ResolvedConfig
+     * @see ResolvedConfig
      */
     output: string;
 
     /**
      * Directory where downloaded fragments are cached, along with necessary
      * metadata.
+     *
      * @default ResolvedConfig.cacheDir
-     * @see     ResolvedConfig
+     * @see ResolvedConfig
      */
     cache: string;
 
     /**
      * Vercel blob storage access token.
+     *
      * @default process.env.BLOB_READ_WRITE_TOKEN
      */
     token: string;
@@ -83,6 +79,7 @@ export interface IOptions {
 
     /**
      * Length of time that local cache is valid.
+     *
      * @default 24 * 60 * 1000 // 24 hours.
      */
     ttl: number;
