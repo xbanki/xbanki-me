@@ -279,7 +279,7 @@ function createIntersectionHook(element: ShallowRef<HTMLElement>, state: Ref<boo
  * @param fn - Callback to execute after loading is complete.
  */
 function createLoadHook(delay: number, fn: () => void) {
-    if (document.readyState != 'loading') {
+    if (document.readyState == 'loading') {
         const listener = () => {
             setTimeout(fn, delay + DEFAULT_LOAD_THROTTLE);
             document.removeEventListener('DOMContentLoaded', listener);
