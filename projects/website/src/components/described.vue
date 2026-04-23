@@ -15,29 +15,51 @@
     <!--                                                                                                             -->
     <!-- The effect is scroll driven, which is to say depending on the scroll position, the description box may be   -->
     <!-- more or less faded out depending on the scroll position.                                                    -->
-    <div
-        class="sticky top-0 h-fit w-fit"
+    <component
+        v-bind:is="typeof props.element != 'string' ? props.element.title : props.element"
+        v-bind:class="[props.stylesTitle, 'sticky top-0 h-fit w-fit']"
         ref="v-described-title"
     >
         <slot name="title" />
-    </div>
+    </component>
     <!-- Opacity transitioned "description" element. This element is constrained to it's parent's bounding box     //-->
     <!-- via relative positioning.                                                                                 //-->
-    <div
-        class="w-fit duration-150"
+    <component
+        v-bind:is="typeof props.element != 'string' ? props.element.content : props.element"
+        v-bind:class="[props.stylesContent, 'w-fit duration-150']"
         ref="v-described-content"
         v-bind:style="style"
     >
         <slot name="default" />
-    </div>
+    </component>
 </template>
 
 <script lang="ts" setup>
-    import { useTemplateRef, onUnmounted, onMounted, computed, ref } from 'vue';
+    import { useTemplateRef, defineProps, onUnmounted, onMounted, computed, ref } from 'vue';
+
+    /**
+     * Described component properties.
+     */
+    interface IProps<T = keyof HTMLElementTagNameMap> {
+        /**
+         * Styles (classes) that will be applied to the "content" or "description" encapsulating element.
+         */
+        stylesContent: string[] | string;
+
+        /**
+         * Styles (classes) that will be applied to the "title" encapsulating element.
+         */
+        stylesTitle: string[] | string;
+
+        /**
+         * The type of element to use.
+         */
+        element: { content: T; title: T } | T;
+    }
 
     const style = computed(() => ({ opacity: `${overlap.value}%` }));
-    const content = useTemplateRef('v-described-content');
-    const title = useTemplateRef('v-described-title');
+    const content = useTemplateRef<HTMLElement>('v-described-content');
+    const title = useTemplateRef<HTMLElement>('v-described-title');
     const overlap = ref(100);
 
     const SIZE_THRESHOLD_RANGE_MAX = 120;
@@ -45,6 +67,14 @@
     const SIZE_SCALE_THRESHOLD = 0.1;
 
     let position_active = false;
+
+    const props = withDefaults(defineProps<Partial<IProps>>(), {
+        // @ts-ignore
+        stylesContent: [],
+        // @ts-ignore
+        stylesTitle: [],
+        element: 'div',
+    });
 
     /**
      * Calculates the overlap of two HTML elements that are axis-aligned, returning an approximate "overlap amount" that
@@ -63,7 +93,7 @@
             bounds_content.left > bounds_title.right ||
             bounds_title.left > bounds_content.right
         )
-            return 1;
+            return 100;
 
         const t = Math.min(
             1,

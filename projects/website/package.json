@@ -5,7 +5,7 @@
 	"main": "./src/main.ts",
 	"scripts": {
 		"build": "vue-tsc --noEmit && vite build",
-		"dev": "vite",
+		"dev": "vite --host",
 		"format": "oxfmt",
 		"format:check": "oxfmt --check",
 		"lint": "oxlint",
