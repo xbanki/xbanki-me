@@ -5,14 +5,14 @@
   -->
 
 <template>
-    <div class="flex w-fit flex-col h-svh">
+    <div class="flex h-svh w-fit flex-col">
         <ComponentDescribed styles-content="my-auto md:mt-auto md:mb-0">
             <template v-slot:title>
-                <LogoLogo class="pt-8 mb-8" />
+                <LogoLogo class="mb-8 pt-8" />
             </template>
             <div
                 ref="el"
-                class="text-gunmetal-100 font-mono font-bold tracking-tight post-title font-block opacity-0 mb-8 text-center md:text-left"
+                class="text-gunmetal-100 post-title font-block mb-8 text-center font-mono font-bold tracking-tight opacity-0 md:text-left"
             >
                 <Transition
                     mode="out-in"
@@ -22,9 +22,7 @@
                     leave-to-class="translate-y-1 opacity-0"
                     v-bind:duration="150"
                 >
-                    <h2
-                        v-bind:key="description_upper"
-                    >
+                    <h2 v-bind:key="description_upper">
                         {{ description_upper }}
                     </h2>
                 </Transition>
@@ -36,9 +34,7 @@
                     leave-to-class="translate-y-1 opacity-0"
                     v-bind:duration="150"
                 >
-                    <h2
-                        v-bind:key="description_lower"
-                    >
+                    <h2 v-bind:key="description_lower">
                         {{ description_lower }}
                     </h2>
                 </Transition>

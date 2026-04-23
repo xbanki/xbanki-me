@@ -9,9 +9,9 @@
     <TopoTopo />
 
     <!-- Main application context. //-->
-    <main class="min-h-full container flex-col mx-auto flex">
-        <RouterView/>
-        <ComponentFooter/>
+    <main class="container mx-auto flex min-h-full flex-col">
+        <RouterView />
+        <ComponentFooter />
     </main>
 </template>
 

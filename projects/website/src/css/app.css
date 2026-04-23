@@ -8,6 +8,6 @@
 @import '@xbanki-me/ui/tailwind';
 
 .post-title {
-    font-size: clamp(2rem,6vw + .25rem,3.25rem);
-    line-height: 1.1;
+  font-size: clamp(2rem, 6vw + 0.25rem, 3.25rem);
+  line-height: 1.1;
 }
