@@ -35,7 +35,7 @@
 </template>
 
 <script lang="ts" setup>
-    import { useTemplateRef, defineProps, onUnmounted, onMounted, computed, ref } from 'vue';
+    import { useTemplateRef, onUnmounted, onMounted, computed, ref } from 'vue';
 
     /**
      * Described component properties.
