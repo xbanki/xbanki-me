@@ -5,14 +5,17 @@
   -->
 
 <template>
-    <div class="flex h-svh w-fit flex-col">
-        <ComponentDescribed styles-content="my-auto md:mt-auto md:mb-0">
+    <div class="flex h-svh w-full flex-col">
+        <ComponentDescribed styles-content="m-auto md:mx-0 md:mt-auto md:mb-0">
             <template v-slot:title>
                 <LogoLogo class="mb-8 pt-8" />
             </template>
             <div
                 ref="el"
-                class="text-gunmetal-100 post-title font-block mb-8 text-center font-mono font-bold tracking-tight opacity-0 md:text-left"
+                v-bind:class="[
+                    'text-gunmetal-100 post-title font-block md:mx-none mb-8 text-center font-mono',
+                    'font-bold tracking-tight opacity-0 md:text-left',
+                ]"
             >
                 <Transition
                     mode="out-in"

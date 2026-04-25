@@ -5,11 +5,13 @@
   -->
 
 <template>
+    <ComponentTopo />
     <main class="h-fit w-full">
-        <LogoLandingLogoLanding />
+        <ComponentLogoLanding />
     </main>
 </template>
 
 <script lang="ts" setup>
-    import LogoLandingLogoLanding from '@/components/logo-landing.vue';
+    import ComponentLogoLanding from '@/components/logo-landing.vue';
+    import ComponentTopo from '@/components/topo.vue';
 </script>

@@ -5,8 +5,7 @@
   -->
 
 <template>
-    <NavbarNavbar />
-    <TopoTopo />
+    <ComponentNavbar />
 
     <!-- Main application context. //-->
     <main class="container mx-auto flex min-h-full flex-col">
@@ -16,11 +15,6 @@
 </template>
 
 <script setup lang="ts">
-    import { useRouter } from 'vue-router';
-
-    import NavbarNavbar from '@/components/navbar.vue';
-    import TopoTopo from '@/components/topo.vue';
+    import ComponentNavbar from '@/components/navbar.vue';
     import ComponentFooter from '@/components/footer.vue';
-
-    const router = useRouter();
 </script>

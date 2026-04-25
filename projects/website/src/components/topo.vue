@@ -6,10 +6,10 @@
 
 <template>
     <Teleport to="body">
-        <div class="bg-gunmetal-900 border-gunmetal-500 absolute top-0 -z-10 h-svh w-full border-b-2">
+        <div class="bg-gunmetal-900 border-gunmetal-700 absolute top-0 -z-10 h-svh w-full border-b">
             <canvas
                 v-bind:class="[
-                    'border-gunmetal-500 h-svh border-b-2 transition-opacity duration-1200 md:h-screen',
+                    'border-gunmetal-700 h-svh border-b transition-opacity duration-1200 md:h-screen',
                     render ? 'opacity-100' : 'opacity-0',
                 ]"
                 v-if="initialized"
