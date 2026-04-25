@@ -333,7 +333,7 @@ export function useReveal(options?: DeepPartial<IOptions>) {
     });
 
     onMounted(() => {
-        if (!el.value) return;
+        if (!el.value || !(el.value instanceof HTMLElement)) return;
 
         switch (opts.hook) {
             case EHook.INTERSECT:

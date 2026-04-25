@@ -246,10 +246,12 @@
                       else internal_state.value.queue.push(EInternalEvent.VISIBILITY_HIDDEN);
                       triggerRef(internal_state);
                   },
+                  delay: 450,
                   once: true,
               }
             : {
                   onLoad: () => internal_state.value.queue.push(EInternalEvent.VISIBILITY_VISIBLE),
+                  delay: 450,
                   once: true,
               },
     );

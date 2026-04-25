@@ -1,40 +1,34 @@
 <!--
-  - Copyright (c) 2025-2026, xbanki <contact@xbanki.me>
+  - Copyright (c) 2026, xbanki <contact@xbanki.me>
   - Licensed under MIT License.
   - See LICENSE for more details.
   -->
 
 <template>
-    <!-- Teleport to bind the navbar on the UI layer. //-->
-    <Teleport to="main#xbanki-ui">
-        <!-- Navbar component root element. //-->
-        <nav>
-            <section class="group flex w-fit cursor-pointer items-center transition-colors">
-                <!-- Logo component. //-->
-                <ComponentMatrixReveal
-                    v-bind="props"
-                    v-on:click="handleClick"
-                    v-on:state-change="handleStateChange"
-                >
-                    <span
-                        v-bind:class="[
-                            segment.dimmed
-                                ? ['motion-safe:group-hover:text-gunmetal-500 text-gunmetal-400']
-                                : ['motion-safe:group-hover:text-gunmetal-300 text-gunmetal-200'],
-                            'text-3xl font-bold transition-colors select-none',
-                        ]"
-                        v-bind:key="rendered_segments.indexOf(segment)"
-                        v-for="segment in rendered_segments"
-                    >
-                        {{ segment.label }}
-                    </span>
-                </ComponentMatrixReveal>
-            </section>
-        </nav>
-    </Teleport>
+    <section class="group flex w-fit cursor-pointer items-center tracking-tight transition-colors">
+        <!-- Logo component. //-->
+        <ComponentMatrixReveal
+            v-bind="props"
+            v-on:click="handleClick"
+            v-on:state-change="handleStateChange"
+        >
+            <span
+                v-bind:class="[
+                    segment.dimmed
+                        ? ['motion-safe:group-hover:text-gunmetal-500 text-gunmetal-400']
+                        : ['motion-safe:group-hover:text-gunmetal-200 text-gunmetal-100'],
+                    'small:text-3xl text-2xl font-bold transition-colors select-none',
+                ]"
+                v-bind:key="rendered_segments.indexOf(segment)"
+                v-for="segment in rendered_segments"
+            >
+                {{ segment.label }}
+            </span>
+        </ComponentMatrixReveal>
+    </section>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
     import { ComponentMatrixReveal, MatrixRevealState } from '@xbanki-me/ui';
     import { useRouter, useRoute } from 'vue-router';
     import { computed, watch, ref } from 'vue';

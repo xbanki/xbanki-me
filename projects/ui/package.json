@@ -7,6 +7,7 @@
 	"type": "module",
 	"main": "./dist/lib/xbanki-me-ui.umd.cjs",
 	"module": "./dist/lib/xbanki-me-ui.js",
+	"types": "./dist/lib/xbanki-me-ui.d.ts",
 	"imports": {
 		"~/": [
 			"./.storybook/*"

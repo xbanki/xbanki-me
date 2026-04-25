@@ -1,31 +1,52 @@
-<!DOCTYPE html>
-<!-- .................................................................... //-->
-<!-- . Hey! I see you're trying to inspect this sites code. ............. //-->
-<!-- . Good thing it's open source! - Banki :) .......................... //-->
-<!-- . https//github.com/xbanki/xbanki-me.git ........................... //-->
-<!-- .................................................................... //-->
-<!-- . Copyright: Copyright (c) 2025, xbanki <contact@xbanki.me> ........ //-->
-<!-- ............ Licensed under MIT License. ........................... //-->
-<!-- ............ See LICENSE for more details. ......................... //-->
-<!-- . Author: .. xbanki <contact@xbanki.me> ............................ //-->
-<!-- . Since: ... 1.0.0 ................................................. //-->
-<!-- . Version: . 1.0.0 ................................................. //-->
-<!-- .................................................................... //-->
+<!--
+  ~ Copyright (c) 2026, xbanki <contact@xbanki.me>
+  ~ Licensed under MIT License.
+  ~ See LICENSE for more details.
+  -->
 
-<html lang="en" class="*:box-border bg-black w-full h-full">
-    <head>
-        <meta charset="UTF-8" />
-        <link rel="icon" href="/favicon.ico" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>xbanki.me</title>
-    </head>
-    <body class="relative w-full h-full lg:p-12 p-8">
+<!doctype html>
 
-        <!-- Overlay user interface teleport point. //-->
-        <main id="xbanki-ui" class="*:pointer-events-auto pointer-events-none w-full h-full fixed z-10"></main>
+<html
+  lang="en"
+  class="bg-gunmetal-900 h-full w-full text-base *:box-border"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="icon"
+      href="/favicon.ico"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <style>
+      /*
+       * TODO: (xbanki) Match the light theme background.
+       */
+      @media (prefers-color-scheme: dark) {
+        html {
+          background-color: #02050a;
+        }
+      }
+    </style>
+    <title>xbanki.me</title>
+  </head>
+  <body class="text-gunmetal-300 relative h-full w-full">
+    <!-- Overlay user interface teleport point. //-->
+    <main
+      id="xbanki-ui"
+      class="pointer-events-none fixed z-10 h-full w-full *:pointer-events-auto"
+    ></main>
 
-        <!-- Application content mounting point. //-->
-        <main id="xbanki-application" class="w-full h-full z-0"></main>
-        <script type="module" src="/src/main.ts"></script>
-    </body>
+    <!-- Application content mounting point. //-->
+    <main
+      id="xbanki-application"
+      class="z-0 h-full w-full px-3"
+    ></main>
+    <script
+      type="module"
+      src="/src/main.ts"
+    ></script>
+  </body>
 </html>

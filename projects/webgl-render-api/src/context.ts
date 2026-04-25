@@ -29,6 +29,20 @@ import { resize, render, reset, shade, stop } from '@/methods.ts';
 import { validateOrCreateCanvas, createWebGLProgram, compileShader, clampSeedBounded } from '@/utils.ts';
 import { GLError } from '@/errors.ts';
 
+import { merge } from 'ts-deepmerge';
+
+type DeepPartial<T> = T extends Function
+    ? T
+    : T extends Map<infer K, infer V>
+      ? Map<DeepPartial<K>, DeepPartial<V>>
+      : T extends Set<infer U>
+        ? Set<DeepPartial<U>>
+        : T extends Array<infer U>
+          ? Array<DeepPartial<U>>
+          : T extends object
+            ? { [K in keyof T]?: DeepPartial<T[K]> }
+            : T;
+
 /**
  * Initializes a WebGL context inside the supplied render element using
  * supplied options.
@@ -43,11 +57,9 @@ import { GLError } from '@/errors.ts';
  *   Is merged with the default options.
  * @returns Initialized context.
  */
-function initializeContext(element: Element, options?: Options): Context {
-    const opts = {
-        ...DEFAULT_OPTIONS_PROPERTIES,
-        ...options,
-    };
+function initializeContext(element: Element, options?: DeepPartial<Options>): Context {
+    // @ts-expect-error FIXME (xbanki): Rework later.
+    const opts: Options = merge(DEFAULT_OPTIONS_PROPERTIES, options ?? {});
 
     const canvas = validateOrCreateCanvas(element, opts.canvas.styles);
     const context = canvas.getContext('webgl2', opts.shader);
