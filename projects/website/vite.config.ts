@@ -8,12 +8,17 @@ import { createHtmlPlugin } from 'vite-plugin-html';
 import { resolve, join } from 'node:path';
 import { defineConfig } from 'vite';
 
+import createMarkdownPlugin from 'unplugin-vue-markdown/vite';
 import createTailwindPlugin from '@tailwindcss/vite';
 import createVuePlugin from '@vitejs/plugin-vue';
-import createMDXPlugin from '@mdx-js/rollup';
 
 export default defineConfig({
-    plugins: [createTailwindPlugin(), createHtmlPlugin(), createMDXPlugin(), createVuePlugin()],
+    plugins: [
+        createMarkdownPlugin({}),
+        createTailwindPlugin(),
+        createHtmlPlugin(),
+        createVuePlugin({ include: [/\.vue$/, /\.md$/] }),
+    ],
     resolve: {
         alias: {
             '@': resolve(join(process.cwd(), 'src/')),
