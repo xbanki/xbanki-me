@@ -5,6 +5,70 @@
  */
 
 @font-face {
+  font-family: 'JetBrains Mono';
+  src: url('fonts/JetBrainsMono-Bold.eot');
+  src:
+    local('JetBrains Mono Bold'),
+    local('JetBrainsMono-Bold'),
+    url('fonts/JetBrainsMono-Bold.eot?#iefix') format('embedded-opentype'),
+    url('fonts/JetBrainsMono-Bold.woff2') format('woff2'),
+    url('fonts/JetBrainsMono-Bold.woff') format('woff'),
+    url('fonts/JetBrainsMono-Bold.ttf') format('truetype'),
+    url('fonts/JetBrainsMono-Bold.svg#JetBrainsMono-Bold') format('svg');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('fonts/JetBrainsMono-BoldItalic.eot');
+  src:
+    local('JetBrains Mono Bold Italic'),
+    local('JetBrainsMono-BoldItalic'),
+    url('fonts/JetBrainsMono-BoldItalic.eot?#iefix') format('embedded-opentype'),
+    url('fonts/JetBrainsMono-BoldItalic.woff2') format('woff2'),
+    url('fonts/JetBrainsMono-BoldItalic.woff') format('woff'),
+    url('fonts/JetBrainsMono-BoldItalic.ttf') format('truetype'),
+    url('fonts/JetBrainsMono-BoldItalic.svg#JetBrainsMono-BoldItalic') format('svg');
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('fonts/JetBrainsMono-Italic.eot');
+  src:
+    local('JetBrains Mono Italic'),
+    local('JetBrainsMono-Italic'),
+    url('fonts/JetBrainsMono-Italic.eot?#iefix') format('embedded-opentype'),
+    url('fonts/JetBrainsMono-Italic.woff2') format('woff2'),
+    url('fonts/JetBrainsMono-Italic.woff') format('woff'),
+    url('fonts/JetBrainsMono-Italic.ttf') format('truetype'),
+    url('fonts/JetBrainsMono-Italic.svg#JetBrainsMono-Italic') format('svg');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('fonts/JetBrainsMono-Regular.eot');
+  src:
+    local('JetBrains Mono Regular'),
+    local('JetBrainsMono-Regular'),
+    url('fonts/JetBrainsMono-Regular.eot?#iefix') format('embedded-opentype'),
+    url('fonts/JetBrainsMono-Regular.woff2') format('woff2'),
+    url('fonts/JetBrainsMono-Regular.woff') format('woff'),
+    url('fonts/JetBrainsMono-Regular.ttf') format('truetype'),
+    url('fonts/JetBrainsMono-Regular.svg#JetBrainsMono-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
   font-family: 'PP Neue Montreal';
   src: url('fonts/PPNeueMontreal-Italic.eot');
   src:
