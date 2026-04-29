@@ -11,6 +11,7 @@ import { resolve, join } from 'node:path';
 import pluginSeparateAssets from '@laynezh/vite-plugin-lib-assets';
 import pluginFetchBlobFonts from '@xbanki-me/fetch-secure-blob';
 import pluginVueMacros from 'vue-macros/vite';
+import pluginMarkdown from 'unplugin-vue-markdown/vite';
 import pluginTailwind from '@tailwindcss/vite';
 import pluginCopy from '@rollup-extras/plugin-copy';
 import pluginVue from '@vitejs/plugin-vue';
@@ -45,9 +46,10 @@ export default defineConfig(({ mode }) => {
             },
         },
         plugins: [
+            pluginMarkdown({ wrapperDiv: false }),
             pluginVueMacros({
                 plugins: {
-                    vue: pluginVue(),
+                    vue: pluginVue({ include: [/\.vue$/, /\.md$/] }),
                 },
             }),
             pluginDTS({

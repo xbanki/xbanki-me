@@ -37,6 +37,7 @@
 		"tidy": "corepack yarn run format && corepack yarn run lint:fix"
 	},
 	"dependencies": {
+		"@tailwindcss/typography": "^0.5.19",
 		"animejs": "^4.3.6",
 		"vue": "^3.5.32"
 	},
@@ -57,6 +58,7 @@
 		"tailwindcss": "^4.2.3",
 		"ts-deepmerge": "^7.0.3",
 		"typescript": "^6.0.3",
+		"unplugin-vue-markdown": "^30.0.0",
 		"vite": "^8.0.9",
 		"vite-plugin-dts": "^4.5.4",
 		"vite-plugin-lib-inject-css": "^2.2.2",

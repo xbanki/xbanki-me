@@ -14,7 +14,9 @@ import createVuePlugin from '@vitejs/plugin-vue';
 
 export default defineConfig({
     plugins: [
-        createMarkdownPlugin({}),
+        createMarkdownPlugin({
+            wrapperComponent: 'ComponentArticle',
+        }),
         createTailwindPlugin(),
         createHtmlPlugin(),
         createVuePlugin({ include: [/\.vue$/, /\.md$/] }),

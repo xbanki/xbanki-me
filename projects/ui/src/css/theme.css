@@ -4,6 +4,10 @@
  * See LICENSE for more details.
  */
 
+/* Tailwind stuff */
+@plugin '@tailwindcss/typography';
+@reference 'tailwindcss';
+
 /* Enable theme via data attribute */
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
@@ -76,6 +80,36 @@
   --font-mono:
     'PP Fraktion Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
     monospace;
-  --font-code: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
-  monospace;
+  --font-code:
+    'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+}
+
+/* Custom two-digit list marker */
+@utility list-two-digit {
+  ol& {
+    counter-reset: list-two-digit;
+
+    ol,
+    ul {
+      counter-reset: list-two-digit;
+    }
+
+    > li {
+      counter-increment: list-two-digit;
+      &::marker {
+        content: counter(list-two-digit, decimal-leading-zero) '.';
+        font-family: var(--font-mono), monospace;
+        font-size: 0.8rem;
+      }
+    }
+  }
+}
+
+/* Custom star list marker */
+@utility list-star {
+  ul& > li::marker {
+    font-weight: var(--font-weight-bold) 700;
+    content: '\2217\00a0';
+    font-size: 1.2rem;
+  }
 }

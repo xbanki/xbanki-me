@@ -4,6 +4,8 @@
  * See LICENSE for more details.
  */
 
+import ComponentArticle from '@/article/component.vue';
+
 import { EState as MatrixRevealState } from '@/matrix-reveal/types.ts';
 import ComponentMatrixReveal from '@/matrix-reveal/component.vue';
 
@@ -14,4 +16,12 @@ import { EHook as RevealHook, useReveal } from '@/composables/reveal.ts';
 
 import '@/css/module.css';
 
-export { MatrixRevealState, ButtonVariant, RevealHook, ComponentMatrixReveal, ComponentButton, useReveal };
+export {
+    MatrixRevealState,
+    ButtonVariant,
+    RevealHook,
+    ComponentMatrixReveal,
+    ComponentArticle,
+    ComponentButton,
+    useReveal,
+};
